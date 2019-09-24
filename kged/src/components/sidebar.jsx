@@ -4,7 +4,7 @@ import 'styles/sidebar.css';
 class Sidebar extends React.Component {
     render() {
         return (
-            <div className="col side-container">
+            <div className="col-md-6 col-xl-3 side-container">
                 SIDEBAR
             </div>
         );
