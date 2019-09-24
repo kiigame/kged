@@ -10,7 +10,7 @@ class Preview extends React.Component {
                         Kumoa
                     </div>
                     <div className="col">
-                        Tee uudelleen
+                        Toista
                     </div>
                     <div className="col">
                         Tallenna
