@@ -1,5 +1,7 @@
 html, body {
     height: 100%;
+    color: #E0E0E0 !important; //demo
+    font-weight: bold !important; //demo
 }
 
 #root {
@@ -8,6 +10,14 @@ html, body {
 }
 * {
     outline: 1px solid #555;
+}
+
+.ins-container, .side-container {
+    background: #424242 !important; //demo
+}
+
+.pre-container {
+    background: #333333 !important; //demo
 }
 
 // Add custom styles above this line
