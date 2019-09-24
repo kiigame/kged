@@ -16,7 +16,7 @@ class Sidebar extends React.Component {
                         Interaktiot
                     </div>
                 </div>
-                <button className="mt-4" type="button">Lisää</button>
+                <button className="btn mt-4" type="button">Lisää</button>
                 <ul className="mt-4">
                     <li>Huone 1</li>
                     <li>Huone 2</li>

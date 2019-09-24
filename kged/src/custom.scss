@@ -20,5 +20,11 @@ html, body {
     background: #333333 !important; //demo
 }
 
+.btn {
+    background: #EEEEEE;
+    color: #424242;
+    font-weight: bold;
+}
+
 // Add custom styles above this line
 @import '~bootstrap/scss/bootstrap.scss';
