@@ -1,8 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'styles/app.css';
 
-function App() {
+function app() {
   return (
     <div className="App">
       <div className="left">
@@ -18,4 +17,4 @@ function App() {
   );
 }
 
-export default App;
+export default app;
