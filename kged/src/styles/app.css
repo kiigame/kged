@@ -1,9 +1,5 @@
-.left {
-
-}
-.center {
-
-}
-.right {
-  
+.app {
+    display: flex;
+    padding: 0px 15px;
+    margin: 0 auto;
 }
