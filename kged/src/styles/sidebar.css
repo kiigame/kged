@@ -1,6 +1,6 @@
 .side-container {
     background: white;
 }
-.side-submenu {
-    outline: 1px solid black;
+.side-nav {
+    flex-grow: 1;
 }

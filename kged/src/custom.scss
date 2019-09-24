@@ -6,6 +6,9 @@ html, body {
     display: flex;
     height: 100%;
 }
+* {
+    outline: 1px solid #555;
+}
 
 // Add custom styles above this line
 @import '~bootstrap/scss/bootstrap.scss';

@@ -4,15 +4,15 @@ import 'styles/sidebar.css';
 class Sidebar extends React.Component {
     render() {
         return (
-            <div className="col-3 side-container">
-                <div className="row flex-grow-1">
-                    <div className="col side-submenu">
+            <div className="col-md-6 col-lg-3 side-container">
+                <div className="row side-nav">
+                    <div className="col side-nav-item">
                         Huoneet
                     </div>
-                    <div className="col side-submenu">
+                    <div className="col side-nav-item">
                         Esineet
                     </div>
-                    <div className="col side-submenu">
+                    <div className="col side-nav-item">
                         Interaktiot
                     </div>
                 </div>
