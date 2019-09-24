@@ -1,3 +1,6 @@
 .side-container {
-    background: green;
+    background: white;
+}
+.side-submenu {
+    outline: 1px solid black;
 }

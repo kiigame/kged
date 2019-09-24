@@ -4,7 +4,7 @@ import 'styles/inspector.css';
 class Inspector extends React.Component {
     render() {
         return (
-            <div className="col ins-container">
+            <div className="col-3 ins-container">
                 INSPECTOR
             </div>
         );
