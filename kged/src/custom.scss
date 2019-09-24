@@ -1,6 +1,6 @@
 html, body {
     height: 100%;
-    color: #E0E0E0 !important; //demo
+    color: #e0e0e0 !important; //demo
     font-weight: bold !important; //demo
 }
 
@@ -8,6 +8,7 @@ html, body {
     display: flex;
     height: 100%;
 }
+
 * {
     outline: 1px solid #555;
 }
@@ -20,10 +21,14 @@ html, body {
     background: #333333 !important; //demo
 }
 
+.pre-screen {
+    background: #212121 !important; //demo
+}
+
 .btn {
-    background: #EEEEEE;
-    color: #424242;
-    font-weight: bold;
+    background: #eeeeee !important; //demo
+    color: #424242 !important; //demo
+    font-weight: bold !important; //demo
 }
 
 // Add custom styles above this line

@@ -5,24 +5,25 @@ class Preview extends React.Component {
     render() {
         return (
             <div className="col-lg-6 order-last pre-container">
-                <div className="row flex-grow-1">
+                <div className="row pre-controls">
                     <div className="col">
-                        Undo
+                        Kumoa
                     </div>
                     <div className="col">
-                        Redo
+                        Tee uudelleen
                     </div>
                     <div className="col">
                         Tallenna
                     </div>
                     <div className="col">
-                        Reset
+                        Tuo
                     </div>
                     <div className="col">
-                        Import
+                        Vie
                     </div>
-                    <div className="col">
-                        Export
+                </div>
+                <div className="row pre-content">
+                    <div className="col pre-screen">
                     </div>
                 </div>
             </div>
