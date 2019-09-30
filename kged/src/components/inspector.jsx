@@ -61,7 +61,7 @@ class Inspector extends React.Component {
                         </div>
                         <div className="input-group">
                             <div className="input-group-prepend">
-                                <span className="input-group-text">Pituus</span>
+                                <span className="input-group-text">Korkeus</span>
                             </div>
                             <input type="number" defaultValue="720" className="form-control" />
                         </div>
