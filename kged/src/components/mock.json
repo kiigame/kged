@@ -1,0 +1,13 @@
+{
+    "rooms" : [
+        {
+            "name": "huone1"
+        },
+        {
+            "name": "huone2"
+        },
+        {
+            "name": "huone3"
+        }
+    ]
+}

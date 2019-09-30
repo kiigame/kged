@@ -29,6 +29,20 @@ html, body {
     background: #eeeeee !important; //demo
     color: #424242 !important; //demo
     font-weight: bold !important; //demo
+    margin-bottom: 1.5rem; //demo
+}
+
+.tab-list-active {
+    background: #727272;
+}
+
+.tab-list-item {
+    padding: 10px;
+    font-size: 20px;
+}
+
+.tab-content {
+    font-size: 20px;
 }
 
 // Add custom styles above this line
