@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
-import * as RoomsActions from '../actions/rooms_actions'
-import RoomsStore from '../stores/rooms_store'
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
+import React from 'react';
+import * as RoomsActions from 'actions/rooms_actions';
+import RoomsStore from 'stores/rooms_store';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-var mock_rooms = require('./mock.json')
+var mock_rooms = require('./mock.json');
 
 
 class Rooms extends React.Component {
@@ -39,7 +38,10 @@ class Rooms extends React.Component {
 
         return (
             <div>
-                <button className="btn mt-4" type="button">Lisää</button>
+                <button className="btn mt-4" type="button">
+                    <FontAwesomeIcon icon="plus" />&nbsp;
+                    Lisää
+                </button>
                 {rooms.map((room, i) => {
                     return (
                         <div
