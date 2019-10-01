@@ -45,5 +45,9 @@ html, body {
     font-size: 20px;
 }
 
+.trash {
+    float: right;
+}
+
 // Add custom styles above this line
 @import '~bootstrap/scss/bootstrap.scss';

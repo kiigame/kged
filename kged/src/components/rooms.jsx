@@ -46,11 +46,13 @@ class Rooms extends React.Component {
                     return (
                         <div
                             id={'rooms'+i}
+                            className="room-name"
                             style={activeRoomId === i ? {background: '#727272'} : {background: '#424242'}}
                             key={i}
                             onClick={() => this.onClickRoom(room,i)}
                         >
                             {room.name}
+                            <span className="trash"><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                         </div>
                     )
 
