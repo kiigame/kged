@@ -18,10 +18,12 @@ class Rooms extends React.Component {
 
     componentDidMount() {
         RoomsStore.on("storeUpdated", this.updateActiveRoom);
+        RoomsStore.on("storeUpdated", this.updateRooms);
     }
 
     componentWillUnmount() {
         RoomsStore.removeListener("storeUpdated", this.updateActiveRoom);
+        RoomsStore.removeListener("storeUpdated", this.updateRooms);
     }
 
     updateActiveRoom = () => {
@@ -30,13 +32,23 @@ class Rooms extends React.Component {
         })
     }
 
-    onClickRoom(room,index) {
-        RoomsActions.changeRoom(room.name,index)
+    updateRooms = () => {
+        this.setState({
+            rooms: RoomsStore.getRooms()
+        })
+    }
+
+    onClickRoom(room) {
+        RoomsActions.changeRoom(room);
+    }
+
+    removeRoom(room) {
+        RoomsActions.removeRoom(room.id);
     }
 
     render() {
         let rooms = this.state.rooms;
-        const activeRoomId = this.state.activeRoom.id
+        const activeRoomId = this.state.activeRoom.id;
 
         return (
             <div>
@@ -44,18 +56,18 @@ class Rooms extends React.Component {
                     <FontAwesomeIcon icon="plus" />&nbsp;
                     Lisää
                 </Button>
-                {rooms.map((room, i) => {
+                {rooms.map((room) => {
                     return (
                         <div
-                            id={'rooms'+i}
+                            id={'rooms'+room.id}
                             className="room-name"
-                            style={{background: activeRoomId === i ? '#727272' : '#424242'}}
-                            key={i}
-                            onClick={() => this.onClickRoom(room,i)}
+                            style={{background: activeRoomId === room.id ? '#727272' : '#424242'}}
+                            key={room.id}
+                            onClick={() => this.onClickRoom(room)}
                         >
                             {room.name}
-                            {activeRoomId === i &&
-                                <span className="trash"><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                            {activeRoomId === room.id &&
+                                <span className="trash" onClick={() => this.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                             }
                         </div>
                     )

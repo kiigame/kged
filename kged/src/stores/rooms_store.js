@@ -17,6 +17,7 @@ class RoomsStore extends EventEmitter {
                 break;
             }
             case RoomsActions.ROOMS_ACTIONS.CHANGE_ROOM: {
+                console.log(action.value);
                 this.activeRoom = action.value;
                 this.emit("storeUpdated");
                 break;
@@ -30,8 +31,16 @@ class RoomsStore extends EventEmitter {
                 this.emit("storeUpdated");
                 break;
             }
+            case RoomsActions.ROOMS_ACTIONS.REMOVE_ROOM: {
+                let room = this.rooms.findIndex(r => r.id === action.value);
+                if (room > -1) {
+                    this.rooms.splice(room, 1);
+                }
+                this.emit("storeUpdated");
+                break;
+            }
             default: {
-
+                console.log('no such action:', action.type);
             }
         }
     }
