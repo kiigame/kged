@@ -8,8 +8,11 @@ import Button from 'react-bootstrap/Button';
 class Rooms extends React.Component {
     constructor(props) {
         super(props);
-        this.mock_rooms = require('./mock.json');
-        RoomsActions.setRooms(this.mock_rooms['rooms']);
+        this.mock_rooms = require('./mock.json')['rooms'];
+        RoomsActions.setRooms(this.mock_rooms);
+        if (this.mock_rooms && this.mock_rooms.length) {
+            RoomsActions.changeRoom(this.mock_rooms[0]);
+        }
         this.state = {
             rooms: RoomsStore.getRooms(),
             activeRoom: RoomsStore.getActiveRoom()

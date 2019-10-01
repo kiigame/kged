@@ -6,7 +6,7 @@ class RoomsStore extends EventEmitter {
     constructor() {
         super();
         this.rooms = [];
-        this.activeRoom = {'name': 'tähän default huone', 'id': 0};
+        this.activeRoom = {};
     }
 
     handleActions(action) {
