@@ -51,6 +51,11 @@ class Inspector extends React.Component {
                 {activeView === 'Huoneet' &&
                     <div className="ins-props">
                         <div className="input-group">
+                            <div className="input-img">
+                            </div>
+                        </div>
+                        <span className="ins-props-header">Ominaisuudet</span>
+                        <div className="input-group">
                             <div className="input-group-prepend">
                                 <span className="input-group-text">ID</span>
                             </div>
