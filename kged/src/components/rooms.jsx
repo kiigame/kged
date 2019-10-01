@@ -4,13 +4,14 @@ import RoomsStore from 'stores/rooms_store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from 'react-bootstrap/Button';
 
-var mock_rooms = require('./mock.json');
-
 
 class Rooms extends React.Component {
     constructor(props) {
         super(props);
+        this.mock_rooms = require('./mock.json');
+        RoomsActions.setRooms(this.mock_rooms['rooms']);
         this.state = {
+            rooms: RoomsStore.getRooms(),
             activeRoom: RoomsStore.getActiveRoom()
         }
     }
@@ -34,8 +35,8 @@ class Rooms extends React.Component {
     }
 
     render() {
-        var rooms = mock_rooms['rooms'];
-        var activeRoomId = this.state.activeRoom.id
+        let rooms = this.state.rooms;
+        const activeRoomId = this.state.activeRoom.id
 
         return (
             <div>
@@ -48,12 +49,14 @@ class Rooms extends React.Component {
                         <div
                             id={'rooms'+i}
                             className="room-name"
-                            style={activeRoomId === i ? {background: '#727272'} : {background: '#424242'}}
+                            style={{background: activeRoomId === i ? '#727272' : '#424242'}}
                             key={i}
                             onClick={() => this.onClickRoom(room,i)}
                         >
                             {room.name}
-                            <span className="trash"><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                            {activeRoomId === i &&
+                                <span className="trash"><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                            }
                         </div>
                     )
 

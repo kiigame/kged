@@ -1,7 +1,8 @@
 import React from 'react';
 import 'styles/inspector.scss';
-import RoomsStore from '../stores/rooms_store'
-import SidebarStore from '../stores/sidebar_store'
+import RoomsStore from 'stores/rooms_store'
+import * as RoomsActions from 'actions/rooms_actions'
+import SidebarStore from 'stores/sidebar_store'
 
 class Inspector extends React.Component {
     constructor(props) {
@@ -13,13 +14,13 @@ class Inspector extends React.Component {
     }
 
     componentDidMount() {
-        RoomsStore.on("storeUpdated", this.updateActiveRoom);
-        SidebarStore.on("storeUpdated", this.updateActiveView);
+        RoomsStore.on('storeUpdated', this.updateActiveRoom);
+        SidebarStore.on('storeUpdated', this.updateActiveView);
     }
 
     componentWillUnmount() {
-        RoomsStore.off("storeUpdated", this.updateActiveRoom);
-        SidebarStore.removeListener("storeUpdated", this.updateActiveView);
+        RoomsStore.off('storeUpdated', this.updateActiveRoom);
+        SidebarStore.removeListener('storeUpdated', this.updateActiveView);
     }
 
     updateActiveRoom = () => {
@@ -34,10 +35,12 @@ class Inspector extends React.Component {
         })
     }
 
+    updateRoom = (event) => {
+        RoomsActions.updateRoom(this.state.activeRoom.id, event.target.value);
+    }
+
     render() {
-        var activeRoomName = this.state.activeRoom.name
-        console.log(activeRoomName)
-        var activeView = this.state.activeView
+        const activeView = this.state.activeView;
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
@@ -49,9 +52,15 @@ class Inspector extends React.Component {
                     <div className="ins-props">
                         <div className="input-group">
                             <div className="input-group-prepend">
+                                <span className="input-group-text">ID</span>
+                            </div>
+                            <input type="text" value={this.state.activeRoom.id} disabled readOnly className="form-control" />
+                        </div>
+                        <div className="input-group">
+                            <div className="input-group-prepend">
                                 <span className="input-group-text">Nimi</span>
                             </div>
-                            <input type="text" defaultValue={activeRoomName} className="form-control" />
+                            <input type="text" placeholder="Huoneen nimi" value={this.state.activeRoom.name} onChange={this.updateRoom} className="form-control" />
                         </div>
                         <div className="input-group">
                             <div className="input-group-prepend">

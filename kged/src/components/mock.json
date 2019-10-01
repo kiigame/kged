@@ -1,13 +1,16 @@
 {
     "rooms" : [
         {
-            "name": "huone1"
+            "name": "huone1",
+            "id": 0
         },
         {
-            "name": "huone2"
+            "name": "huone2",
+            "id": 1
         },
         {
-            "name": "huone3"
+            "name": "huone3",
+            "id": 2
         }
     ]
 }
