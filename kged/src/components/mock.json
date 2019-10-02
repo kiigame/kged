@@ -1,35 +1,44 @@
 {
     "rooms" : [
         {
-            "name": "olohuone"
+            "name": "olohuone",
+            "id": 0
         },
         {
-            "name": "kylpyhuone"
+            "name": "kylpyhuone",
+            "id": 1
         },
         {
-            "name": "keittiö"
+            "name": "keittiö",
+            "id": 2
         }
     ],
     "furnitures" : [
         {
-            "name": "kirja"
+            "name": "kirja",
+            "id": 0
         },
         {
-            "name": "kynä"
+            "name": "kynä",
+            "id": 1
         },
         {
-            "name": "pöytä"
+            "name": "pöytä",
+            "id": 2
         }
     ],
     "interactions" : [
         {
-            "name": "Poista"
+            "name": "Poista",
+            "id": 0
         },
         {
-            "name": "Puhekupla"
+            "name": "Puhekupla",
+            "id": 1
         },
         {
-            "name": "Lisää tavaroihin"
+            "name": "Lisää tavaroihin",
+            "id": 2
         }
     ]
 }

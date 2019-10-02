@@ -1,25 +1,32 @@
 import React from 'react';
 import * as RoomsActions from 'actions/rooms_actions';
 import RoomsStore from 'stores/rooms_store';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-var mock_rooms = require('./mock.json');
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Button from 'react-bootstrap/Button';
 
 
 class Rooms extends React.Component {
     constructor(props) {
         super(props);
+        this.mock_rooms = require('./mock.json')['rooms'];
+        RoomsActions.setRooms(this.mock_rooms);
+        if (this.mock_rooms && this.mock_rooms.length) {
+            RoomsActions.changeRoom(this.mock_rooms[0]);
+        }
         this.state = {
+            rooms: RoomsStore.getRooms(),
             activeRoom: RoomsStore.getActiveRoom()
         }
     }
 
     componentDidMount() {
         RoomsStore.on("storeUpdated", this.updateActiveRoom);
+        RoomsStore.on("storeUpdated", this.updateRooms);
     }
 
     componentWillUnmount() {
         RoomsStore.removeListener("storeUpdated", this.updateActiveRoom);
+        RoomsStore.removeListener("storeUpdated", this.updateRooms);
     }
 
     updateActiveRoom = () => {
@@ -28,31 +35,43 @@ class Rooms extends React.Component {
         })
     }
 
-    onClickRoom(room,index) {
-        RoomsActions.changeRoom(room.name,index)
+    updateRooms = () => {
+        this.setState({
+            rooms: RoomsStore.getRooms()
+        })
+    }
+
+    onClickRoom(room) {
+        RoomsActions.changeRoom(room);
+    }
+
+    removeRoom(room) {
+        RoomsActions.removeRoom(room.id);
     }
 
     render() {
-        var rooms = mock_rooms['rooms'];
-        var activeRoomId = this.state.activeRoom.id
+        let rooms = this.state.rooms;
+        const activeRoomId = this.state.activeRoom.id;
 
         return (
             <div>
-                <button className="btn mt-4" type="button">
+                <Button variant="success" className="my-3">
                     <FontAwesomeIcon icon="plus" />&nbsp;
                     Lisää
-                </button>
-                {rooms.map((room, i) => {
+                </Button>
+                {rooms.map((room) => {
                     return (
                         <div
-                            id={'rooms'+i}
+                            id={'rooms'+room.id}
                             className="room-name"
-                            style={activeRoomId === i ? {background: '#727272'} : {background: '#424242'}}
-                            key={i}
-                            onClick={() => this.onClickRoom(room,i)}
+                            style={{background: activeRoomId === room.id ? '#727272' : '#424242'}}
+                            key={room.id}
+                            onClick={() => this.onClickRoom(room)}
                         >
                             {room.name}
-                            <span className="trash"><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                            {activeRoomId === room.id &&
+                                <span className="trash" onClick={() => this.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                            }
                         </div>
                     )
 
