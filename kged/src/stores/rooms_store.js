@@ -17,7 +17,6 @@ class RoomsStore extends EventEmitter {
                 break;
             }
             case RoomsActions.ROOMS_ACTIONS.CHANGE_ROOM: {
-                console.log(action.value);
                 this.activeRoom = action.value;
                 this.emit("storeUpdated");
                 break;

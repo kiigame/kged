@@ -1,0 +1,117 @@
+{
+    "default": {
+        "examine": "Ei pysty, liian hapokasta."
+    },
+    "default.pickable": {
+        "default": "Tätä ei voi käyttää tähän. Voisin kyllä poimia tämän mukaani."
+    },
+    "object_layer_locker_room_1": {
+        "name": "Pukuhuone 1"
+    },
+    "object_layer_locker_room_2": {
+        "name": "Pukuhuone 2"
+    },
+    "object_layer_wc_1": {
+        "name": "Vessa 1"
+    },
+    "object_layer_wc_2": {
+        "name": "Vessa 2"
+    },
+    "object_layer_shower_room": {
+        "name": "Suihkuhuone"
+    },
+    "object_layer_invisible": {
+    	"name": "Huone esineille jotka eivät ole missään"
+    },
+    "start_credits": {
+        "name": "start_credits",
+        "examine": "Tiesitkö muuten että tämän huikean pelin tekivät:\n- Eino Keskitalo\n- Toni Käkelä\n- Topi Leinonen\n- Eetu Mansikkamäki\n- Martti Similä"
+    },
+    "jersey": {
+        "name": "Pelipaita"
+    },
+    "input_text": {
+        "name": "Pelinumero",
+        "wikistart": "Muistaisin lukeneeni Wikipediasta että numerolla ",
+        "wikiend": " on pelannut myös ",
+        "text": "8"
+    },
+    "button_0_gray": {
+        "name": "0"
+    },
+    "button_0": {
+        "name": "0"
+    },
+    "tactic_board_2": {
+        "name": "Taktiikkataulu",
+        "examine": "Tyhjälle taululle saan piirrettyä oikeasti voittavan taktiikan omasta pelikirjastani."
+    },
+    "tactic_board_3": {
+        "name": "Taktiikkataulu",
+        "examine": "Varma voitto tällä taktiikalla! Kiekko löytyy varmasti ylähyllyltä. Tuli mieleen tuosta naulakosta."
+    },
+    "jacket_full": {
+        "name": "Japen takki",
+        "examine": "Onpas Japella hieno takki. Takin taskussa näyttäisi olevan jotain. Lainaanpa tätä Japelta."
+    },
+    "jacket_empty": {
+        "name": "Tyhjä takki",
+        "examine": "On muuten hieno tuo Japen takki. Taskuissa ei näytä olevan enää mitään."
+    },
+    "airfreshener": {
+        "name": "Ilmanraikastin",
+        "tactic_board_wiper": "Ilmanraikastin ei tehoa tähän esineeseen. Ilmanraikastaminen on toki tärkeää.",
+        "shower_left": "Olisipa hienoa jos suihkuveden ja ilmanraikastimessa olevan tähkälaventelin tuoksun voisi yhdistää.",
+        "shower_middle": "Olisipa hienoa jos suihkuveden ja ilmanraikastimessa olevan tähkälaventelin tuoksun voisi yhdistää.",
+        "shower_right": "Olisipa hienoa jos suihkuveden ja ilmanraikastimessa olevan tähkälaventelin tuoksun voisi yhdistää."
+    },
+    "book_stephenking": {
+        "name": "Stephen King: Rita Hayworth - Avain pakoon",
+        "examine": "Wow, Stephen Kingin 'Rita Hayworth - Avain pakoon' kirjana! Tämä on hieno kirja ja se selvästikin kuuluu jollekulle muulle. \n\nTakakannesta: \"Red istuu elinkautista Shawshankin vankilassa - Andy taas on tulokas. Red hankkii Andylle Rita Hayworthin - ja samalla avaimen pakoon. Stephen kingin mestarillinen kuvaus vankilasta ja ystävyydestä, jonka avulla kaikki muurit murtuvat, hitaasti mutta vääjäämättömästi.\" \n\nTarina vaikuttaa tosi mielenkiintoiselta. En ota tätä vaan lainaan kyllä itselleni kirjastosta saman kirjan. Stephen King ei oikein tässä tilanteessa rauhoita mieltäni. Olisipa mukava löytää täältä jotakin muutakin luettavaa."
+    },
+    "locker_closed": {
+        "name": "Legendan kaappi",
+        "examine": "*huokaus* kunpa minäkin olisin joskus suuri jääkiekkotähti niin saisin oman lukittavan kaapin pukuhuoneeseen. Mitähän kaapissa on? Tässä kaapissa näyttäisi olevan DNA-tunnisteella toimiva lukko. Aika hifiä!"
+    },
+    "locker_open": {
+        "name": "Legendan kaappi",
+        "examine": "Mitäs täältä löytyykään, sehän on ilmanraikastin!"
+    },
+    "locker_empty": {
+        "name": "Legendan kaappi",
+        "examine": "En kehtaa kajota legendan kamoihin enempää."
+    },
+    "dnaanalyzer": {
+        "name": "DNA -analysaattori",
+        "examine": "Vau! \"PUIDSU-3000, Portable-Universal-International-DNA-Scanning-Unit-3000.\" Tällä voi varmaan tutkia mitä tahansa. Jape taitaa olla kiinnostunut muustakin kuin jääkiekosta.",
+        "shower_right": "\"Liian monta eri DNA:ta tunnistettu.\" Näitä suihkuja tosiaan käyttää aika moni henkilö päivän aikana."
+    },
+    "tactic_board_wiper_floor": {
+        "name": "Taulusieni",
+        "pickup": "Taktiikkataulun pyyhkimistyökalu jonka poimin mukaani. Eihän sitä koskaan tiedä milloin tätä voisi tarvita."
+    },
+    "teddybear_chewinggum": {
+        "name": "Purkkainen nalle",
+        "shower_left": "Nalle haluaisi käydä suihkussa. Nallella ei kuitenkaan ole pyyhettä mukanaan.",
+        "shower_middle": "Nalle haluaisi käydä suihkussa. Nallella ei kuitenkaan ole pyyhettä mukanaan.",
+        "shower_right": "Nalle haluaisi käydä suihkussa. Nallella ei kuitenkaan ole pyyhettä mukanaan."
+    },
+    "wc_1_door_to_locker_room_1": {
+        "name": "Vessan ovi",
+        "examine": "Mistähän minä oikein pääsisin ulos?"
+    },
+    "cienibang_floor": {
+        "name": "CieniBang",
+        "pickup": "Hmm, jotain puhdistustököttiä. Eihän sitä koskaan tiedä milloin sitä innostuu siivoamaan."
+    },
+    "cienibang": {
+        "name": "CieniBang",
+        "examine": "\"CieniBang -yleispuhdistusaine. Räjäyttää aivan kaiken… lian pois aivan kaikesta\". Olisikohan täällä jotain puhdistettavaa.",
+        "shower_right": "Tässä huoneessa on jotain paljon likaisempaakin."
+    },
+    "poster": {
+        "name": "Rita Hayworth -juliste",
+        "pickup": "Wow! Upea juliste! Taitaa olla Rita Hayworth kuvassa. Otan tämän mukaani. Haluan laittaa tämän seinälle kaikkien nähtäväksi."
+    }
+}
+

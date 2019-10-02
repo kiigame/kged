@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 class Rooms extends React.Component {
     constructor(props) {
         super(props);
-        this.mock_rooms = require('./mock.json')['rooms'];
+        this.mock_rooms = require('./data/rooms.json')['rooms'];
         RoomsActions.setRooms(this.mock_rooms);
         if (this.mock_rooms && this.mock_rooms.length) {
             RoomsActions.changeRoom(this.mock_rooms[0]);
@@ -42,6 +42,7 @@ class Rooms extends React.Component {
     }
 
     onClickRoom(room) {
+        console.log(room)
         RoomsActions.changeRoom(room);
     }
 
@@ -51,8 +52,7 @@ class Rooms extends React.Component {
 
     render() {
         let rooms = this.state.rooms;
-        const activeRoomId = this.state.activeRoom.id;
-
+        const activeRoomId = this.state.activeRoom['attrs'].id;
         return (
             <div>
                 <Button variant="success" className="my-3">
@@ -60,21 +60,21 @@ class Rooms extends React.Component {
                     Lisää
                 </Button>
                 {rooms.map((room) => {
+                    let attrs = room['attrs']
                     return (
                         <div
-                            id={'rooms'+room.id}
+                            id={'rooms-'+attrs.id}
                             className="room-name"
-                            style={{background: activeRoomId === room.id ? '#727272' : '#424242'}}
-                            key={room.id}
+                            style={{background: activeRoomId === attrs.id ? '#727272' : '#424242'}}
+                            key={'rooms-'+attrs.id}
                             onClick={() => this.onClickRoom(room)}
                         >
-                            {room.name}
-                            {activeRoomId === room.id &&
+                            {attrs.id}
+                            {activeRoomId === attrs.id &&
                                 <span className="trash" onClick={() => this.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                             }
                         </div>
                     )
-
                 })}
             </div>
         );

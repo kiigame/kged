@@ -41,6 +41,7 @@ class Inspector extends React.Component {
 
     render() {
         const activeView = this.state.activeView;
+        console.log('state',this.state)
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">

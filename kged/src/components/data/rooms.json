@@ -1,0 +1,195 @@
+{
+    "rooms": [
+        {
+            "attrs": {
+                "category": "room",
+                "id": "object_layer_locker_room_2",
+                "visible": false
+            },
+            "children": [
+                {
+                    "attrs": {
+                        "category": "room_background",
+                        "height": 543,
+                        "id": "locker_room_2",
+                        "src": "images/locker_room_2.png",
+                        "width": 981,
+                        "visible": true
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "category": "furniture",
+                        "align": "center",
+                        "id": "jersey_number",
+                        "fontFamily": "Chalkboard SE",
+                        "fontSize": 30,
+                        "stroke": "#53a3d1",
+                        "fill": "white",
+                        "strokeWidth": 2,
+                        "width": 55,
+                        "x": 677,
+                        "y": 196,
+                        "visible": true
+                    },
+                    "className": "Text"
+                }
+            ],
+            "className": "Layer"
+        },
+        {
+            "attrs": {
+                "category": "room",
+                "id": "object_layer_locker_room_1",
+                "start": true,
+                "visible": false
+            },
+            "children": [
+                {
+                    "attrs": {
+                        "category": "room_background",
+                        "height": 543,
+                        "id": "locker_room_1",
+                        "src": "images/locker_room_1.png",
+                        "width": 981,
+                        "visible": true
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "category": "furniture",
+                        "id": "tactic_board_1",
+                        "src": "images/tactic_board_1.png",
+                        "visible": true,
+                        "x": 590,
+                        "y": 120
+                    },
+                    "className": "Image"
+                }
+            ],
+            "className": "Layer"
+        },
+        {
+            "attrs": {
+                "category": "room",
+                "id": "object_layer_wc_2",
+                "visible": false
+            },
+            "children": [
+                {
+                    "attrs": {
+                        "category": "room_background",
+                        "height": 543,
+                        "id": "wc_2",
+                        "src": "images/wc_2.png",
+                        "width": 981,
+                        "visible": true
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "category": "furniture",
+                        "id": "wc_2_window",
+                        "src": "images/wc_2_window.png",
+                        "x": 110,
+                        "y": 100,
+                        "visible": true
+                    },
+                    "className": "Image"
+                }
+            ],
+            "className": "Layer"
+        },
+        {
+            "attrs": {
+                "category": "room",
+                "id": "object_layer_shower_room",
+                "visible": false
+            },
+            "children": [
+                {
+                    "attrs": {
+                        "category": "furniture",
+                        "id": "cieni",
+                        "src": "images/cieni_1.png",
+                        "x": 100,
+                        "y": 380,
+                        "visible": true
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "animated": true,
+                        "animation": {
+                            "duration": 1.4,
+                            "x": -10
+                        },
+                        "category": "furniture",
+                        "id": "cieni_eyes",
+                        "src": "images/cieni_eyes.png",
+                        "x": 220,
+                        "y": 415,
+                        "visible": true
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "animated": true,
+                        "animation": {
+                            "duration": 1.9,
+                            "width": -15,
+                            "x": 9,
+                            "y": -3
+                        },
+                        "category": "furniture",
+                        "id": "cieni_mouth",
+                        "src": "images/cieni_mouth.png",
+                        "width": 73,
+                        "x": 215,
+                        "y": 453,
+                        "visible": true
+                    },
+                    "className": "Image"
+                }
+            ],
+            "className": "Layer"
+        },
+        {
+            "attrs": {
+                "category": "room",
+                "id": "object_layer_wc_1",
+                "visible": false
+            },
+            "children": [
+                {
+                    "attrs": {
+                        "category": "room_background",
+                        "height": 543,
+                        "id": "wc_1",
+                        "src": "images/wc_1.png",
+                        "width": 981,
+                        "visible": true
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "category": "secret",
+                        "id": "reward_2",
+                        "reward": "book_reward_2",
+                        "src": "images/reward_2.png",
+                        "x": 635,
+                        "y": 233
+                    },
+                    "className": "Image"
+                }
+            ],
+            "className": "Layer"
+        }
+    ]
+}
