@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import 'styles/inspector.scss';
 import RoomsStore from 'stores/rooms_store'
 import * as RoomsActions from 'actions/rooms_actions'
 import SidebarStore from 'stores/sidebar_store'
+import { getRoom } from '../actions/actions'
 
 class Inspector extends React.Component {
     constructor(props) {
@@ -16,6 +18,8 @@ class Inspector extends React.Component {
     componentDidMount() {
         RoomsStore.on('storeUpdated', this.updateActiveRoom);
         SidebarStore.on('storeUpdated', this.updateActiveView);
+        const { dispatch } = this.props
+        dispatch(getRoom(this.props.default_room))
     }
 
     componentWillUnmount() {
@@ -41,7 +45,7 @@ class Inspector extends React.Component {
 
     render() {
         const activeView = this.state.activeView;
-        console.log('state',this.state)
+        console.log('inspector props',this.props)
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
@@ -93,5 +97,7 @@ class Inspector extends React.Component {
         );
     }
 }
-
-export default Inspector;
+const mapStateToProps = state => ({
+    rooms: state.rooms
+})
+export default connect(mapStateToProps)(Inspector);

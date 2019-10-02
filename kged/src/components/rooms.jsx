@@ -4,7 +4,6 @@ import RoomsStore from 'stores/rooms_store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from 'react-bootstrap/Button';
 
-
 class Rooms extends React.Component {
     constructor(props) {
         super(props);
@@ -42,7 +41,6 @@ class Rooms extends React.Component {
     }
 
     onClickRoom(room) {
-        console.log(room)
         RoomsActions.changeRoom(room);
     }
 
@@ -80,6 +78,7 @@ class Rooms extends React.Component {
         );
     }
 }
+
 
 
 export default Rooms;
