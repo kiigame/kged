@@ -1,75 +1,42 @@
 import React from 'react';
-import * as RoomsActions from 'actions/rooms_actions';
-import RoomsStore from 'stores/rooms_store';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from 'react-bootstrap/Button';
 
+import { setActiveRoom, addRoom, deleteRoom } from 'actions';
+
 class Rooms extends React.Component {
-    constructor(props) {
-        super(props);
-        this.mock_rooms = require('./data/rooms.json')['rooms'];
-        RoomsActions.setRooms(this.mock_rooms);
-        if (this.mock_rooms && this.mock_rooms.length) {
-            RoomsActions.changeRoom(this.mock_rooms[0]);
+
+    isActiveRoom(room) {
+        if (this.props.activeRoom && this.props.activeRoom.attrs) {
+            return this.props.activeRoom.attrs.id === room.attrs.id;
         }
-        this.state = {
-            rooms: RoomsStore.getRooms(),
-            activeRoom: RoomsStore.getActiveRoom()
-        }
-    }
-
-    componentDidMount() {
-        RoomsStore.on("storeUpdated", this.updateActiveRoom);
-        RoomsStore.on("storeUpdated", this.updateRooms);
-    }
-
-    componentWillUnmount() {
-        RoomsStore.removeListener("storeUpdated", this.updateActiveRoom);
-        RoomsStore.removeListener("storeUpdated", this.updateRooms);
-    }
-
-    updateActiveRoom = () => {
-        this.setState({
-            activeRoom: RoomsStore.getActiveRoom()
-        })
-    }
-
-    updateRooms = () => {
-        this.setState({
-            rooms: RoomsStore.getRooms()
-        })
-    }
-
-    onClickRoom(room) {
-        RoomsActions.changeRoom(room);
-    }
-
-    removeRoom(room) {
-        RoomsActions.removeRoom(room.id);
+        return false;
     }
 
     render() {
-        let rooms = this.state.rooms;
-        const activeRoomId = this.state.activeRoom['attrs'].id;
         return (
             <div>
-                <Button variant="success" className="my-3">
+                <Button variant="success" className="my-3" onClick={this.props.addRoom}>
                     <FontAwesomeIcon icon="plus" />&nbsp;
                     Lisää
                 </Button>
-                {rooms.map((room) => {
-                    let attrs = room['attrs']
+                {this.props.rooms.map((room) => {
                     return (
                         <div
-                            id={'rooms-'+attrs.id}
+                            id={'rooms-'+room.attrs.id}
                             className="room-name"
-                            style={{background: activeRoomId === attrs.id ? '#727272' : '#424242'}}
-                            key={'rooms-'+attrs.id}
-                            onClick={() => this.onClickRoom(room)}
+                            style={{
+                                background: this.isActiveRoom(room) ?
+                                    '#727272' :
+                                    '#424242'
+                            }}
+                            key={'rooms-'+room.attrs.id}
+                            onClick={() => this.props.onClickRoom(room)}
                         >
-                            {attrs.id}
-                            {activeRoomId === attrs.id &&
-                                <span className="trash" onClick={() => this.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                            {room.attrs.id}
+                            {this.isActiveRoom(room) &&
+                                <span className="trash" onClick={() => this.props.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                             }
                         </div>
                     )
@@ -79,6 +46,18 @@ class Rooms extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    rooms: state.rooms.rooms,
+    activeRoom: state.rooms.activeRoom
+})
 
+const mapDispatchToProps = dispatch => ({
+    onClickRoom: event => dispatch(setActiveRoom(event)),
+    addRoom: event => dispatch(addRoom(event)),
+    removeRoom: event => dispatch(deleteRoom(event)),
+})
 
-export default Rooms;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Rooms);

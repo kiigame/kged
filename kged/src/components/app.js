@@ -5,7 +5,7 @@ import Inspector from 'components/inspector';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'styles/app.css';
 
-var mock_rooms = require('./data/rooms.json')['rooms'];
+var mock_rooms = require('data/rooms.json')['rooms'];
 
 class App extends React.Component {
     render() {
