@@ -4,8 +4,6 @@ const initialState = {
 }
 
 function rooms(state = initialState, action) {
-    console.log('action:', action)
-    console.log('state:', state)
     let attrs;
 
     switch (action.type) {

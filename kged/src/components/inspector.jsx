@@ -19,7 +19,7 @@ class Inspector extends React.Component {
         RoomsStore.on('storeUpdated', this.updateActiveRoom);
         SidebarStore.on('storeUpdated', this.updateActiveView);
         const { dispatch } = this.props
-        dispatch(getRoom(this.props.default_room))
+        // dispatch(getRoom(this.props.default_room))
     }
 
     componentWillUnmount() {
