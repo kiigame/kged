@@ -16,7 +16,7 @@ function rooms(state = initialState, action) {
                     ...state.rooms,
                     {
                         attrs: {
-                            id: (Math.random() * 100).toFixed(0)
+                            id: (Math.random() * 10000).toFixed(0)
                         }
                     }
                 ]
@@ -24,13 +24,14 @@ function rooms(state = initialState, action) {
 
         case 'UPDATE_ROOM':
             attrs = action.payload.room.attrs;
-            return state.rooms.map(room => {
-                if (room.attrs.id === attrs.id) {
-                    return {...room, attrs}
-                } else {
-                    return room
-                }
-            })
+            return {
+                ...state,
+                rooms: state.rooms.map(room =>
+                    room.attrs.id === attrs.id
+                    ? { ...room, attrs }
+                    : room
+                )
+            }
 
         case 'DELETE_ROOM':
             attrs = action.payload.room.attrs;
