@@ -47,6 +47,44 @@ class CreateContainer extends React.Component {
                                 </Form>
                             </div>
                         }
+                        {this.props.category === 'Esineet' &&
+                            <div>
+                                <Form>
+                                    <Form.Label>Nimi</Form.Label>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Control type="name" placeholder="Syötä esineen nimi" onChange={(event) => this.setState({furniture: {name: event.target.value}})} />
+                                    </Form.Group>
+                                    <div className="newItemButtonGroup">
+                                        <Button variant="success" className="mr-2" onClick={() => this.props.addFurniture(this.state.furniture)}>
+                                            <FontAwesomeIcon icon="plus" className="mr-2" />
+                                            Lisää esine
+                                        </Button>
+                                        <Button variant="secondary" onClick={() => this.changeIsActiveState(false)}>
+                                            Peruuta
+                                        </Button>
+                                    </div>
+                                </Form>
+                            </div>
+                        }
+                        {this.props.category === 'Interaktiot' &&
+                            <div>
+                                <Form>
+                                    <Form.Label>Nimi</Form.Label>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Control type="name" placeholder="Syötä interaktion nimi" onChange={(event) => this.setState({room: {name: event.target.value}})} />
+                                    </Form.Group>
+                                    <div className="newItemButtonGroup">
+                                        <Button variant="success" className="mr-2" onClick={() => this.props.addRoom(this.state.room)}>
+                                            <FontAwesomeIcon icon="plus" className="mr-2" />
+                                            Lisää interaktio
+                                        </Button>
+                                        <Button variant="secondary" onClick={() => this.changeIsActiveState(false)}>
+                                            Peruuta
+                                        </Button>
+                                    </div>
+                                </Form>
+                            </div>
+                        }
                     </div>
                 }
 

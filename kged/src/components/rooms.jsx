@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from 'react-bootstrap/Button';
 
 import { setActiveRoom, addRoom, deleteRoom } from 'actions';
 import CreateContainer from './create_container'

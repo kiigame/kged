@@ -1,6 +1,6 @@
 // action creators
 
-import { fetchRooms } from 'api'
+import { fetchRooms, fetchFurnitures } from 'api'
 
 // thunk
 export function loadRooms() {
@@ -40,5 +40,49 @@ export const setActiveRoom = (room) => ({
     type: 'SET_ACTIVE_ROOM',
     payload: {
         room: room
+    }
+})
+
+
+
+
+
+export function loadFurnitures() {
+    return function(dispatch, getState) {
+        const furnitures = fetchFurnitures()
+        dispatch({
+            type: 'GET_FURNITURES',
+            payload: {
+                furnitures
+            }
+        })
+    }
+}
+
+export const addFurniture = (furniture) => ({
+    type: 'ADD_FURNITURE',
+    payload: {
+        furniture: furniture
+    }
+})
+
+export const updateFurniture = (furniture) => ({
+    type: 'UPDATE_FURNITURE',
+    payload: {
+        furniture: furniture
+    }
+})
+
+export const deleteFurniture = (furniture) => ({
+    type: 'DELETE_FURNITURE',
+    payload: {
+        furniture: furniture
+    }
+})
+
+export const setActiveFurniture = (furniture) => ({
+    type: 'SET_ACTIVE_FURNITURE',
+    payload: {
+        furniture: furniture
     }
 })

@@ -3,6 +3,7 @@ import 'styles/sidebar.css';
 
 import Tabs from './tabs'
 import Rooms from './rooms'
+import Furnitures from './furnitures'
 
 class Sidebar extends React.Component {
     render() {
@@ -13,7 +14,7 @@ class Sidebar extends React.Component {
                         <Rooms/>
                     </div>
                     <div label="Esineet">
-                        Esineet
+                        <Furnitures/>
                     </div>
                     <div label="Interaktiot">
                         Interaktiot
