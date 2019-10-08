@@ -4,8 +4,21 @@ import 'styles/inspector.scss';
 
 class Inspector extends React.Component {
 
+    getActiveEntity() {
+        if (this.props.entity && this.props.entity.activeEntity &&
+            this.props.entity.activeEntity.attrs && this.props.entity.activeEntity.attrs.id) {
+            return this.props.entity.activeEntity.attrs.id;
+        }
+    }
+
+    getActiveView() {
+        if (this.props.entity && this.props.entity.activeEntity &&
+            this.props.entity.activeEntity.attrs && this.props.entity.activeEntity.attrs.category) {
+            return this.props.entity.activeEntity.attrs.category;
+        }
+    }
+
     render() {
-        const activeView = 'Huoneet';
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
@@ -13,7 +26,7 @@ class Inspector extends React.Component {
                         Inspektori
                     </div>
                 </div>
-                {activeView === 'Huoneet' &&
+                {this.getActiveView() === 'room' &&
                     <div className="ins-props">
                         <div className="input-group">
                             <div className="input-img">
@@ -24,13 +37,7 @@ class Inspector extends React.Component {
                             <div className="input-group-prepend">
                                 <span className="input-group-text">ID</span>
                             </div>
-                            <input type="text" defaultValue='32123312' disabled readOnly className="form-control" />
-                        </div>
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">Nimi</span>
-                            </div>
-                            <input type="text" placeholder="Huoneen nimi" defaultValue='1212123' onChange={this.updateRoom} className="form-control" />
+                            <input type="text" value={this.getActiveEntity()} disabled readOnly className="form-control" />
                         </div>
                         <div className="input-group">
                             <div className="input-group-prepend">
@@ -46,18 +53,15 @@ class Inspector extends React.Component {
                         </div>
                     </div>
                 }
-                {activeView === 'Esineet' &&
+                {this.getActiveView() === 'item' &&
                     <div>Esineet</div>
                 }
-                {activeView === 'Interaktiot' &&
-                    <div>Interaktiot</div>
-                }
-
             </div>
         );
     }
 }
 const mapStateToProps = state => ({
-    rooms: state.rooms
+    rooms: state.rooms,
+    entity: state.entity
 })
 export default connect(mapStateToProps)(Inspector);
