@@ -2,6 +2,13 @@
 
 import { fetchRooms, exportRooms, fetchFurnitures } from 'api'
 
+export const setActiveEntity = (entity) => ({
+    type: 'SET_ACTIVE_ENTITY',
+    payload: {
+        entity: entity
+    }
+})
+
 // thunk
 export function loadRooms() {
     return function(dispatch, getState) {
@@ -36,12 +43,18 @@ export const deleteRoom = (room) => ({
     }
 })
 
-export const setActiveRoom = (room) => ({
-    type: 'SET_ACTIVE_ROOM',
-    payload: {
-        room: room
+export function setActiveRoom(room) {
+    return function(dispatch) {
+        dispatch(setActiveEntity(room))
+        dispatch({
+            type: 'SET_ACTIVE_ROOM',
+            payload: {
+                room: room
+            }
+        })
     }
-})
+}
+
 export function saveRooms() {
     return function(dispatch, getState) {
         const state = getState()
@@ -89,10 +102,15 @@ export const deleteFurniture = (furniture) => ({
     }
 })
 
-export const setActiveFurniture = (furniture) => ({
-    type: 'SET_ACTIVE_FURNITURE',
-    payload: {
-        furniture: furniture
+export function setActiveFurniture(furniture) {
+    return function(dispatch) {
+        dispatch(setActiveEntity(furniture))
+        dispatch({
+            type: 'SET_ACTIVE_FURNITURE',
+            payload: {
+                furniture: furniture
+            }
+        })
     }
-})
+}
 
