@@ -15,10 +15,10 @@ export function loadRooms() {
     }
 }
 
-export const addRoom = (id) => ({
+export const addRoom = (room) => ({
     type: 'ADD_ROOM',
     payload: {
-        id: id
+        room: room
     }
 })
 

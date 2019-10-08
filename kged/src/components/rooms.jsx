@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from 'react-bootstrap/Button';
 
 import { setActiveRoom, addRoom, deleteRoom } from 'actions';
+import CreateContainer from './create_container'
 
 class Rooms extends React.Component {
 
@@ -17,10 +18,7 @@ class Rooms extends React.Component {
     render() {
         return (
             <div>
-                <Button variant="success" className="my-3" onClick={this.props.addRoom}>
-                    <FontAwesomeIcon icon="plus" />&nbsp;
-                    Lisää
-                </Button>
+                <CreateContainer category='Huoneet' addRoom={this.props.addRoom}/>
                 {this.props.rooms.map((room) => {
                     return (
                         <div

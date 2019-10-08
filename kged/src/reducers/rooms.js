@@ -14,7 +14,8 @@ function rooms(state = initialState, action) {
                     ...state.rooms,
                     {
                         attrs: {
-                            id: (Math.random() * 10000).toFixed(0)
+                            id: action.payload.room.name,
+                            category: 'room'
                         }
                     }
                 ]
