@@ -1,6 +1,6 @@
 // action creators
 
-import { fetchRooms } from 'api'
+import { fetchRooms, exportRooms } from 'api'
 
 // thunk
 export function loadRooms() {
@@ -42,3 +42,14 @@ export const setActiveRoom = (room) => ({
         room: room
     }
 })
+
+export function saveRooms() {
+    return function(dispatch, getState) {
+        const state = getState()
+        exportRooms(state.rooms.rooms)
+        dispatch({
+            type: 'EXPORT_ROOMS',
+            payload: {}
+        })
+    }
+}

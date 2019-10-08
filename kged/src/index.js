@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -15,7 +16,7 @@ import 'custom.scss'
 
 library.add(fas)
 
-const store = createStore(reducer, applyMiddleware(logger))
+const store = createStore(reducer, applyMiddleware(logger, thunk))
 
 ReactDOM.render(
     <Provider store={store}>
