@@ -6,4 +6,6 @@ export function fetchRooms() {
 export function fetchFurnitures() {
     const furnitures = require('data/items.json')
     return furnitures
+export function exportRooms(rooms) {
+    console.log('exportRooms', rooms);
 }

@@ -32,23 +32,6 @@ class Tab extends Component {
             <div className={className} onClick={onClick}>
                 {label}
             </div>
-        //   <div className="row side-nav">
-        //         <div className="col side-nav-item">
-        //             Huoneet
-        //         </div>
-        //         <div className="col side-nav-item">
-        //             Esineet
-        //         </div>
-        //         <div className="col side-nav-item">
-        //             Interaktiot
-        //         </div>
-        //     </div>
-        //     <button className="btn mt-4" type="button">Lisää</button>
-        //     <ul className="mt-4">
-        //         <li>Huone 1</li>
-        //         <li>Huone 2</li>
-        //         <li>Huone 3</li>
-        //     </ul>
         );
     }
 }

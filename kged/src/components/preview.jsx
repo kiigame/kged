@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import 'styles/preview.css';
+
+import { saveRooms } from 'actions';
 
 class Preview extends React.Component {
     render() {
@@ -18,7 +21,7 @@ class Preview extends React.Component {
                     <div className="col">
                         Tuo
                     </div>
-                    <div className="col">
+                    <div className="col" onClick={this.props.onExport}>
                         Vie
                     </div>
                 </div>
@@ -31,4 +34,14 @@ class Preview extends React.Component {
     }
 }
 
-export default Preview;
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = dispatch => ({
+    onExport: event => dispatch(saveRooms(event)),
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Preview);
