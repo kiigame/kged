@@ -27,7 +27,7 @@ class CreateContainer extends React.Component {
                     </Button>
                 }
                 {this.state.isActive === true &&
-                    <div className="py-3">
+                    <div className="newItemContainer py-3">
                         {this.props.category === 'Huoneet' &&
                             <div>
                                 <Form>
