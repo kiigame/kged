@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as SidebarActions from '../actions/sidebar_actions'
-import SidebarStore from '../stores/sidebar_store'
 import Tab from './tab';
 
 class Tabs extends Component {
@@ -13,30 +11,13 @@ class Tabs extends Component {
         super(props);
         this.state = {
             activeTab: this.props.children[0].props.label,
-            activeView: SidebarStore.getActiveView()
         };
-        this.updateActiveView = this.updateActiveView.bind(this);
-    }
-
-    componentDidMount() {
-        SidebarStore.on("storeUpdated", this.updateActiveView);
-    }
-
-    componentWillUnmount() {
-        SidebarStore.removeListener("storeUpdated", this.updateActiveView);
-    }
-
-    updateActiveView = () => {
-        this.setState({
-            activeView: SidebarStore.getActiveView()
-        })
     }
 
     onClickTabItem = (tab) => {
         this.setState({
             activeTab: tab
         });
-        SidebarActions.changeSidebarView(tab)
     }
 
     render() {
