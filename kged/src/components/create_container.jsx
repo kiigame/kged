@@ -8,86 +8,53 @@ class CreateContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            room: {name: ''},
+            item: props.initialState,
             isActive: false
         }
     }
-    changeIsActiveState = (val) => (
-        this.setState({
-            isActive: val
-        })
+
+    setIsActive = (active) => (
+        this.setState({ isActive: active })
     )
+
+    handleSubmit = () => {
+        this.props.addItem(this.state.item)
+        this.setIsActive(false)
+    }
+
     render() {
         return (
             <div>
-                {this.state.isActive === false &&
-                    <Button variant="success" className="my-3" onClick={() => this.changeIsActiveState(true)}>
+                {!this.state.isActive &&
+                <div>
+                    <Button variant="success" className="my-3" onClick={() => this.setIsActive(true)}>
                         <FontAwesomeIcon icon="plus" className="mr-2"/>
                         Lisää
                     </Button>
+                </div>
                 }
-                {this.state.isActive === true &&
-                    <div className="newItemContainer py-3">
-                        {this.props.category === 'Huoneet' &&
-                            <div>
-                                <Form>
-                                    <Form.Label>Nimi</Form.Label>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Control type="name" placeholder="Syötä huoneen nimi" onChange={(event) => this.setState({room: {name: event.target.value}})} />
-                                    </Form.Group>
-                                    <div className="newItemButtonGroup">
-                                        <Button variant="success" className="mr-2" onClick={() => this.props.addRoom(this.state.room)}>
-                                            <FontAwesomeIcon icon="plus" className="mr-2" />
-                                            Lisää huone
-                                        </Button>
-                                        <Button variant="secondary" onClick={() => this.changeIsActiveState(false)}>
-                                            Peruuta
-                                        </Button>
-                                    </div>
-                                </Form>
-                            </div>
-                        }
-                        {this.props.category === 'Esineet' &&
-                            <div>
-                                <Form>
-                                    <Form.Label>Nimi</Form.Label>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Control type="name" placeholder="Syötä esineen nimi" onChange={(event) => this.setState({furniture: {name: event.target.value}})} />
-                                    </Form.Group>
-                                    <div className="newItemButtonGroup">
-                                        <Button variant="success" className="mr-2" onClick={() => this.props.addFurniture(this.state.furniture)}>
-                                            <FontAwesomeIcon icon="plus" className="mr-2" />
-                                            Lisää esine
-                                        </Button>
-                                        <Button variant="secondary" onClick={() => this.changeIsActiveState(false)}>
-                                            Peruuta
-                                        </Button>
-                                    </div>
-                                </Form>
-                            </div>
-                        }
-                        {this.props.category === 'Interaktiot' &&
-                            <div>
-                                <Form>
-                                    <Form.Label>Nimi</Form.Label>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Control type="name" placeholder="Syötä interaktion nimi" onChange={(event) => this.setState({room: {name: event.target.value}})} />
-                                    </Form.Group>
-                                    <div className="newItemButtonGroup">
-                                        <Button variant="success" className="mr-2" onClick={() => this.props.addRoom(this.state.room)}>
-                                            <FontAwesomeIcon icon="plus" className="mr-2" />
-                                            Lisää interaktio
-                                        </Button>
-                                        <Button variant="secondary" onClick={() => this.changeIsActiveState(false)}>
-                                            Peruuta
-                                        </Button>
-                                    </div>
-                                </Form>
-                            </div>
-                        }
-                    </div>
+                {this.state.isActive &&
+                <div className="newItemContainer py-3">
+                    <Form>
+                        <Form.Label>Nimi</Form.Label>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Control type="name" required
+                                          placeholder={this.props.namePlaceholder}
+                                          onChange={(event) => this.setState({item: {name: event.target.value}})}
+                            />
+                        </Form.Group>
+                        <div className="newItemButtonGroup">
+                            <Button type="submit" variant="success" className="mr-2" onClick={() => { this.handleSubmit() }}>
+                                <FontAwesomeIcon icon="plus" className="mr-2" />
+                                {this.props.submitLabel}
+                            </Button>
+                            <Button variant="secondary" onClick={() => this.setIsActive(false)}>
+                                Peruuta
+                            </Button>
+                        </div>
+                    </Form>
+                </div>
                 }
-
             </div>
         );
     }

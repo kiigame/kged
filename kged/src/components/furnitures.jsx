@@ -17,7 +17,12 @@ class Furnitures extends React.Component {
     render() {
         return (
             <div>
-                <CreateContainer category='Esineet' addFurniture={this.props.addFurniture}/>
+                <CreateContainer
+                    initialState={{name: ''}}
+                    addItem={this.props.addFurniture}
+                    namePlaceholder={'Syötä esineen nimi'}
+                    submitLabel={'Lisää esine'}
+                />
                 {this.props.furnitures.map((furniture) => {
                     return (
                         <div

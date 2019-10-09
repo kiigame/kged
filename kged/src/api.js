@@ -9,5 +9,5 @@ export function fetchFurnitures() {
 }
 
 export function exportRooms(rooms) {
-    console.log('exportRooms', rooms);
+    console.log('exportRooms', {rooms: rooms});
 }

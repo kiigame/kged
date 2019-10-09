@@ -17,7 +17,12 @@ class Rooms extends React.Component {
     render() {
         return (
             <div>
-                <CreateContainer category='Huoneet' addRoom={this.props.addRoom}/>
+                <CreateContainer
+                    initialState={{name: ''}}
+                    addItem={this.props.addRoom}
+                    namePlaceholder={'Syötä huoneen nimi'}
+                    submitLabel={'Lisää huone'}
+                />
                 {this.props.rooms.map((room) => {
                     return (
                         <div
