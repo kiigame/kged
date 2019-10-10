@@ -68,11 +68,12 @@ function rooms(state = initialState, action) {
                 activeRoom: action.payload.room
             }
 
-        case 'SET_ROOM_BACKGROUND_IMG':
-            console.log('action',action)
+        case 'UPDATE_ACTIVE_ROOM':
             return {
                 ...state,
-                img: action.payload.img
+                activeRoom: state.rooms.find(r =>
+                    r.attrs.id === state.activeRoom.attrs.id
+                )
             }
 
         default:

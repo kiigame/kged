@@ -5,28 +5,43 @@ import 'styles/inspector.scss';
 import { setRoomBackgroundImage } from 'actions';
 import FileDialog from './file_dialog'
 
+// TODO: clean up and remove extra getters, replace with proper data helpers
+
 class Inspector extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            activeEntity: this.props.activeEntity
-        };
         this.onFileSelected = this.onFileSelected.bind(this);
         this.openFileDialog = this.openFileDialog.bind(this);
         this.fileDialogRef = React.createRef();
     }
 
     getActiveEntity() {
-        if (this.props.entity && this.props.entity.activeEntity &&
-            this.props.entity.activeEntity.attrs && this.props.entity.activeEntity.attrs.id) {
-            return this.props.entity.activeEntity.attrs.id;
+        if (this.props.entity && this.props.entity.activeEntity) {
+            return this.props.entity.activeEntity;
+        }
+    }
+
+    getActiveEntityId() {
+        const activeEntity = this.getActiveEntity()
+        if (activeEntity) {
+            return activeEntity.attrs ? activeEntity.attrs.id : undefined;
         }
     }
 
     getActiveView() {
-        if (this.props.entity && this.props.entity.activeEntity &&
-            this.props.entity.activeEntity.attrs && this.props.entity.activeEntity.attrs.category) {
-            return this.props.entity.activeEntity.attrs.category;
+        const activeEntity = this.getActiveEntity()
+        if (activeEntity && activeEntity.attrs && activeEntity.attrs.category) {
+            return activeEntity.attrs.category;
+        }
+    }
+
+    getBackgroundName() {
+        const activeEntity = this.getActiveEntity()
+        if (activeEntity && activeEntity.children) {
+            const bg = activeEntity.children.find(c => c.attrs && c.attrs.category === 'room_background')
+            if (bg) {
+                return bg.attrs.src
+            }
         }
     }
 
@@ -40,7 +55,7 @@ class Inspector extends React.Component {
         // the line below will replace this path with an empty
         // by this, we get the name of the file only
         filePath = filePath.replace("C:\\fakepath\\","")
-        this.props.setRoomBackgroundImage(this.getActiveEntity(), filePath)
+        this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath)
     }
 
     render() {
@@ -55,9 +70,12 @@ class Inspector extends React.Component {
                 {this.getActiveView() === 'room' &&
                     <div className="ins-props">
                         <div className="input-group">
-                            {this.state.activeEntity != {} &&
+                            {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
+                                <span style={{'display': 'block', 'fontSize': '0.75em'}}>
+                                    {this.getBackgroundName()}
+                                </span>
                                     Lataa kuva klikkaamalla
                                 </div>
                             }
@@ -67,19 +85,7 @@ class Inspector extends React.Component {
                             <div className="input-group-prepend">
                                 <span className="input-group-text">ID</span>
                             </div>
-                            <input type="text" value={this.getActiveEntity()} disabled readOnly className="form-control" />
-                        </div>
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">Leveys</span>
-                            </div>
-                            <input type="number" defaultValue="1280" className="form-control" />
-                        </div>
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">Korkeus</span>
-                            </div>
-                            <input type="number" defaultValue="720" className="form-control" />
+                            <input type="text" title={this.getActiveEntityId()} value={this.getActiveEntityId()} readOnly className="form-control" />
                         </div>
                     </div>
                 }

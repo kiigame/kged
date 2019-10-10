@@ -1,6 +1,7 @@
-// action creators
-
 import { fetchRooms, exportRooms, fetchFurnitures } from 'api'
+
+
+// ===== ENTITY =====
 
 export const setActiveEntity = (entity) => ({
     type: 'SET_ACTIVE_ENTITY',
@@ -9,7 +10,17 @@ export const setActiveEntity = (entity) => ({
     }
 })
 
-// thunk
+export function updateActiveEntity({category}) {
+    return function(dispatch) {
+        dispatch({
+            type: 'UPDATE_ACTIVE_ENTITY',
+            payload: {category: category}
+        })
+    }
+}
+
+// ===== ROOMS =====
+
 export function loadRooms() {
     return function(dispatch, getState) {
         const rooms = fetchRooms()
@@ -22,13 +33,18 @@ export function loadRooms() {
     }
 }
 
-export const setRoomBackgroundImage = (roomId, filePath) => ({
-    type: 'SET_ROOM_BACKGROUND_IMAGE',
-    payload: {
-        roomId: roomId,
-        filePath: filePath
+export function setRoomBackgroundImage(roomId, filePath) {
+    return function(dispatch, getState) {
+        dispatch({
+            type: 'SET_ROOM_BACKGROUND_IMAGE',
+            payload: {
+                roomId: roomId,
+                filePath: filePath
+            }
+        })
+        dispatch(updateActiveRoom())
     }
-})
+}
 
 export const addRoom = (room) => ({
     type: 'ADD_ROOM',
@@ -63,6 +79,16 @@ export function setActiveRoom(room) {
     }
 }
 
+export function updateActiveRoom() {
+    return function(dispatch) {
+        dispatch(updateActiveEntity({category: 'room'}))
+        dispatch({
+            type: 'UPDATE_ACTIVE_ROOM',
+            payload: {}
+        })
+    }
+}
+
 export function saveRooms() {
     return function(dispatch, getState) {
         const state = getState()
@@ -75,7 +101,7 @@ export function saveRooms() {
 }
 
 
-
+// ===== FURNITURES =====
 
 export function loadFurnitures() {
     return function(dispatch, getState) {
