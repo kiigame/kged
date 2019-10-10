@@ -26,7 +26,6 @@ class Rooms extends React.Component {
                 {this.props.rooms.map((room) => {
                     return (
                         <div
-                            id={'rooms-'+room.attrs.id}
                             className="room-name"
                             style={{
                                 background: this.isActiveRoom(room) ?
@@ -36,7 +35,7 @@ class Rooms extends React.Component {
                             key={'rooms-'+room.attrs.id}
                             onClick={() => this.props.onClickRoom(room)}
                         >
-                            {room.attrs.id}
+                            <span id={'rooms-'+room.attrs.id}>{room.attrs.id}</span>
                             {this.isActiveRoom(room) &&
                                 <span className="trash" onClick={() => this.props.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                             }
