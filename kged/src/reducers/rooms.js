@@ -32,6 +32,29 @@ function rooms(state = initialState, action) {
                 )
             }
 
+        case 'SET_ROOM_BACKGROUND_IMAGE':
+            let id = action.payload.roomId
+            let src = action.payload.filePath
+            return {
+                ...state,
+                rooms: state.rooms.map(room =>
+                    room.attrs.id === id
+                    ? { ...room, children: room.children.map(c =>
+                        c.attrs.category === 'room_background'
+                        ? { ...c, attrs: {
+                            category: 'room_background',
+                            width: 981,
+                            height: 543,
+                            id: src,
+                            src: `images/${src}`,
+                            visible: true
+                        }}
+                        : c
+                    )}
+                    : room
+                )
+            }
+
         case 'DELETE_ROOM':
             attrs = action.payload.room.attrs;
             return {

@@ -40,11 +40,10 @@ class Inspector extends React.Component {
         // the line below will replace this path with an empty
         // by this, we get the name of the file only
         filePath = filePath.replace("C:\\fakepath\\","")
-        this.props.setRoomBackgroundImage(filePath)
+        this.props.setRoomBackgroundImage(this.getActiveEntity(), filePath)
     }
 
     render() {
-        console.log('inspector',this.props)
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
@@ -96,7 +95,7 @@ const mapStateToProps = state => ({
     entity: state.entity
 })
 const mapDispatchToProps = dispatch => ({
-    setRoomBackgroundImage: event => dispatch(setRoomBackgroundImage(event))
+    setRoomBackgroundImage: (id, path) => dispatch(setRoomBackgroundImage(id, path))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Inspector);
