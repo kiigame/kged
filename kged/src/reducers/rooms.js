@@ -45,6 +45,13 @@ function rooms(state = initialState, action) {
                 activeRoom: action.payload.room
             }
 
+        case 'SET_ROOM_BACKGROUND_IMG':
+            console.log('action',action)
+            return {
+                ...state,
+                img: action.payload.img
+            }
+
         default:
             return state
     }

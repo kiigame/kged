@@ -22,6 +22,13 @@ export function loadRooms() {
     }
 }
 
+export const setRoomBackgroundImage = (img) => ({
+    type: 'SET_ROOM_BACKGROUND_IMG',
+    payload: {
+        img: img
+    }
+})
+
 export const addRoom = (room) => ({
     type: 'ADD_ROOM',
     payload: {
