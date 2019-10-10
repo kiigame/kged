@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import 'styles/rooms.scss';
 
 import { setActiveRoom, addRoom, deleteRoom } from 'actions';
 import CreateContainer from './create_container'
@@ -26,7 +27,7 @@ class Rooms extends React.Component {
                 {this.props.rooms.map((room) => {
                     return (
                         <div
-                            className="room-name"
+                            id={'rooms-'+room.attrs.id}
                             style={{
                                 background: this.isActiveRoom(room) ?
                                     '#727272' :
@@ -35,7 +36,9 @@ class Rooms extends React.Component {
                             key={'rooms-'+room.attrs.id}
                             onClick={() => this.props.onClickRoom(room)}
                         >
-                            <span id={'rooms-'+room.attrs.id}>{room.attrs.id}</span>
+                        <span className="room-name">
+                            {room.attrs.id}
+                        </span>
                             {this.isActiveRoom(room) &&
                                 <span className="trash" onClick={() => this.props.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                             }
