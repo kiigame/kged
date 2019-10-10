@@ -31,7 +31,8 @@ class Rooms extends React.Component {
                             style={{
                                 background: this.isActiveRoom(room) ?
                                     '#727272' :
-                                    '#424242'
+                                    '#424242',
+                                padding: '0.15em 0.35em'
                             }}
                             key={'rooms-'+room.attrs.id}
                             onClick={() => this.props.onClickRoom(room)}
