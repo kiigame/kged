@@ -33,24 +33,34 @@ function rooms(state = initialState, action) {
             }
 
         case 'SET_ROOM_BACKGROUND_IMAGE':
-            let id = action.payload.roomId
-            let src = action.payload.filePath
+            const id = action.payload.roomId
+            const src = action.payload.filePath
+            const newBg = {
+                category: 'room_background',
+                width: 981,
+                height: 543,
+                id: src,
+                src: `images/${src}`,
+                visible: true
+            }
+            const hasBg = state.rooms.some(room =>
+                room.attrs.id === id && room.children.some(c =>
+                    c.attrs && c.attrs.category === 'room_background'
+                )
+            )
+
             return {
                 ...state,
                 rooms: state.rooms.map(room =>
                     room.attrs.id === id
-                    ? { ...room, children: room.children.map(c =>
-                        c.attrs.category === 'room_background'
-                        ? { ...c, attrs: {
-                            category: 'room_background',
-                            width: 981,
-                            height: 543,
-                            id: src,
-                            src: `images/${src}`,
-                            visible: true
-                        }}
-                        : c
-                    )}
+                    ? { ...room, children: hasBg
+                        ? room.children.map(c =>
+                            c.attrs.category === 'room_background'
+                            ? { ...c, attrs: newBg}
+                            : c
+                        )
+                        : [...room.children, { attrs: newBg, className: 'Image' }]
+                    }
                     : room
                 )
             }
