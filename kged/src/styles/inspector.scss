@@ -16,6 +16,10 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
+
+        &:hover {
+            filter: opacity(0.85);
+        }
     }
 
     .input-group {
