@@ -17,6 +17,9 @@ class Preview extends React.Component {
 
     onFileSelected(e) {
         let filePath = e.target.value
+        // firefox <input type="file"> adds a fakepath for security reasons
+        // the line below will replace this path with an empty
+        // by this, we get the name of the file only
         filePath = filePath.replace("C:\\fakepath\\","")
         console.log(filePath)
     }
