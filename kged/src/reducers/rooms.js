@@ -43,8 +43,8 @@ function rooms(state = initialState, action) {
                 src: `images/${src}`,
                 visible: true
             }
-            const hasBg = state.rooms.some(room =>
-                room.attrs.id === id && room.children.some(c =>
+            const hasBg = room => (
+                room.children && room.children.some(c =>
                     c.attrs && c.attrs.category === 'room_background'
                 )
             )
@@ -53,13 +53,13 @@ function rooms(state = initialState, action) {
                 ...state,
                 rooms: state.rooms.map(room =>
                     room.attrs.id === id
-                    ? { ...room, children: hasBg
+                    ? { ...room, children: hasBg(room)
                         ? room.children.map(c =>
                             c.attrs.category === 'room_background'
                             ? { ...c, attrs: newBg}
                             : c
                         )
-                        : [...room.children, { attrs: newBg, className: 'Image' }]
+                        : [...(room.children || []), { attrs: newBg, className: 'Image' }]
                     }
                     : room
                 )
