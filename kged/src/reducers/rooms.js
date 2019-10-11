@@ -49,16 +49,19 @@ function rooms(state = initialState, action) {
                 )
             )
 
+            // TODO: refactor this to use helper functions (for clarity)
             return {
                 ...state,
                 rooms: state.rooms.map(room =>
                     room.attrs.id === id
                     ? { ...room, children: hasBg(room)
+                        // patch room_background attrs if it already exists
                         ? room.children.map(c =>
                             c.attrs.category === 'room_background'
                             ? { ...c, attrs: newBg}
                             : c
                         )
+                        // otherwise create a new object under children
                         : [...(room.children || []), { attrs: newBg, className: 'Image' }]
                     }
                     : room
