@@ -15,8 +15,11 @@ function rooms(state = initialState, action) {
                     {
                         attrs: {
                             id: action.payload.room.name,
-                            category: 'room'
-                        }
+                            category: 'room',
+                            visible: false
+                        },
+                        children: [],
+                        className: 'Layer'
                     }
                 ]
             }
