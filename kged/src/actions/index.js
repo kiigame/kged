@@ -1,4 +1,6 @@
 import { fetchRooms, exportRooms, fetchFurnitures } from 'api'
+import { isExistingEntity } from 'utils'
+import { DuplicateEntityError } from 'utils/errors'
 
 
 // ===== ENTITY =====
@@ -46,12 +48,19 @@ export function setRoomBackgroundImage(roomId, filePath) {
     }
 }
 
-export const addRoom = (room) => ({
-    type: 'ADD_ROOM',
-    payload: {
-        room: room
+export function addRoom(room) {
+    return function(dispatch, getState) {
+        if (isExistingEntity(getState(), room.name)) {
+            throw new DuplicateEntityError('Nimi on jo käytössä')
+        }
+        dispatch({
+            type: 'ADD_ROOM',
+            payload: {
+                room: room
+            }
+        })
     }
-})
+}
 
 export const updateRoom = (room) => ({
     type: 'UPDATE_ROOM',
