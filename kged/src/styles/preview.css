@@ -1,0 +1,22 @@
+.pre-container {
+    background: lightgrey;
+}
+
+.pre-controls {
+    text-align: center;
+    flex-grow: 1;
+    font-size: 20px;
+
+}
+
+.pre-controls > div {
+    padding: 10px;
+}
+
+.pre-controls > div:hover {
+    background: #727272;
+}
+
+.pre-screen {
+    height: 500px;
+}

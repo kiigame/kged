@@ -1,0 +1,28 @@
+.ins-container {
+    background: white;
+}
+
+.ins-props {
+    margin-top: 1em;
+
+    .input-img {
+        width: 100%;
+        height: 250px;
+        max-width: 250px;
+        margin: 0 auto;
+        background-color: #212121;
+        color: #e0e0e0;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        &:hover {
+            filter: opacity(0.85);
+        }
+    }
+
+    .input-group {
+        margin-bottom: 0.75em;
+    }
+}

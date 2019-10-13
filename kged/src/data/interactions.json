@@ -1,0 +1,231 @@
+{
+    "airfreshener": {
+        "locker_room_1_door_to_wc_stinking": [
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "airfreshener",
+                    "string": "locker_room_1_door_to_wc_stinking"
+                }
+            },
+            {
+                "command": "remove_object",
+                "object": "locker_room_1_door_to_wc_stinking"
+            },
+            {
+                "command": "add_object",
+                "object": "locker_room_1_door_to_wc_open"
+            }
+        ]
+    },
+    "cienibang": {
+        "cieni": [
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "cienibang",
+                    "string": "cieni"
+                }
+            },
+            {
+                "command": "remove_object",
+                "object": "cieni"
+            },
+            {
+                "command": "remove_object",
+                "object": "cieni_mouth"
+            },
+            {
+                "command": "remove_object",
+                "object": "cieni_eyes"
+            },
+            {
+                "command": "remove_object",
+                "object": "shower_door_to_locker_room_2_blocked"
+            },
+            {
+                "command": "add_object",
+                "object": "shower_door_to_locker_room_2_closed"
+            }
+        ],
+        "cieni_eyes": [
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "cienibang",
+                    "string": "cieni"
+                }
+            },
+            {
+                "command": "remove_object",
+                "object": "cieni"
+            },
+            {
+                "command": "remove_object",
+                "object": "cieni_mouth"
+            },
+            {
+                "command": "remove_object",
+                "object": "cieni_eyes"
+            },
+            {
+                "command": "remove_object",
+                "object": "shower_door_to_locker_room_2_blocked"
+            },
+            {
+                "command": "add_object",
+                "object": "shower_door_to_locker_room_2_closed"
+            }
+        ]
+    },
+    "locker_room_1_door_to_wc_open": {
+        "click": [
+            {
+                "command": "do_transition",
+                "destination": "object_layer_wc_1"
+            },
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "locker_room_1_door_to_wc_open",
+                    "string": "examine"
+                },
+                "timeout": 700
+            }
+        ]
+    },
+    "marker": {
+        "tactic_board_2": [
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "marker",
+                    "string": "tactic_board_2"
+                }
+            },
+            {
+                "command": "remove_object",
+                "object": "tactic_board_2"
+            },
+            {
+                "command": "add_object",
+                "object": "tactic_board_3"
+            }
+        ]
+    },
+    "poster": {
+        "click": [
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "poster",
+                    "string": "pickup"
+                }
+            },
+            {
+                "command": "inventory_add",
+                "item": "poster_withoutglue"
+            },
+            {
+                "command": "remove_object",
+                "object": "poster"
+            }
+        ]
+    },
+    "shower_door_to_locker_room_2_open": {
+        "click": [
+            {
+                "command": "do_transition",
+                "destination": "object_layer_locker_room_2"
+            },
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "shower_door_to_locker_room_2_open",
+                    "string": "examine"
+                },
+                "timeout": 700
+            }
+        ]
+    },
+    "tactic_board_wiper": {
+        "tactic_board_1": [
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "tactic_board_wiper",
+                    "string": "tactic_board_1"
+                }
+            },
+            {
+                "command": "remove_object",
+                "object": "tactic_board_1"
+            },
+            {
+                "command": "add_object",
+                "object": "tactic_board_2"
+            }
+        ]
+    },
+    "teddybear": {
+        "garbagecan_empty": [
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "teddybear",
+                    "string": "garbagecan_empty"
+                }
+            },
+            {
+                "command": "inventory_remove",
+                "item": "teddybear"
+            },
+            {
+                "command": "remove_object",
+                "object": "garbagecan_empty"
+            },
+            {
+                "command": "add_object",
+                "object": "garbagecan_teddy"
+            }
+        ]
+    },
+    "wc_1_door_to_locker_room_1": {
+        "click": [
+            {
+                "command": "do_transition",
+                "destination": "object_layer_locker_room_1"
+            },
+            {
+                "command": "monologue",
+                "textkey": {
+                    "object": "wc_1_door_to_locker_room_1",
+                    "string": "examine"
+                },
+                "timeout": 700
+            }
+        ]
+    },
+    "oikotie": {
+        "click": [
+            {
+                "command": "play_sequence",
+                "sequence": "outro",
+                "monologue": false
+            },
+            {
+                "command": "play_ending",
+                "ending": "end_layer",
+                "timeout": 4700
+            }
+        ]
+    },
+    "oikotie2": {
+        "click": [
+            {
+                "command":"do_transition",
+                "destination":"object_layer_locker_room_2"
+            }
+        ]
+    }
+}

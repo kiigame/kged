@@ -1,0 +1,44 @@
+{
+    "rooms" : [
+        {
+            "name": "olohuone",
+            "id": 0
+        },
+        {
+            "name": "kylpyhuone",
+            "id": 1
+        },
+        {
+            "name": "keittiö",
+            "id": 2
+        }
+    ],
+    "furnitures" : [
+        {
+            "name": "kirja",
+            "id": 0
+        },
+        {
+            "name": "kynä",
+            "id": 1
+        },
+        {
+            "name": "pöytä",
+            "id": 2
+        }
+    ],
+    "interactions" : [
+        {
+            "name": "Poista",
+            "id": 0
+        },
+        {
+            "name": "Puhekupla",
+            "id": 1
+        },
+        {
+            "name": "Lisää tavaroihin",
+            "id": 2
+        }
+    ]
+}

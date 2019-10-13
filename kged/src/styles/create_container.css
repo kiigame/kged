@@ -1,0 +1,10 @@
+.newItemButtonGroup {
+    text-align: right;
+}
+
+.newItemContainer {
+    background-color: #333333;
+    border-radius: 7px;
+    padding: 0.75em;
+    margin: 1em 0em 1em 0em;
+}

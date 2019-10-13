@@ -1,0 +1,11 @@
+.side-container {
+    background: white;
+}
+
+.side-nav {
+    flex-grow: 1;
+}
+
+.side-nav-item {
+    text-align: center;
+}
