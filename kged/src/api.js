@@ -1,3 +1,5 @@
+import { exportFile } from 'utils'
+
 export function fetchRooms() {
     const rooms = require('data/rooms.json')['rooms']
     return rooms
@@ -9,5 +11,7 @@ export function fetchFurnitures() {
 }
 
 export function exportRooms(rooms) {
-    console.log('exportRooms', {rooms: rooms});
+    const roomObject = {rooms: rooms}
+    console.log('exportRooms', roomObject)
+    exportFile(roomObject, 'rooms.json', 'application/json')
 }

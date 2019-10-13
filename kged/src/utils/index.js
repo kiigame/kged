@@ -6,3 +6,11 @@ export function isExistingEntity(state, entityId) {
     }
     return false;
 }
+
+export function exportFile(content, name, type) {
+    const file = new Blob([JSON.stringify(content, null, 4)], {type: type})
+    const anchor = document.createElement('a')
+    anchor.href = URL.createObjectURL(file)
+    anchor.download = name
+    anchor.click()
+}
