@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import 'styles/rooms.scss';
 
 import { setActiveRoom, addRoom, deleteRoom } from 'actions';
 import CreateContainer from './create_container'
+import 'styles/rooms.scss';
 
 class Rooms extends React.Component {
 
@@ -12,7 +12,6 @@ class Rooms extends React.Component {
         if (this.props.activeRoom && this.props.activeRoom.attrs) {
             return this.props.activeRoom.attrs.id === room.attrs.id;
         }
-        return false;
     }
 
     render() {
@@ -27,14 +26,8 @@ class Rooms extends React.Component {
                 {this.props.rooms.map((room) => {
                     return (
                         <div
-                            id={'rooms-'+room.attrs.id}
-                            style={{
-                                background: this.isActiveRoom(room) ?
-                                    '#727272' :
-                                    '#424242',
-                                padding: '0.15em 0.35em'
-                            }}
-                            key={'rooms-'+room.attrs.id}
+                            className={'room ' + (this.isActiveRoom(room) ? 'active-room' : '')}
+                            key={room.attrs.id}
                             onClick={() => this.props.onClickRoom(room)}
                         >
                         <span className="room-name">

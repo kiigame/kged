@@ -1,3 +1,14 @@
+@import 'styles/theme';
+
+.room {
+    background: $color-gray-800;
+    padding: 0.15em 0.35em;
+}
+
+.active-room {
+    background: $color-gray-600;
+}
+
 .room-name {
     display: inline-block;
     max-width: calc(100% - 30px);

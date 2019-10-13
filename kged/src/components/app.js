@@ -2,8 +2,7 @@ import React from 'react';
 import Sidebar from 'components/sidebar';
 import Preview from 'components/preview';
 import Inspector from 'components/inspector';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'styles/app.css';
+import 'styles/app.scss';
 
 var mock_rooms = require('data/rooms.json')['rooms'];
 

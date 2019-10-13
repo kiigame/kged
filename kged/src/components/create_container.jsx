@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Formik, Field, ErrorMessage } from 'formik'
 import Button from 'react-bootstrap/Button'
-import 'styles/create_container.css'
+import 'styles/create_container.scss'
 
 class CreateContainer extends React.Component {
     constructor(props) {

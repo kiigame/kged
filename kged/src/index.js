@@ -11,8 +11,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import reducer from 'reducers'
 import logger from 'utils/logger'
 import App from 'components/app'
-import 'index.css'
-import 'custom.scss'
+import 'styles/index.scss'
+import 'styles/custom.scss'
 
 library.add(fas)
 

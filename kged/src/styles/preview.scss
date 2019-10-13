@@ -1,3 +1,5 @@
+@import 'styles/theme';
+
 .pre-container {
     background: lightgrey;
 }
@@ -14,7 +16,7 @@
 }
 
 .pre-controls > div:hover {
-    background: #727272;
+    background: $color-gray-700;
 }
 
 .pre-screen {

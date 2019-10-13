@@ -1,5 +1,5 @@
 import React from 'react';
-import 'styles/sidebar.css';
+import 'styles/sidebar.scss';
 
 import Tabs from './tabs'
 import Rooms from './rooms'
