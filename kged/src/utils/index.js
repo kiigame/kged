@@ -7,8 +7,9 @@ export function isExistingEntity(state, entityId) {
     return false;
 }
 
-export function exportFile(content, name, type) {
-    const file = new Blob([JSON.stringify(content, null, 4)], {type: type})
+export function exportJSON(content, name) {
+    const jsonContent = JSON.stringify(content, null, 4)
+    const file = new Blob([jsonContent], {type: 'application/json'})
     const anchor = document.createElement('a')
     anchor.href = URL.createObjectURL(file)
     anchor.download = name
