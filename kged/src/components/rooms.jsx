@@ -1,16 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react'
+import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { setActiveRoom, addRoom, deleteRoom } from 'actions';
+import { setActiveRoom, addRoom, deleteRoom } from 'actions/rooms'
 import CreateContainer from './create_container'
-import 'styles/rooms.scss';
+import 'styles/rooms.scss'
 
 class Rooms extends React.Component {
 
     isActiveRoom(room) {
         if (this.props.activeRoom && this.props.activeRoom.attrs) {
-            return this.props.activeRoom.attrs.id === room.attrs.id;
+            return this.props.activeRoom.attrs.id === room.attrs.id
         }
     }
 
@@ -40,7 +40,7 @@ class Rooms extends React.Component {
                     )
                 })}
             </div>
-        );
+        )
     }
 }
 
@@ -58,4 +58,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Rooms);
+)(Rooms)

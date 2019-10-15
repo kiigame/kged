@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { setActiveFurniture, addFurniture, deleteFurniture } from 'actions';
+import { setActiveFurniture, addFurniture, deleteFurniture } from 'actions/furnitures';
 import CreateContainer from './create_container'
 
 class Furnitures extends React.Component {

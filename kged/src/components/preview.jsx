@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import 'styles/preview.scss';
-import { saveRooms } from 'actions';
+import { saveRooms } from 'actions/rooms';
 
 class Preview extends React.Component {
     render() {

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import 'styles/inspector.scss';
 
-import { setRoomBackgroundImage } from 'actions';
+import { setRoomBackgroundImage } from 'actions/rooms';
 import FileDialog from './file_dialog'
 
 // TODO: clean up and remove extra getters, replace with proper data helpers
