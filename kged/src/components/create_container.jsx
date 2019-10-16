@@ -34,6 +34,9 @@ class CreateContainer extends React.Component {
                       if (!values.name) {
                           errors.name = 'Nimi on pakollinen'
                       }
+                      if (values.name && /\s/.test(values.name)) {
+                          errors.name = 'Nimessä ei saa olla välilyöntejä'
+                      }
                       return errors
                   }}
                   onSubmit={(values, actions) => {
