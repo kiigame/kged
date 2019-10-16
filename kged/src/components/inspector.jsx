@@ -59,24 +59,29 @@ class Inspector extends React.Component {
     }
 
     render() {
+        var room_placeholder = null
+        if (this.props.rooms.activeRoom.children) {
+            room_placeholder = this.props.rooms.activeRoom.children[0].attrs.src
+        }
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
                     <div className="col">
                         Inspektori
                     </div>
-
                 </div>
                 {this.getActiveView() === 'room' &&
                     <div className="ins-props">
                         <div className="input-group">
+
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
-                                <span style={{'display': 'block', 'fontSize': '0.75em'}}>
-                                    {this.getBackgroundName()}
-                                </span>
-                                    Lataa kuva klikkaamalla
+                                    <span style={{'display': 'block', 'fontSize': '0.75em'}}>
+                                        {/* {this.getBackgroundName()} */}
+                                        <img src={room_placeholder}/>
+                                    </span>
+                                        Lataa kuva klikkaamalla
                                 </div>
                             }
                         </div>
