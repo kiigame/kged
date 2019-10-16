@@ -5,7 +5,7 @@ import Tabs from './tabs'
 import Rooms from './rooms'
 import Furnitures from './furnitures'
 
-class Sidebar extends React.Component {
+export class Sidebar extends React.Component {
     render() {
         return (
             <div className="col-md-6 col-lg-3 side-container">

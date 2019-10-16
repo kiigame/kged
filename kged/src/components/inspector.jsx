@@ -9,7 +9,7 @@ import 'styles/inspector.scss';
 
 // TODO: clean up and remove extra getters, replace with proper data helpers
 
-class Inspector extends React.Component {
+export class Inspector extends React.Component {
     constructor(props) {
         super(props);
         this.onFileSelected = this.onFileSelected.bind(this);

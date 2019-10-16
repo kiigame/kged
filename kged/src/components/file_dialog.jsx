@@ -1,6 +1,6 @@
 import React from 'react';
 
-class FileDialog extends React.Component {
+export class FileDialog extends React.Component {
     onChange(e) {
         this.props.onFileSelected(e)
     }

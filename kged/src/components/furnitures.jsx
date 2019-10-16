@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { setActiveFurniture, addFurniture, deleteFurniture } from 'actions/furnitures';
 import CreateContainer from './create_container'
 
-class Furnitures extends React.Component {
+export class Furnitures extends React.Component {
 
     isActiveFurniture(furniture) {
         if (this.props.activeFurniture && this.props.activeFurniture.attrs) {

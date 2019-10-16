@@ -4,7 +4,7 @@ import { Formik, Field, ErrorMessage } from 'formik'
 import Button from 'react-bootstrap/Button'
 import 'styles/create_container.scss'
 
-class CreateContainer extends React.Component {
+export class CreateContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = { isActive: false }

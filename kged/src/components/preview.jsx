@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import 'styles/preview.scss';
 import { saveRooms } from 'actions/rooms';
 
-class Preview extends React.Component {
+export class Preview extends React.Component {
     render() {
         return (
             <div className="col-lg-6 order-last pre-container">
