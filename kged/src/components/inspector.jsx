@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import 'styles/inspector.scss';
 
-import { setRoomBackgroundImage } from 'actions/rooms';
+import { setRoomBackgroundImage, updateRoomId } from 'actions/rooms';
 import FileDialog from './file_dialog'
 
 // TODO: clean up and remove extra getters, replace with proper data helpers
@@ -88,9 +88,13 @@ class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <div className="input-group">
                             <div className="input-group-prepend">
-                                <span className="input-group-text">ID</span>
+                                <span className="input-group-text">Nimi</span>
                             </div>
-                            <input type="text" title={this.getActiveEntityId()} value={this.getActiveEntityId()} readOnly className="form-control" />
+                            <input type="text"
+                                   onChange={(e) => this.props.updateRoomId(this.getActiveEntityId(), e.target.value)}
+                                   title={this.getActiveEntityId()}
+                                   value={this.getActiveEntityId()}
+                                   className="form-control" />
                         </div>
                     </div>
                 }
@@ -106,7 +110,8 @@ const mapStateToProps = state => ({
     entity: state.entity
 })
 const mapDispatchToProps = dispatch => ({
-    setRoomBackgroundImage: (id, path) => dispatch(setRoomBackgroundImage(id, path))
+    setRoomBackgroundImage: (id, path) => dispatch(setRoomBackgroundImage(id, path)),
+    updateRoomId: (oldId, newId) => dispatch(updateRoomId(oldId, newId))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Inspector);

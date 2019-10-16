@@ -43,12 +43,18 @@ export const addRoom = (room) => {
     }
 }
 
-export const updateRoom = (room) => ({
-    type: 'UPDATE_ROOM',
-    payload: {
-        room: room
+export const updateRoomId = (oldId, newId) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'UPDATE_ROOM_ID',
+            payload: {
+                oldId: oldId,
+                newId: newId
+            }
+        })
+        dispatch(updateActiveRoom(newId))
     }
-})
+}
 
 export const deleteRoom = (room) => ({
     type: 'DELETE_ROOM',
@@ -69,13 +75,13 @@ export const setActiveRoom = (room) => {
     }
 }
 
-export const updateActiveRoom = () => {
+export const updateActiveRoom = (id = null) => {
     return (dispatch) => {
-        dispatch(updateActiveEntity({category: 'room'}))
         dispatch({
             type: 'UPDATE_ACTIVE_ROOM',
-            payload: {}
+            payload: { id: id }
         })
+        dispatch(updateActiveEntity({category: 'room', id: id}))
     }
 }
 

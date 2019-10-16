@@ -11,11 +11,12 @@ function entity(state = initialState, action, globalState = {}) {
             }
 
         case 'UPDATE_ACTIVE_ENTITY':
+            const entityId = action.payload.id || state.activeEntity.attrs.id;
             if (action.payload.category === 'room') {
                 return {
                     ...state,
                     activeEntity: globalState.rooms.rooms.find(r =>
-                        r.attrs.id === state.activeEntity.attrs.id
+                        r.attrs.id === entityId
                     )
                 }
             } else {

@@ -5,11 +5,11 @@ export const setActiveEntity = (entity) => ({
     }
 })
 
-export const updateActiveEntity = ({category}) => {
+export const updateActiveEntity = ({category, id}) => {
     return function(dispatch) {
         dispatch({
             type: 'UPDATE_ACTIVE_ENTITY',
-            payload: {category: category}
+            payload: {category: category, id: id}
         })
     }
 }
