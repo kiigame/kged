@@ -89,6 +89,7 @@ export class Inspector extends React.Component {
                         </div>
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
+                            enableReinitialize
                             initialValues={{ name: this.getActiveEntityId() }}
                             validate={values => {
                                 let errors = {}
