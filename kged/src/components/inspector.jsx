@@ -65,7 +65,7 @@ export class Inspector extends React.Component {
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
-                    <div className="col">
+                    <div className="col ins-header">
                         Inspektori
                     </div>
                 </div>

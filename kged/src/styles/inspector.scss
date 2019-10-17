@@ -1,7 +1,11 @@
-@import 'styles/theme';
+@import 'styles/variables';
 
 .ins-container {
-    background: white;
+}
+
+.ins-header {
+    font-size: $font-large;
+    padding: 10px;
 }
 
 .ins-props {
@@ -25,12 +29,19 @@
     }
 
     .input-img-name {
-        font-size: 0.75em;
+        font-size: $font-small;
     }
 
     .input-group {
         margin-bottom: 0.75em;
     }
+}
+
+.ins-props-header {
+    display: block;
+    font-size: $font-large;
+    border-bottom: 1px solid $color-gray-600;
+    margin-bottom: 0.5em;
 }
 
 .item-edit-actions {
