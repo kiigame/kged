@@ -79,9 +79,9 @@ export class Inspector extends React.Component {
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
-                                    <span style={{'display': 'block', 'fontSize': '0.75em'}}>
-                                        {/* {this.getBackgroundName()} */}
-                                        <img src={room_placeholder}/>
+                                    <img alt="" src={room_placeholder}/>
+                                    <span className="input-img-name" >
+                                        {this.getBackgroundName()}
                                     </span>
                                 </div>
                             }

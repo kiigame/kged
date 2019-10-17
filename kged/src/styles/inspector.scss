@@ -1,3 +1,5 @@
+@import 'styles/theme';
+
 .ins-container {
     background: white;
 }
@@ -10,8 +12,8 @@
         height: 250px;
         max-width: 250px;
         margin: 0 auto;
-        background-color: #212121;
-        color: #e0e0e0;
+        background-color: $color-gray-900;
+        color: $color-gray-300;
         text-align: center;
         display: flex;
         justify-content: center;
@@ -20,6 +22,11 @@
         &:hover {
             filter: opacity(0.85);
         }
+    }
+
+    .input-img-name {
+        display: block;
+        font-size: 0.75em;
     }
 
     .input-group {
