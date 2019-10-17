@@ -37,7 +37,7 @@ export class Inspector extends React.Component {
         }
     }
 
-    getBackgroundName() {
+    getBackground() {
         const activeEntity = this.getActiveEntity()
         if (activeEntity && activeEntity.children) {
             const bg = activeEntity.children.find(c => c.attrs && c.attrs.category === 'room_background')
@@ -61,10 +61,7 @@ export class Inspector extends React.Component {
     }
 
     render() {
-        var room_placeholder = null
-        if (this.props.rooms.activeRoom.children) {
-            room_placeholder = this.props.rooms.activeRoom.children[0].attrs.src
-        }
+        let bg = this.getBackground()
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
@@ -79,9 +76,16 @@ export class Inspector extends React.Component {
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
-                                    <img alt="" src={room_placeholder}/>
-                                    <span className="input-img-name" >
-                                        {this.getBackgroundName()}
+                                    <span>
+                                        {bg
+                                            ?
+                                            ( <img alt="" src={bg}/>)
+                                            :
+                                            ( <span>Lisää kuva klikkaamalla</span> )
+                                        }
+                                    </span>
+                                    <span className="input-img-name">
+                                        {bg}
                                     </span>
                                 </div>
                             }
