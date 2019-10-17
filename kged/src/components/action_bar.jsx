@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import 'styles/preview.scss';
 import { saveRooms } from 'actions/rooms';
 
-class ActionBar extends React.Component {
+export class ActionBar extends React.Component {
     render() {
         return (
             <div className="row pre-controls">
