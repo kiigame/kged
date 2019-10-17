@@ -81,7 +81,6 @@ class Inspector extends React.Component {
                                         {/* {this.getBackgroundName()} */}
                                         <img src={room_placeholder}/>
                                     </span>
-                                        Lataa kuva klikkaamalla
                                 </div>
                             }
                         </div>
