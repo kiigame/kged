@@ -6,7 +6,7 @@ import { setActiveRoom, addRoom, deleteRoom } from 'actions/rooms'
 import CreateContainer from './create_container'
 import 'styles/rooms.scss'
 
-class Rooms extends React.Component {
+export class Rooms extends React.Component {
 
     isActiveRoom(room) {
         if (this.props.activeRoom && this.props.activeRoom.attrs) {

@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import 'styles/inspector.scss';
+import Button from 'react-bootstrap/Button'
+import { Formik, Field, ErrorMessage } from 'formik'
 
-import { setRoomBackgroundImage } from 'actions/rooms';
+import { setRoomBackgroundImage, updateRoomId } from 'actions/rooms';
 import FileDialog from './file_dialog'
+import 'styles/inspector.scss';
 
 // TODO: clean up and remove extra getters, replace with proper data helpers
 
-class Inspector extends React.Component {
+export class Inspector extends React.Component {
     constructor(props) {
         super(props);
         this.onFileSelected = this.onFileSelected.bind(this);
@@ -85,12 +87,44 @@ class Inspector extends React.Component {
                             }
                         </div>
                         <span className="ins-props-header">Ominaisuudet</span>
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">ID</span>
-                            </div>
-                            <input type="text" title={this.getActiveEntityId()} value={this.getActiveEntityId()} readOnly className="form-control" />
-                        </div>
+                        <Formik
+                            enableReinitialize
+                            initialValues={{ name: this.getActiveEntityId() }}
+                            validate={values => {
+                                let errors = {}
+                                if (!values.name) {
+                                    errors.name = 'Nimi on pakollinen'
+                                }
+                                if (values.name && /\s/.test(values.name)) {
+                                    errors.name = 'Nimessä ei saa olla välilyöntejä'
+                                }
+                                return errors
+                            }}
+                            onSubmit={(values, actions) => {
+                                try {
+                                    this.props.updateRoomId(this.getActiveEntityId(), values.name)
+                                } catch (e) {
+                                    actions.setFieldError('name', e.message)
+                                }
+                            }}
+                            render={(formProps) => (
+                            <form onSubmit={formProps.handleSubmit}>
+                                <div className="form-group">
+                                    <label>Nimi</label>
+                                    <Field className="form-control" type="name" name="name" />
+                                    <ErrorMessage component="div" className="error-message" name="name" />
+                                </div>
+                                <div className="item-edit-actions">
+                                    <Button type="submit" variant="success" className="mr-2">
+                                        Tallenna
+                                    </Button>
+                                    <Button variant="secondary" onClick={formProps.handleReset}>
+                                        Peruuta
+                                    </Button>
+                                </div>
+                            </form>
+                            )}
+                        />
                     </div>
                 }
                 {this.getActiveView() === 'item' &&
@@ -105,7 +139,8 @@ const mapStateToProps = state => ({
     entity: state.entity
 })
 const mapDispatchToProps = dispatch => ({
-    setRoomBackgroundImage: (id, path) => dispatch(setRoomBackgroundImage(id, path))
+    setRoomBackgroundImage: (id, path) => dispatch(setRoomBackgroundImage(id, path)),
+    updateRoomId: (oldId, newId) => dispatch(updateRoomId(oldId, newId))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Inspector);

@@ -33,13 +33,13 @@ function rooms(state = initialState, action) {
                 ]
             }
 
-        case 'UPDATE_ROOM':
-            attrs = action.payload.room.attrs;
+        case 'UPDATE_ROOM_ID':
             return {
                 ...state,
                 rooms: state.rooms.map(room =>
-                    room.attrs.id === attrs.id
-                    ? { ...room, attrs }
+                    room.attrs.id === action.payload.oldId
+                    ? { ...room, attrs: { ...room.attrs, id: action.payload.newId }
+                    }
                     : room
                 )
             }
@@ -94,10 +94,11 @@ function rooms(state = initialState, action) {
             }
 
         case 'UPDATE_ACTIVE_ROOM':
+            const roomId = action.payload.id || state.activeRoom.attrs.id
             return {
                 ...state,
                 activeRoom: state.rooms.find(r =>
-                    r.attrs.id === state.activeRoom.attrs.id
+                    r.attrs.id === roomId
                 )
             }
 
