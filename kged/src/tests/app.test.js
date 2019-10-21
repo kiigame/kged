@@ -48,13 +48,11 @@ describe('Room component', () => {
     );
   });
 
-it('should dispatch an action on button click', () => {
+it('should open the creation container once clicked', () => {
   renderer.act(() => {
-    component.root.findByType('button').props.onClick();
-  });
+    component.root.findByProps({className:"my-3 btn btn-success"}).props.onClick();  });
 
-  expect(store.dispatch).toHaveBeenCalledTimes(1);
+  expect(component.root.findByProps({className:'item-create-container'})).toHaveBeenCalled();
 
 });
 });
-
