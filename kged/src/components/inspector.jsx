@@ -42,7 +42,7 @@ export class Inspector extends React.Component {
         if (activeEntity && activeEntity.children) {
             const bg = activeEntity.children.find(c => c.attrs && c.attrs.category === 'room_background')
             if (bg) {
-                return bg.attrs.src
+                return bg.attrs.url
             }
         }
     }
@@ -57,13 +57,11 @@ export class Inspector extends React.Component {
         // the line below will replace this path with an empty
         // by this, we get the name of the file only
         filePath = filePath.replace("C:\\fakepath\\","")
-        let file = e.target.files[0];
-        const obj_url = window.URL.createObjectURL(file);
+        const file = e.target.files[0]
+        const objectUrl = window.URL.createObjectURL(file)
+        console.log('objectURL:', objectUrl)
 
-        this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath, file, obj_url)
-
-        const loadedImg = document.getElementById('entityimg');
-        loadedImg.src = obj_url;
+        this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath, objectUrl)
     }
 
     render() {
@@ -82,17 +80,12 @@ export class Inspector extends React.Component {
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
-                                    <span>
-                                        {bg
-                                            ?
-                                            ( <img id="entityimg" alt="" src={bg}/>)
-                                            :
-                                            ( <span>Lisää kuva klikkaamalla</span> )
-                                        }
-                                    </span>
-                                    <span className="input-img-name">
-                                        {bg}
-                                    </span>
+                                    {bg
+                                        ?
+                                        ( <img alt="" src={bg}/>)
+                                        :
+                                        ( <span>Lisää kuva klikkaamalla</span> )
+                                    }
                                 </div>
                             }
                         </div>
@@ -149,7 +142,7 @@ const mapStateToProps = state => ({
     entity: state.entity
 })
 const mapDispatchToProps = dispatch => ({
-    setRoomBackgroundImage: (id, path) => dispatch(setRoomBackgroundImage(id, path)),
+    setRoomBackgroundImage: (id, path, objUrl) => dispatch(setRoomBackgroundImage(id, path, objUrl)),
     updateRoomId: (oldId, newId) => dispatch(updateRoomId(oldId, newId))
 })
 

@@ -47,13 +47,16 @@ function rooms(state = initialState, action) {
         case 'SET_ROOM_BACKGROUND_IMAGE':
             const id = action.payload.roomId
             const src = action.payload.filePath
+            const objUrl = action.payload.objectUrl
+
             const newBg = {
                 category: 'room_background',
                 width: 981,
                 height: 543,
                 id: src,
                 src: `images/${src}`,
-                visible: true
+                visible: true,
+                url: objUrl
             }
             const hasBg = room => (
                 room.children && room.children.some(c =>
