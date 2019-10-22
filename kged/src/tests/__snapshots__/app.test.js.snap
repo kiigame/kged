@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Room component should render with given state from Redux store 1`] = `
+<div>
+  <div>
+    <div>
+      <button
+        className="my-3 btn btn-success"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Lisää
+      </button>
+    </div>
+  </div>
+</div>
+`;

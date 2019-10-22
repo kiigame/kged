@@ -2,6 +2,7 @@ import { fetchRooms, exportRooms } from 'api'
 import { setActiveEntity, updateActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
+import db from '../db'
 
 
 export const loadRooms = () => {
@@ -16,16 +17,21 @@ export const loadRooms = () => {
     }
 }
 
-export const setRoomBackgroundImage = (roomId, filePath) => {
+export const setRoomBackgroundImage = (roomId, filePath, file) => {
     return (dispatch, getState) => {
-        dispatch({
-            type: 'SET_ROOM_BACKGROUND_IMAGE',
-            payload: {
-                roomId: roomId,
-                filePath: filePath
-            }
+        let fileToAdd = {id: filePath, file: file}
+        db.table('images').add(fileToAdd)
+        .then(() => {
+            dispatch({
+                type: 'SET_ROOM_BACKGROUND_IMAGE',
+                payload: {
+                    roomId: roomId,
+                    filePath: filePath
+                }
+            })
+            dispatch(updateActiveRoom())
         })
-        dispatch(updateActiveRoom())
+        .catch(e => console.error(e))
     }
 }
 

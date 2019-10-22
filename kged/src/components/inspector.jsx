@@ -6,7 +6,6 @@ import { Formik, Field, ErrorMessage } from 'formik'
 import { setRoomBackgroundImage, updateRoomId } from 'actions/rooms';
 import FileDialog from './file_dialog'
 import 'styles/inspector.scss';
-import db from '../db'
 
 // TODO: clean up and remove extra getters, replace with proper data helpers
 
@@ -58,19 +57,13 @@ export class Inspector extends React.Component {
         // the line below will replace this path with an empty
         // by this, we get the name of the file only
         filePath = filePath.replace("C:\\fakepath\\","")
-        this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath)
-
         let file = e.target.files[0];
-        let fileToAdd = {id: filePath, file: file}
 
-
-        db.table('images').add(fileToAdd)
+        this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath, file)
 
         const loadedImg = document.getElementById('entityimg');
         const obj_url = window.URL.createObjectURL(file);
         loadedImg.src = obj_url;
-        window.URL.revokeObjectURL(obj_url);
-
     }
 
     render() {
