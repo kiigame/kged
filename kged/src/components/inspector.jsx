@@ -58,11 +58,11 @@ export class Inspector extends React.Component {
         // by this, we get the name of the file only
         filePath = filePath.replace("C:\\fakepath\\","")
         let file = e.target.files[0];
+        const obj_url = window.URL.createObjectURL(file);
 
-        this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath, file)
+        this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath, file, obj_url)
 
         const loadedImg = document.getElementById('entityimg');
-        const obj_url = window.URL.createObjectURL(file);
         loadedImg.src = obj_url;
     }
 
@@ -75,7 +75,6 @@ export class Inspector extends React.Component {
                         Inspektori
                     </div>
                 </div>
-                <img id='entityimg'/>
                 {this.getActiveView() === 'room' &&
                     <div className="ins-props">
                         <div className="input-group">
@@ -86,7 +85,7 @@ export class Inspector extends React.Component {
                                     <span>
                                         {bg
                                             ?
-                                            ( <img alt="" src={bg}/>)
+                                            ( <img id="entityimg" alt="" src={bg}/>)
                                             :
                                             ( <span>Lisää kuva klikkaamalla</span> )
                                         }

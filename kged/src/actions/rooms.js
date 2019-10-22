@@ -17,9 +17,9 @@ export const loadRooms = () => {
     }
 }
 
-export const setRoomBackgroundImage = (roomId, filePath, file) => {
+export const setRoomBackgroundImage = (roomId, filePath, file, obj_url) => {
     return (dispatch, getState) => {
-        let fileToAdd = {id: filePath, file: file}
+        let fileToAdd = {id: filePath, file: file, obj_url: obj_url}
         db.table('images').add(fileToAdd)
         .then(() => {
             dispatch({
