@@ -6,7 +6,8 @@ import renderer from 'react-test-renderer'
 
 import App from '../components/app'
 import Rooms from '../components/rooms'
-import {myActions} from '../actions'
+import CreateContainer from '../components/create_container'
+import {addRoom} from '../actions'
 
 const mockStore = configureStore([])
 
@@ -50,9 +51,25 @@ describe('Room component', () => {
 
 it('should open the creation container once clicked', () => {
   renderer.act(() => {
-    component.root.findByProps({className:"my-3 btn btn-success"}).props.onClick();  });
+    component.root.findByProps({className:'my-3 btn btn-success'}).props.onClick();  });
 
-  expect(component.root.findByProps({className:'item-create-container'})).toHaveBeenCalled();
+    expect(CreateContainer.isActive = true);
+  });
+  it('should set a room active', () => {
+    renderer.act(() => {
+      component.root.findByProps({className:'room'}).props.onClick();
 
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+    });
+  });
+  it('should give the room a name and create it', () => {
+    renderer.act(() => {
+      component.root.findByType('name').props.onChange({target: {value: 'huone1'}});
+      component.root.findByProps({className:'mr-2 btn btn-success'}).props.onClick();
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledWith(addRoom({payload: 'huone1'}));
+    });
+  });
+  
 });
-});
+
