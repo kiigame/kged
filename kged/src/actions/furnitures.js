@@ -13,6 +13,19 @@ export const loadFurnitures = () => {
     }
 }
 
+export const setFurnitureImage = (furnitureId, filePath, objectUrl) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'SET_FURNITURE_IMAGE',
+            payload: {
+                furnitureId: furnitureId,
+                filePath: filePath,
+                objectUrl: objectUrl
+            }
+        })
+    }
+}
+
 export const addFurniture = (furniture) => ({
     type: 'ADD_FURNITURE',
     payload: {
