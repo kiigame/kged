@@ -1,16 +1,23 @@
 @import 'styles/variables';
 
 .room {
-    background: $color-gray-800;
+    background: $color-gray-875;
     padding: 0.15em 0.35em;
 }
 
 .active-room {
-    background: $color-gray-600;
+    background: $color-gray-700;
 }
 
 .room-name {
     display: inline-block;
     max-width: calc(100% - 30px);
     word-break: break-word;
+}
+
+.btn-success {
+    background-color: $color-green-700 !important;
+    border-color: $color-green-700 !important;
+    color: $color-gray-100 !important;
+    margin-left: 5px !important;
 }

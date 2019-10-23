@@ -30,8 +30,8 @@ export class Furnitures extends React.Component {
                             className="furniture-name"
                             style={{
                                 background: this.isActiveFurniture(furniture) ?
-                                    '#727272' :
-                                    '#424242'
+                                    '#616161' :
+                                    '#333333'
                             }}
                             key={'furnitures-'+furniture.attrs.id}
                             onClick={() => this.props.onClickFurniture(furniture)}
