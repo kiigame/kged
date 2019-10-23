@@ -1,5 +1,7 @@
+import { fetchFurnitures } from 'api'
+
 const initialState = {
-    furnitures: require('data/items.json'),
+    furnitures: fetchFurnitures(),
     activeFurniture: {}
 }
 
@@ -44,6 +46,29 @@ function furnitures(state = initialState, action) {
             return {
                 ...state,
                 activeFurniture: action.payload.furniture
+            }
+
+        case 'UPDATE_ACTIVE_FURNITURE':
+            const fid = action.payload.id || state.activeFurniture.attrs.id
+            return {
+                ...state,
+                activeFurniture: state.furnitures.find(r =>
+                    r.attrs.id === fid
+                )
+            }
+
+        case 'SET_FURNITURE_IMAGE':
+            const {furnitureId, filePath, objectUrl} = action.payload;
+
+            console.log(furnitureId, filePath, objectUrl)
+
+            return {
+                ...state,
+                furnitures: state.furnitures.map(furn =>
+                    furn.attrs.id === furnitureId
+                    ? { ...furn, attrs: {...furn.attrs, src: filePath, url: objectUrl } }
+                    : furn
+                )
             }
 
         default:

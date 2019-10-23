@@ -40,11 +40,17 @@ export class Inspector extends React.Component {
 
     getBackground() {
         const activeEntity = this.getActiveEntity()
-        console.log('getbackground',activeEntity)
-        if (activeEntity && activeEntity.children) {
-            const bg = activeEntity.children.find(c => c.attrs && c.attrs.category === 'room_background')
-            if (bg) {
-                return bg.attrs.url
+        const activeView = this.getActiveView()
+
+        if (activeEntity) {
+            if (activeView === 'room' && activeEntity.children) {
+                const bg = activeEntity.children.find(c => c.attrs && c.attrs.category === 'room_background')
+                if (bg) {
+                    return bg.attrs.url
+                }
+            } else if (activeView === 'furniture') {
+                console.log('furniture:', activeEntity)
+                return activeEntity.attrs.url;
             }
         }
     }
@@ -63,7 +69,7 @@ export class Inspector extends React.Component {
         const objectUrl = window.URL.createObjectURL(file)
         if (this.props.entity.activeEntity.attrs.category === 'room') {
             this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath, objectUrl)
-        } else if (this.props.entity.activeEntity.attrs.category === 'item') {
+        } else if (this.props.entity.activeEntity.attrs.category === 'furniture') {
             this.props.setFurnitureImage(this.getActiveEntityId(), filePath, objectUrl)
         }
     }
@@ -135,7 +141,7 @@ export class Inspector extends React.Component {
                         />
                     </div>
                 }
-                {this.getActiveView() === 'item' &&
+                {this.getActiveView() === 'furniture' &&
                     <div className="ins-props">
                         <div className="input-group">
 

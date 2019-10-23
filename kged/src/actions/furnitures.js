@@ -1,5 +1,5 @@
 import { fetchFurnitures } from 'api'
-import { setActiveEntity } from './entity'
+import { setActiveEntity, updateActiveEntity } from './entity'
 
 export const loadFurnitures = () => {
     return (dispatch, getState) => {
@@ -23,6 +23,7 @@ export const setFurnitureImage = (furnitureId, filePath, objectUrl) => {
                 objectUrl: objectUrl
             }
         })
+        dispatch(updateActiveFurniture())
     }
 }
 
@@ -56,5 +57,15 @@ export const setActiveFurniture = (furniture) => {
                 furniture: furniture
             }
         })
+    }
+}
+
+export const updateActiveFurniture = (id = null) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'UPDATE_ACTIVE_FURNITURE',
+            payload: { id: id }
+        })
+        dispatch(updateActiveEntity({category: 'furniture', id: id}))
     }
 }

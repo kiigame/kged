@@ -19,6 +19,13 @@ function entity(state = initialState, action, globalState = {}) {
                         r.attrs.id === entityId
                     )
                 }
+            } else if (action.payload.category === 'furniture') {
+                return {
+                    ...state,
+                    activeEntity: globalState.furnitures.furnitures.find(r =>
+                        r.attrs.id === entityId
+                    )
+                }
             } else {
                 return state;
             }

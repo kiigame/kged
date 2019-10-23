@@ -1,5 +1,7 @@
+import { fetchRooms } from 'api'
+
 const initialState = {
-    rooms: require('data/rooms.json')['rooms'],
+    rooms: fetchRooms(),
     activeRoom: {}
 }
 

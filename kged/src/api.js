@@ -6,7 +6,15 @@ export function fetchRooms() {
 }
 
 export function fetchFurnitures() {
-    const furnitures = require('data/items.json')
+    const rooms = fetchRooms()
+
+    const furnitures = rooms.flatMap(room => {
+        if (room.attrs && room.children) {
+            console.log(room)
+            return room.children.filter(c => c.attrs && c.attrs.category === 'furniture')
+        }
+    }).filter(f => f)
+
     return furnitures
 }
 
