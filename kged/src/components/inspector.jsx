@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { Formik, Field, ErrorMessage } from 'formik'
 
 import { setRoomBackgroundImage, updateRoomId } from 'actions/rooms';
-import { setFurnitureImage } from 'actions/furnitures';
+import { setFurnitureImage, updateFurnitureId } from 'actions/furnitures';
 import FileDialog from './file_dialog'
 import 'styles/inspector.scss';
 
@@ -49,7 +49,6 @@ export class Inspector extends React.Component {
                     return bg.attrs.url
                 }
             } else if (activeView === 'furniture') {
-                console.log('furniture:', activeEntity)
                 return activeEntity.attrs.url;
             }
         }
@@ -76,7 +75,6 @@ export class Inspector extends React.Component {
 
     render() {
         let bg = this.getBackground()
-        console.log('bg',bg)
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
@@ -85,63 +83,6 @@ export class Inspector extends React.Component {
                     </div>
                 </div>
                 {this.getActiveView() === 'room' &&
-                    <div className="ins-props">
-                        <div className="input-group">
-
-                            {this.props.activeEntity !== {} &&
-                                <div className="input-img" onClick={this.openFileDialog}>
-                                    <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
-                                    {bg
-                                        ?
-                                        ( <img alt="" src={bg}/>)
-                                        :
-                                        ( <span>Lisää kuva klikkaamalla</span> )
-                                    }
-                                </div>
-                            }
-                        </div>
-                        <span className="ins-props-header">Ominaisuudet</span>
-                        <Formik
-                            enableReinitialize
-                            initialValues={{ name: this.getActiveEntityId() }}
-                            validate={values => {
-                                let errors = {}
-                                if (!values.name) {
-                                    errors.name = 'Nimi on pakollinen'
-                                }
-                                if (values.name && /\s/.test(values.name)) {
-                                    errors.name = 'Nimessä ei saa olla välilyöntejä'
-                                }
-                                return errors
-                            }}
-                            onSubmit={(values, actions) => {
-                                try {
-                                    this.props.updateRoomId(this.getActiveEntityId(), values.name)
-                                } catch (e) {
-                                    actions.setFieldError('name', e.message)
-                                }
-                            }}
-                            render={(formProps) => (
-                            <form onSubmit={formProps.handleSubmit}>
-                                <div className="form-group">
-                                    <label>Nimi</label>
-                                    <Field className="form-control" type="name" name="name" />
-                                    <ErrorMessage component="div" className="error-message" name="name" />
-                                </div>
-                                <div className="item-edit-actions">
-                                    <Button type="submit" variant="success" className="mr-2">
-                                        Tallenna
-                                    </Button>
-                                    <Button variant="secondary" onClick={formProps.handleReset}>
-                                        Peruuta
-                                    </Button>
-                                </div>
-                            </form>
-                            )}
-                        />
-                    </div>
-                }
-                {this.getActiveView() === 'furniture' &&
                     <div className="ins-props">
                         <div className="input-group">
 
@@ -202,6 +143,63 @@ export class Inspector extends React.Component {
                         />
                     </div>
                 }
+                {this.getActiveView() === 'furniture' &&
+                    <div className="ins-props">
+                        <div className="input-group">
+
+                            {this.props.activeEntity !== {} &&
+                                <div className="input-img" onClick={this.openFileDialog}>
+                                    <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
+                                    {bg
+                                        ?
+                                        ( <img alt="" src={bg}/>)
+                                        :
+                                        ( <span>Lisää kuva klikkaamalla</span> )
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <span className="ins-props-header">Ominaisuudet</span>
+                        <Formik
+                            enableReinitialize
+                            initialValues={{ name: this.getActiveEntityId() }}
+                            validate={values => {
+                                let errors = {}
+                                if (!values.name) {
+                                    errors.name = 'Nimi on pakollinen'
+                                }
+                                if (values.name && /\s/.test(values.name)) {
+                                    errors.name = 'Nimessä ei saa olla välilyöntejä'
+                                }
+                                return errors
+                            }}
+                            onSubmit={(values, actions) => {
+                                try {
+                                    this.props.updateFurnitureId(this.getActiveEntityId(), values.name)
+                                } catch (e) {
+                                    actions.setFieldError('name', e.message)
+                                }
+                            }}
+                            render={(formProps) => (
+                            <form onSubmit={formProps.handleSubmit}>
+                                <div className="form-group">
+                                    <label>Nimi</label>
+                                    <Field className="form-control" type="name" name="name" />
+                                    <ErrorMessage component="div" className="error-message" name="name" />
+                                </div>
+                                <div className="item-edit-actions">
+                                    <Button type="submit" variant="success" className="mr-2">
+                                        Tallenna
+                                    </Button>
+                                    <Button variant="secondary" onClick={formProps.handleReset}>
+                                        Peruuta
+                                    </Button>
+                                </div>
+                            </form>
+                            )}
+                        />
+                    </div>
+                }
             </div>
         );
     }
@@ -214,7 +212,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setRoomBackgroundImage: (id, path, objUrl) => dispatch(setRoomBackgroundImage(id, path, objUrl)),
     setFurnitureImage: (id, path, objUrl) => dispatch(setFurnitureImage(id, path, objUrl)),
-    updateRoomId: (oldId, newId) => dispatch(updateRoomId(oldId, newId))
+    updateRoomId: (oldId, newId) => dispatch(updateRoomId(oldId, newId)),
+    updateFurnitureId: (oldId, newId) => dispatch(updateFurnitureId(oldId, newId))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Inspector);

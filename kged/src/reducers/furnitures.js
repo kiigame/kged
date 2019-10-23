@@ -24,13 +24,12 @@ function furnitures(state = initialState, action) {
                 ]
             }
 
-        case 'UPDATE_FURNITURE':
-            attrs = action.payload.furniture.attrs;
+        case 'UPDATE_FURNITURE_ID':
             return {
                 ...state,
                 furnitures: state.furnitures.map(furniture =>
-                    furniture.attrs.id === attrs.id
-                    ? { ...furniture, attrs }
+                    furniture.attrs.id === action.payload.oldId
+                    ? { ...furniture, attrs: { ...furniture.attrs, id: action.payload.newId } }
                     : furniture
                 )
             }
@@ -59,9 +58,6 @@ function furnitures(state = initialState, action) {
 
         case 'SET_FURNITURE_IMAGE':
             const {furnitureId, filePath, objectUrl} = action.payload;
-
-            console.log(furnitureId, filePath, objectUrl)
-
             return {
                 ...state,
                 furnitures: state.furnitures.map(furn =>

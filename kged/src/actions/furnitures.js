@@ -1,5 +1,7 @@
 import { fetchFurnitures } from 'api'
 import { setActiveEntity, updateActiveEntity } from './entity'
+import { isExistingEntity } from 'utils'
+import { DuplicateEntityError } from 'utils/errors'
 
 export const loadFurnitures = () => {
     return (dispatch, getState) => {
@@ -34,12 +36,21 @@ export const addFurniture = (furniture) => ({
     }
 })
 
-export const updateFurniture = (furniture) => ({
-    type: 'UPDATE_FURNITURE',
-    payload: {
-        furniture: furniture
+export const updateFurnitureId = (oldId, newId) => {
+    return (dispatch, getState) => {
+        if (isExistingEntity(getState(), newId)) {
+            throw new DuplicateEntityError('Nimi on jo käytössä')
+        }
+        dispatch({
+            type: 'UPDATE_FURNITURE_ID',
+            payload: {
+                oldId: oldId,
+                newId: newId
+            }
+        })
+        dispatch(updateActiveFurniture(newId))
     }
-})
+}
 
 export const deleteFurniture = (furniture) => ({
     type: 'DELETE_FURNITURE',
