@@ -17,7 +17,7 @@ export class Rooms extends React.Component {
     render() {
         return (
             <div>
-                <div class="action-header-container">
+                <div className="action-header-container">
                     <CreateContainer
                         initialState={{name: ''}}
                         addItem={this.props.addRoom}
@@ -26,7 +26,7 @@ export class Rooms extends React.Component {
                     />
                     <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" />
                 </div>
-                <div class="room-list-container">
+                <div className="room-list-container">
                     {this.props.rooms.map((room) => {
                         return (
                             <div
