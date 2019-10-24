@@ -17,16 +17,12 @@ export class CreateContainer extends React.Component {
 	render() {
 		return (
 		  	<div>
-                {!this.state.isActive &&
-                    <div className="container">
-                        <div className="row">
-                            <Button variant="success" className="my-2 mr-2 col create-new-btn" onClick={() => this.setIsActive(true)}>
-                                <FontAwesomeIcon icon="plus"/>
-                            </Button>
-                            <input className="form-control col my-2 mr-2 searchbox" placeholder="Etsi..." type="name" name="name" />
-                        </div>
-                    </div>
-                }
+                <Button variant="success"
+                        className="m-2 col create-new-btn"
+                        onClick={() => this.setIsActive(true)}
+                        disabled={this.state.isActive}>
+                    <FontAwesomeIcon icon="plus"/>
+                </Button>
                 {this.state.isActive &&
                     <div className="item-create-container">
                         <Formik
@@ -57,11 +53,11 @@ export class CreateContainer extends React.Component {
                                         <ErrorMessage component="div" className="error-message" name="name" />
                                     </div>
                                     <div className="item-create-actions">
-                                        <Button type="submit" variant="success" className="mr-2">
+                                        <Button type="submit" variant="success">
                                             <FontAwesomeIcon icon="plus" className="mr-2" />
                                             {this.props.submitLabel}
                                         </Button>
-                                        <Button variant="secondary" onClick={() => this.setIsActive(false)}>
+                                        <Button variant="secondary" className="ml-2" onClick={() => this.setIsActive(false)}>
                                             Peruuta
                                         </Button>
                                     </div>

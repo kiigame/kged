@@ -142,10 +142,10 @@ export class Inspector extends React.Component {
                                     <label className="form-check-label" htmlFor="exampleCheck1">Aloitushuone</label>
                                 </div>
                                 <div className="item-edit-actions">
-                                    <Button type="submit" variant="success" className="mr-2">
+                                    <Button type="submit" variant="success">
                                         Tallenna
                                     </Button>
-                                    <Button variant="secondary" onClick={formProps.handleReset}>
+                                    <Button variant="secondary" className="ml-2" onClick={formProps.handleReset}>
                                         Peruuta
                                     </Button>
                                 </div>
@@ -200,10 +200,10 @@ export class Inspector extends React.Component {
                                 </div>
                                 <DropdownSelect content={this.props.rooms.rooms}/>
                                 <div className="item-edit-actions">
-                                    <Button type="submit" variant="success" className="mr-2">
+                                    <Button type="submit" variant="success">
                                         Tallenna
                                     </Button>
-                                    <Button variant="secondary" onClick={formProps.handleReset}>
+                                    <Button variant="secondary" className="ml-2" onClick={formProps.handleReset}>
                                         Peruuta
                                     </Button>
                                 </div>

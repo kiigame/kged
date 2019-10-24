@@ -17,28 +17,33 @@ export class Rooms extends React.Component {
     render() {
         return (
             <div>
-                <CreateContainer
-                    initialState={{name: ''}}
-                    addItem={this.props.addRoom}
-                    namePlaceholder={'Syötä huoneen nimi'}
-                    submitLabel={'Lisää huone'}
-                />
-                {this.props.rooms.map((room) => {
-                    return (
-                        <div
-                            className={'room ' + (this.isActiveRoom(room) ? 'active-room' : '')}
-                            key={room.attrs.id}
-                            onClick={() => this.props.onClickRoom(room)}
-                        >
-                        <span className="room-name">
-                            {room.attrs.id}
-                        </span>
-                            {this.isActiveRoom(room) &&
-                                <span className="trash" onClick={() => this.props.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
-                            }
-                        </div>
-                    )
-                })}
+                <div class="action-header-container">
+                    <CreateContainer
+                        initialState={{name: ''}}
+                        addItem={this.props.addRoom}
+                        namePlaceholder={'Syötä huoneen nimi'}
+                        submitLabel={'Lisää huone'}
+                    />
+                    <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" />
+                </div>
+                <div class="room-list-container">
+                    {this.props.rooms.map((room) => {
+                        return (
+                            <div
+                                className={'room ' + (this.isActiveRoom(room) ? 'active-room' : '')}
+                                key={room.attrs.id}
+                                onClick={() => this.props.onClickRoom(room)}
+                            >
+                            <span className="room-name">
+                                {room.attrs.id}
+                            </span>
+                                {this.isActiveRoom(room) &&
+                                    <span className="trash" onClick={() => this.props.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                                }
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     }
