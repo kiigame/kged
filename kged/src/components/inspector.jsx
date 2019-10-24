@@ -7,16 +7,27 @@ import { setRoomBackgroundImage, updateRoomId } from 'actions/rooms';
 import { setFurnitureImage, updateFurnitureId } from 'actions/furnitures';
 import FileDialog from './file_dialog'
 import 'styles/inspector.scss';
+import DropdownSelect from './dropdown-select';
 
 // TODO: clean up and remove extra getters, replace with proper data helpers
 
 export class Inspector extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            selectedOption: null
+        }
         this.onFileSelected = this.onFileSelected.bind(this);
         this.openFileDialog = this.openFileDialog.bind(this);
         this.fileDialogRef = React.createRef();
     }
+
+    handleChange = selectedOption => {
+        this.setState({
+            selectedOption
+            }, () => console.log(`Option selected:`, this.state.selectedOption)
+        );
+    };
 
     getActiveEntity() {
         if (this.props.entity && this.props.entity.activeEntity) {
@@ -187,6 +198,7 @@ export class Inspector extends React.Component {
                                     <Field className="form-control" type="name" name="name" />
                                     <ErrorMessage component="div" className="error-message" name="name" />
                                 </div>
+                                <DropdownSelect content={this.props.rooms.rooms}/>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" className="mr-2">
                                         Tallenna
