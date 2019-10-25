@@ -29,26 +29,24 @@ export class Furnitures extends React.Component {
                         <DropdownSelect content={this.props.furnitures}/>
                     </div>
                 </div>
-                {this.props.furnitures.map((furniture) => {
-                    return (
-                        <div
-                            id={'furnitures-'+furniture.attrs.id}
-                            className="furniture-name"
-                            style={{
-                                background: this.isActiveFurniture(furniture) ?
-                                    '#616161' :
-                                    '#333333'
-                            }}
-                            key={'furnitures-'+furniture.attrs.id}
-                            onClick={() => this.props.onClickFurniture(furniture)}
-                        >
-                            {furniture.attrs.id}
-                            {this.isActiveFurniture(furniture) &&
-                                <span className="trash" onClick={() => this.props.removeFurniture(furniture)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
-                            }
-                        </div>
-                    )
-                })}
+                <div className="listitem-container">
+                    {this.props.furnitures.map((furniture) => {
+                        return (
+                            <div
+                                className={'listitem ' + (this.isActiveFurniture(furniture) ? 'active-listitem' : '')}
+                                key={furniture.attrs.id}
+                                onClick={() => this.props.onClickFurniture(furniture)}
+                            >
+                                <span className="listitem-name">
+                                    {furniture.attrs.id}
+                                </span>
+                                {this.isActiveFurniture(furniture) &&
+                                    <span className="trash" onClick={() => this.props.removeFurniture(furniture)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                                }
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         );
     }

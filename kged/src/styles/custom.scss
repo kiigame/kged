@@ -13,6 +13,22 @@ html, body {
     height: 100%;
 }
 
+.listitem {
+    background: $color-gray-875;
+    padding: 0.2em 0.4em 0 0.6em;
+    border-radius: 5px;
+}
+
+.active-listitem {
+    background: $color-gray-700;
+}
+
+.listitem-name {
+    display: inline-block;
+    max-width: calc(100% - 30px);
+    word-break: break-word;
+}
+
 
 // Inspector
 

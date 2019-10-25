@@ -30,17 +30,17 @@ export class Rooms extends React.Component {
                     </div>
                     {/* <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" /> */}
                 </div>
-                <div className="room-list-container">
+                <div className="listitem-container">
                     {this.props.rooms.map((room) => {
                         return (
                             <div
-                                className={'room ' + (this.isActiveRoom(room) ? 'active-room' : '')}
+                                className={'listitem ' + (this.isActiveRoom(room) ? 'active-listitem' : '')}
                                 key={room.attrs.id}
                                 onClick={() => this.props.onClickRoom(room)}
                             >
-                            <span className="room-name">
-                                {room.attrs.id}
-                            </span>
+                                <span className="listitem-name">
+                                    {room.attrs.id}
+                                </span>
                                 {this.isActiveRoom(room) &&
                                     <span className="trash" onClick={() => this.props.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                                 }

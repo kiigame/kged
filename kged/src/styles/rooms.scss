@@ -1,21 +1,5 @@
 @import 'styles/variables';
 
-.room {
-    background: $color-gray-875;
-    padding: 0.2em 0.4em;
-    border-radius: 5px;
-}
-
-.active-room {
-    background: $color-gray-700;
-}
-
-.room-name {
-    display: inline-block;
-    max-width: calc(100% - 30px);
-    word-break: break-word;
-}
-
 .btn-success {
     background-color: $color-green-700 !important;
     border-color: $color-green-700 !important;
