@@ -27,13 +27,10 @@
     position: relative;
 }
 
-.searchbox {
+.searchbox-container {
     position: absolute !important;
     top: 0;
     right: 0;
     width: calc(100% - 4em) !important;
     margin: 0.5rem;
-    background-color: $color-gray-400 !important;
-    color: $color-gray-900 !important;
-    border: 1px solid $color-gray-400 !important;
 }

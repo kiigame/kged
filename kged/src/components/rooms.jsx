@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { setActiveRoom, addRoom, deleteRoom } from 'actions/rooms'
 import CreateContainer from './create_container'
 import 'styles/rooms.scss'
+import DropdownSelect from './dropdown-select'
 
 export class Rooms extends React.Component {
 
@@ -24,7 +25,10 @@ export class Rooms extends React.Component {
                         namePlaceholder={'Syötä huoneen nimi'}
                         submitLabel={'Lisää huone'}
                     />
-                    <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" />
+                    <div className="searchbox-container">
+                        <DropdownSelect content={this.props.rooms}/>
+                    </div>
+                    {/* <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" /> */}
                 </div>
                 <div className="room-list-container">
                     {this.props.rooms.map((room) => {
