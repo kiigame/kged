@@ -57,11 +57,12 @@ export class Inspector extends React.Component {
             if (activeView === 'room' && activeEntity.children) {
                 const bg = activeEntity.children.find(c => c.attrs && c.attrs.category === 'room_background')
                 if (bg) {
-                    return bg.attrs.url
+                    return bg.attrs
                 }
             } else if (activeView === 'furniture') {
-                return activeEntity.attrs.url;
+                return activeEntity.attrs
             }
+
         }
     }
 
@@ -96,13 +97,12 @@ export class Inspector extends React.Component {
                 {this.getActiveView() === 'room' &&
                     <div className="ins-props">
                         <div className="input-group">
-
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
                                     {bg
                                         ?
-                                        ( <img alt="" src={bg}/>)
+                                        ( <img alt="" src={bg.src} height={bg.height} width={bg.width}/>)
                                         :
                                         ( <span>Lisää kuva klikkaamalla</span> )
                                     }
@@ -163,7 +163,7 @@ export class Inspector extends React.Component {
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
                                     {bg
                                         ?
-                                        ( <img alt="" src={bg}/>)
+                                        ( <img alt="" src={bg.src} height={bg.height} width={bg.width}/>)
                                         :
                                         ( <span>Lisää kuva klikkaamalla</span> )
                                     }
@@ -194,11 +194,31 @@ export class Inspector extends React.Component {
                             render={(formProps) => (
                             <form onSubmit={formProps.handleSubmit}>
                                 <div className="form-group">
-                                    <label>Nimi</label>
+                                    <label className="change-color-onhover" title="Syötä nimi esineelle">Nimi</label>
                                     <Field className="form-control" type="name" name="name" />
                                     <ErrorMessage component="div" className="error-message" name="name" />
                                 </div>
+                                <label className="change-color-onhover" title="Valitse mihin huoneeseen esine kuuluu">Esineen huone</label>
                                 <DropdownSelect content={this.props.rooms.rooms}/>
+                                <label className="change-color-onhover" title="Esineen sijainti huoneessa">Esineen sijainti</label>
+                                <div className="xy-container">
+                                    <div className="col-6 xy-col">
+                                        <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-981">
+                                            X-arvo
+                                        </label>
+                                        <Field className="form-control col-6 xy-input xy-col" type="x" name="x-value" />
+                                    </div>
+                                    <div className="col-6 my-2 xy-col">
+                                        <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-583">
+                                            Y-arvo
+                                        </label>
+                                        <Field className="form-control col-6 xy-input xy-col" type="y" name="y-value" />
+                                    </div>
+                                </div>
+                                <div className="form-check my-3">
+                                    <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+                                    <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä?" htmlFor="exampleCheck1">Näkyvissä</label>
+                                </div>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
                                         Tallenna

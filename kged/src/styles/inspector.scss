@@ -30,6 +30,8 @@
         img {
             max-height: 250px;
             max-width: 250px;
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 
@@ -54,4 +56,22 @@
 
 .item-edit-actions {
     text-align: right;
+}
+
+.xy-col {
+    padding: 5px 0px 0px 0px !important;
+}
+
+.xy-input {
+    float: right;
+}
+
+.xy-container {
+    margin-bottom: 1.5rem;
+}
+
+.change-color-onhover {
+    &:hover {
+        color: $color-gray-500;
+    }
 }

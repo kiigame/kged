@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { setActiveFurniture, addFurniture, deleteFurniture } from 'actions/furnitures';
 import CreateContainer from './create_container'
+import DropdownSelect from './dropdown-select'
 
 export class Furnitures extends React.Component {
 
@@ -17,12 +18,17 @@ export class Furnitures extends React.Component {
     render() {
         return (
             <div>
-                <CreateContainer
-                    initialState={{name: ''}}
-                    addItem={this.props.addFurniture}
-                    namePlaceholder={'Syötä esineen nimi'}
-                    submitLabel={'Lisää esine'}
-                />
+                <div className="action-header-container">
+                    <CreateContainer
+                        initialState={{name: ''}}
+                        addItem={this.props.addFurniture}
+                        namePlaceholder={'Syötä esineen nimi'}
+                        submitLabel={'Lisää esine'}
+                    />
+                    <div className="searchbox-container">
+                        <DropdownSelect content={this.props.furnitures}/>
+                    </div>
+                </div>
                 {this.props.furnitures.map((furniture) => {
                     return (
                         <div
