@@ -102,7 +102,7 @@ export class Inspector extends React.Component {
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
                                     {bg
                                         ?
-                                        ( <img alt="" src={bg.src} height={bg.height} width={bg.width}/>)
+                                        ( <img alt="" src={bg.url} height={bg.height} width={bg.width}/>)
                                         :
                                         ( <span>Lisää kuva klikkaamalla</span> )
                                     }
@@ -163,7 +163,7 @@ export class Inspector extends React.Component {
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
                                     {bg
                                         ?
-                                        ( <img alt="" src={bg.src} height={bg.height} width={bg.width}/>)
+                                        ( <img alt="" src={bg.url} height={bg.height} width={bg.width}/>)
                                         :
                                         ( <span>Lisää kuva klikkaamalla</span> )
                                     }
