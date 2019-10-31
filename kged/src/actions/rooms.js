@@ -3,6 +3,12 @@ import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entit
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
+import fp from 'lodash/fp'
+
+export const getRooms = (state) => {
+    var sortedRooms = fp.sortBy('attrs.id')(state.rooms.rooms)
+    return sortedRooms
+}
 
 export const loadRooms = () => {
     return (dispatch, getState) => {
