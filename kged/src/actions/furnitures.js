@@ -1,5 +1,5 @@
 import { fetchFurnitures } from 'api'
-import { setActiveEntity, updateActiveEntity } from './entity'
+import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
@@ -52,12 +52,17 @@ export const updateFurnitureId = (oldId, newId) => {
     }
 }
 
-export const deleteFurniture = (furniture) => ({
-    type: 'DELETE_FURNITURE',
-    payload: {
-        furniture: furniture
+export const deleteFurniture = (furniture) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'DELETE_FURNITURE',
+            payload: {
+                furniture: furniture
+            }
+        })
+        dispatch(removeActiveEntity())
     }
-})
+}
 
 export const setActiveFurniture = (furniture) => {
     return (dispatch) => {
