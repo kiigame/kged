@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Select from 'react-select'
 
-import { setActiveFurniture, addFurniture, deleteFurniture } from 'actions/furnitures'
+import { setActiveFurniture, addFurniture, deleteFurniture, getFurnitures } from 'actions/furnitures'
 import CreateContainer from './create_container'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
 
@@ -60,7 +60,7 @@ export class Furnitures extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    furnitures: state.furnitures.furnitures,
+    furnitures: getFurnitures(state),
     activeFurniture: state.furnitures.activeFurniture
 })
 
