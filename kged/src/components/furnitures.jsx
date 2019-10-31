@@ -41,7 +41,10 @@ export class Furnitures extends React.Component {
                                     {furniture.attrs.id}
                                 </span>
                                 {this.isActiveFurniture(furniture) &&
-                                    <span className="trash" onClick={() => this.props.removeFurniture(furniture)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                                    <span className="trash" onClick={(e) => {
+                                        this.props.removeFurniture(furniture)
+                                        e.stopPropagation()
+                                    }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                                 }
                             </div>
                         )

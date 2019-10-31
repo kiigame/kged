@@ -42,7 +42,10 @@ export class Rooms extends React.Component {
                                     {room.attrs.id}
                                 </span>
                                 {this.isActiveRoom(room) &&
-                                    <span className="trash" onClick={() => this.props.removeRoom(room)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                                    <span className="trash" onClick={(e) => {
+                                        this.props.removeRoom(room)
+                                        e.stopPropagation()
+                                    }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                                 }
                             </div>
                         )

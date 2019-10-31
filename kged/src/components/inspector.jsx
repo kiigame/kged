@@ -87,7 +87,6 @@ export class Inspector extends React.Component {
 
     render() {
         let bg = this.getBackground()
-        console.log('entity',this.props.entity)
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
