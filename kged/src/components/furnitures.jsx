@@ -1,10 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react'
+import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Select from 'react-select'
 
-import { setActiveFurniture, addFurniture, deleteFurniture } from 'actions/furnitures';
+import { setActiveFurniture, addFurniture, deleteFurniture } from 'actions/furnitures'
 import CreateContainer from './create_container'
-import DropdownSelect from './dropdown-select'
+import { defaultSelectStyles } from 'utils/styleObjects.js'
 
 export class Furnitures extends React.Component {
 
@@ -26,7 +27,10 @@ export class Furnitures extends React.Component {
                         submitLabel={'Lisää huonekalu'}
                     />
                     <div className="searchbox-container">
-                        <DropdownSelect content={this.props.furnitures} placeholder="Etsi huonekalua..."/>
+                        <Select styles={defaultSelectStyles}
+                                getOptionLabel={(option)=>option.attrs.id}
+                                options={this.props.furnitures}
+                                placeholder="Etsi huonekalua..."/>
                     </div>
                 </div>
                 <div className="listitem-container">

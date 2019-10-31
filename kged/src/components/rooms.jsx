@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Select from 'react-select'
 
 import { setActiveRoom, addRoom, deleteRoom } from 'actions/rooms'
 import CreateContainer from './create_container'
 import 'styles/rooms.scss'
-import DropdownSelect from './dropdown-select'
+import { defaultSelectStyles } from 'utils/styleObjects.js'
 
 export class Rooms extends React.Component {
 
@@ -26,7 +27,10 @@ export class Rooms extends React.Component {
                         submitLabel={'Lisää huone'}
                     />
                     <div className="searchbox-container">
-                        <DropdownSelect content={this.props.rooms} placeholder="Etsi huonetta..."/>
+                        <Select styles={defaultSelectStyles}
+                                getOptionLabel={(option)=>option.attrs.id}
+                                options={this.props.rooms}
+                                placeholder="Etsi huonetta..."/>
                     </div>
                     {/* <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" /> */}
                 </div>

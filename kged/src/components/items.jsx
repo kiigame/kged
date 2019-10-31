@@ -1,10 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react'
+import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Select from 'react-select'
 
-import { setActiveItem, addItem, deleteItem } from 'actions/items';
+import { setActiveItem, addItem, deleteItem } from 'actions/items'
 import CreateContainer from './create_container'
-import DropdownSelect from './dropdown-select'
+import { defaultSelectStyles } from 'utils/styleObjects.js'
 
 export class Items extends React.Component {
 
@@ -26,7 +27,10 @@ export class Items extends React.Component {
                         submitLabel={'Lisää esine'}
                     />
                     <div className="searchbox-container">
-                        <DropdownSelect content={this.props.items} placeholder="Etsi esinettä..."/>
+                        <Select styles={defaultSelectStyles}
+                                getOptionLabel={(option)=>option.attrs.id}
+                                options={this.props.items}
+                                placeholder="Etsi esinettä..."/>
                     </div>
                 </div>
                 <div className="listitem-container">

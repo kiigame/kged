@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Button from 'react-bootstrap/Button'
 import { Formik, Field, ErrorMessage } from 'formik'
+import Select from 'react-select'
 
-import { setRoomBackgroundImage, updateRoomId } from 'actions/rooms';
-import { setFurnitureImage, updateFurnitureId } from 'actions/furnitures';
-import { setItemImage, updateItemId } from 'actions/items';
+import { setRoomBackgroundImage, updateRoomId } from 'actions/rooms'
+import { setFurnitureImage, updateFurnitureId } from 'actions/furnitures'
+import { setItemImage, updateItemId } from 'actions/items'
 import FileDialog from './file_dialog'
-import 'styles/inspector.scss';
-import DropdownSelect from './dropdown-select';
+import 'styles/inspector.scss'
+import { defaultSelectStyles } from 'utils/styleObjects.js'
 
 // TODO: clean up and remove extra getters, replace with proper data helpers
 
@@ -178,7 +179,7 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={{ name: this.getActiveEntityId() }}
+                            initialValues={{ name: this.getActiveEntityId(), selectedFurniture: null }}
                             validate={values => {
                                 let errors = {}
                                 if (!values.name) {
@@ -204,7 +205,12 @@ export class Inspector extends React.Component {
                                     <ErrorMessage component="div" className="error-message" name="name" />
                                 </div>
                                 <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
-                                <DropdownSelect content={this.props.rooms.rooms} placeholder="Etsi huonetta..."/>
+                                <Select styles={defaultSelectStyles}
+                                        value={formProps.selectedFurniture}
+                                        getOptionLabel={(option)=>option.attrs.id}
+                                        options={this.props.rooms.rooms}
+                                        onChange={e => formProps.setFieldValue('selectedFurniture', e)}
+                                        placeholder="Etsi huonetta..."/>
                                 <label className="change-color-onhover" title="Huonekalun sijainti huoneessa">Huonekalun sijainti</label>
                                 <div className="xy-container">
                                     <div className="col-6 xy-col">
@@ -256,7 +262,7 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={{ name: this.getActiveEntityId() }}
+                            initialValues={{ name: this.getActiveEntityId(), selectedItem: null }}
                             validate={values => {
                                 let errors = {}
                                 if (!values.name) {
@@ -282,7 +288,12 @@ export class Inspector extends React.Component {
                                     <ErrorMessage component="div" className="error-message" name="name" />
                                 </div>
                                 <label className="change-color-onhover" title="Valitse mihin huoneeseen esine kuuluu">Esineen huone</label>
-                                <DropdownSelect content={this.props.rooms.rooms} placeholder="Etsi huonetta..."/>
+                                <Select styles={defaultSelectStyles}
+                                        value={formProps.selectedItem}
+                                        getOptionLabel={(option)=>option.attrs.id}
+                                        options={this.props.rooms.rooms}
+                                        onChange={e => formProps.setFieldValue('selectedItem', e)}
+                                        placeholder="Etsi huonetta..."/>
                                 <label className="change-color-onhover" title="Esineen sijainti huoneessa">Esineen sijainti</label>
                                 <div className="xy-container">
                                     <div className="col-6 xy-col">
