@@ -1,13 +1,12 @@
+import sortBy from 'lodash/fp/sortBy'
+
 import { fetchItems } from 'api'
 import { setActiveEntity, updateActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
-import fp from 'lodash/fp'
-
 export const getItems = (state) => {
-    var sortedItems = fp.sortBy('attrs.id')(state.items.items)
-    return sortedItems
+    return sortBy('attrs.id')(state.items.items)
 }
 
 export const loadItems = () => {

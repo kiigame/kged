@@ -1,14 +1,18 @@
+import sortBy from 'lodash/fp/sortBy'
+
 import { fetchFurnitures } from 'api'
 import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
-import fp from 'lodash/fp'
+// selectors
 
 export const getFurnitures = (state) => {
-    var sortedFurnitures = fp.sortBy('attrs.id')(state.furnitures.furnitures)
-    return sortedFurnitures
+    return sortBy('attrs.id')(state.furnitures.furnitures)
 }
+
+
+// actions
 
 export const loadFurnitures = () => {
     return (dispatch, getState) => {
