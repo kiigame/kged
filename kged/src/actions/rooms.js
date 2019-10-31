@@ -1,14 +1,18 @@
+import sortBy from 'lodash/fp/sortBy'
+
 import { fetchRooms, exportRooms } from 'api'
 import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
-import fp from 'lodash/fp'
+// selectors
 
 export const getRooms = (state) => {
-    var sortedRooms = fp.sortBy('attrs.id')(state.rooms.rooms)
-    return sortedRooms
+    return sortBy('attrs.id')(state.rooms.rooms)
 }
+
+
+// actions
 
 export const loadRooms = () => {
     return (dispatch, getState) => {
