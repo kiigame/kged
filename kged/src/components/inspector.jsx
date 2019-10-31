@@ -6,7 +6,7 @@ import Select from 'react-select'
 
 import { setRoomBackgroundImage, updateRoomId } from 'actions/rooms'
 import { setFurnitureImage, updateFurnitureId } from 'actions/furnitures'
-import { setItemImage, updateItemId } from 'actions/items'
+import { setItemImage, updateItem } from 'actions/items'
 import FileDialog from './file_dialog'
 import 'styles/inspector.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
@@ -179,7 +179,7 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={{ name: this.getActiveEntityId(), selectedFurniture: null }}
+                            initialValues={{ name: this.getActiveEntityId(), selectedFurniture: null, xValueFurniture: '', yValueFurniture: '' }}
                             validate={values => {
                                 let errors = {}
                                 if (!values.name) {
@@ -217,13 +217,13 @@ export class Inspector extends React.Component {
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-981">
                                             X-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" type="x" name="x-value" />
+                                        <Field className="form-control col-6 xy-input xy-col" type="number" name="xValueFurniture" />
                                     </div>
                                     <div className="col-6 my-2 xy-col">
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-583">
                                             Y-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" type="y" name="y-value" />
+                                        <Field className="form-control col-6 xy-input xy-col" type="number" name="yValueFurniture" />
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
@@ -262,7 +262,7 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={{ name: this.getActiveEntityId(), selectedItem: null }}
+                            initialValues={{ name: this.getActiveEntityId(), selectedItem: null, yValueItem: '', xValueItem: '' }}
                             validate={values => {
                                 let errors = {}
                                 if (!values.name) {
@@ -275,7 +275,7 @@ export class Inspector extends React.Component {
                             }}
                             onSubmit={(values, actions) => {
                                 try {
-                                    this.props.updateItemId(this.getActiveEntityId(), values.name)
+                                    this.props.updateItem(this.getActiveEntityId(), values.name)
                                 } catch (e) {
                                     actions.setFieldError('name', e.message)
                                 }
@@ -300,13 +300,13 @@ export class Inspector extends React.Component {
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-981">
                                             X-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" type="x" name="x-value" />
+                                        <Field className="form-control col-6 xy-input xy-col" type="number" name="xValueItem" />
                                     </div>
                                     <div className="col-6 my-2 xy-col">
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-583">
                                             Y-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" type="y" name="y-value" />
+                                        <Field className="form-control col-6 xy-input xy-col" type="number" name="yValueItem" />
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
@@ -341,7 +341,7 @@ const mapDispatchToProps = dispatch => ({
     setItemImage: (id, path, objUrl) => dispatch(setItemImage(id, path, objUrl)),
     updateRoomId: (oldId, newId) => dispatch(updateRoomId(oldId, newId)),
     updateFurnitureId: (oldId, newId) => dispatch(updateFurnitureId(oldId, newId)),
-    updateItemId: (oldId, newId) => dispatch(updateItemId(oldId, newId)),
+    updateItem: (oldId, newId) => dispatch(updateItem(oldId, newId)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Inspector);

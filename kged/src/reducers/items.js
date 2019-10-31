@@ -25,7 +25,7 @@ function items(state = initialState, action) {
                 ]
             }
 
-        case 'UPDATE_ITEM_ID':
+        case 'UPDATE_ITEM':
             return {
                 ...state,
                 items: state.items.map(item =>
