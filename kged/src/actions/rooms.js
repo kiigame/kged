@@ -1,5 +1,5 @@
 import { fetchRooms, exportRooms } from 'api'
-import { setActiveEntity, updateActiveEntity } from './entity'
+import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
@@ -60,12 +60,17 @@ export const updateRoomId = (oldId, newId) => {
     }
 }
 
-export const deleteRoom = (room) => ({
-    type: 'DELETE_ROOM',
-    payload: {
-        room: room
+export const deleteRoom = (room) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'DELETE_ROOM',
+            payload: {
+                room: room
+            }
+        })
+        dispatch(removeActiveEntity())
     }
-})
+}
 
 export const setActiveRoom = (room) => {
     return (dispatch) => {

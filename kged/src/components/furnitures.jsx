@@ -22,8 +22,8 @@ export class Furnitures extends React.Component {
                     <CreateContainer
                         initialState={{name: ''}}
                         addItem={this.props.addFurniture}
-                        namePlaceholder={'Syötä esineen nimi'}
-                        submitLabel={'Lisää esine'}
+                        namePlaceholder={'Syötä huonekalun nimi'}
+                        submitLabel={'Lisää huonekalu'}
                     />
                     <div className="searchbox-container">
                         <DropdownSelect content={this.props.furnitures}/>

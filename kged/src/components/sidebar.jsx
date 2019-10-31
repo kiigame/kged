@@ -3,6 +3,7 @@ import 'styles/sidebar.scss';
 
 import Tabs from './tabs'
 import Rooms from './rooms'
+import Items from './items'
 import Furnitures from './furnitures'
 
 export class Sidebar extends React.Component {
@@ -14,6 +15,9 @@ export class Sidebar extends React.Component {
                         <Rooms/>
                     </div>
                     <div label="Esineet">
+                        <Items/>
+                    </div>
+                    <div label="Huonekalut">
                         <Furnitures/>
                     </div>
                     <div label="Interaktiot">

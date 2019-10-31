@@ -29,6 +29,12 @@ function entity(state = initialState, action, globalState = {}) {
             } else {
                 return state;
             }
+        case 'REMOVE_ACTIVE_ENTITY':
+            console.log('remove')
+            return {
+                ...state,
+                activeEntity: undefined
+            }
 
         default:
             return state

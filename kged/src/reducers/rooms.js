@@ -26,7 +26,7 @@ function rooms(state = initialState, action) {
                                 width: 981,
                                 height: 543,
                                 id: 'room_placeholder',
-                                src: 'assets/placeholders/room.jpg',
+                                url: 'assets/placeholders/room.jpg',
                                 visible: true
                             }}
                         ],

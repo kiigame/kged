@@ -14,3 +14,7 @@ export const updateActiveEntity = ({category, id}) => {
     }
 }
 
+export const removeActiveEntity = () => ({
+    type: 'REMOVE_ACTIVE_ENTITY'
+})
+

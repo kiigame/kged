@@ -87,6 +87,7 @@ export class Inspector extends React.Component {
 
     render() {
         let bg = this.getBackground()
+        console.log('entity',this.props.entity)
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
@@ -194,13 +195,13 @@ export class Inspector extends React.Component {
                             render={(formProps) => (
                             <form onSubmit={formProps.handleSubmit}>
                                 <div className="form-group">
-                                    <label className="change-color-onhover" title="Syötä nimi esineelle">Nimi</label>
+                                    <label className="change-color-onhover" title="Syötä nimi huonekalulle">Nimi</label>
                                     <Field className="form-control" type="name" name="name" />
                                     <ErrorMessage component="div" className="error-message" name="name" />
                                 </div>
-                                <label className="change-color-onhover" title="Valitse mihin huoneeseen esine kuuluu">Esineen huone</label>
+                                <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
                                 <DropdownSelect content={this.props.rooms.rooms}/>
-                                <label className="change-color-onhover" title="Esineen sijainti huoneessa">Esineen sijainti</label>
+                                <label className="change-color-onhover" title="Huonekalun sijainti huoneessa">Huonekalun sijainti</label>
                                 <div className="xy-container">
                                     <div className="col-6 xy-col">
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-981">
@@ -217,7 +218,7 @@ export class Inspector extends React.Component {
                                 </div>
                                 <div className="form-check my-3">
                                     <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä?" htmlFor="exampleCheck1">Näkyvissä</label>
+                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä?" htmlFor="exampleCheck1">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>

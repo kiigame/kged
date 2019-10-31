@@ -17,6 +17,11 @@ export function fetchFurnitures() {
     return furnitures
 }
 
+export function fetchItems() {
+    const items = require('data/items.json')
+    return items
+}
+
 export function exportRooms(rooms) {
     const roomObject = {rooms: rooms}
     console.log('EXPORT ROOMS', roomObject)
