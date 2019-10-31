@@ -26,7 +26,7 @@ export class Items extends React.Component {
                         submitLabel={'Lisää esine'}
                     />
                     <div className="searchbox-container">
-                        <DropdownSelect content={this.props.items}/>
+                        <DropdownSelect content={this.props.items} placeholder="Etsi esinettä..."/>
                     </div>
                 </div>
                 <div className="listitem-container">

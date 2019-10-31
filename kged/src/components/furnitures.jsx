@@ -26,7 +26,7 @@ export class Furnitures extends React.Component {
                         submitLabel={'Lisää huonekalu'}
                     />
                     <div className="searchbox-container">
-                        <DropdownSelect content={this.props.furnitures}/>
+                        <DropdownSelect content={this.props.furnitures} placeholder="Etsi huonekalua..."/>
                     </div>
                 </div>
                 <div className="listitem-container">

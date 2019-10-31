@@ -45,7 +45,7 @@ export class DropdownSelect extends React.Component {
                 onChange={this.handleChange}
                 options={this.props.content}
                 getOptionLabel={(option)=>option.attrs.id}
-                placeholder="Etsi huonetta..."
+                placeholder={this.props.placeholder}
             />
         );
     }

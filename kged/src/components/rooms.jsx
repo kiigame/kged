@@ -26,7 +26,7 @@ export class Rooms extends React.Component {
                         submitLabel={'Lisää huone'}
                     />
                     <div className="searchbox-container">
-                        <DropdownSelect content={this.props.rooms}/>
+                        <DropdownSelect content={this.props.rooms} placeholder="Etsi huonetta..."/>
                     </div>
                     {/* <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" /> */}
                 </div>

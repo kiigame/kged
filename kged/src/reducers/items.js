@@ -17,19 +17,10 @@ function items(state = initialState, action) {
                         attrs: {
                             id: action.payload.item.name,
                             category: 'item',
+                            url: 'assets/placeholders/item.jpg',
                             visible: false
                         },
-                        children: [
-                            {attrs: {
-                                category: 'item_background',
-                                width: 981,
-                                height: 543,
-                                id: 'item_placeholder',
-                                src: 'assets/placeholders/item.jpg',
-                                visible: true
-                            }}
-                        ],
-                        className: 'Layer'
+                        className: 'Image'
                     }
                 ]
             }
@@ -51,17 +42,15 @@ function items(state = initialState, action) {
             const objUrl = action.payload.objectUrl
 
             const newBg = {
-                category: 'item_background',
-                width: 981,
-                height: 543,
+                category: 'item',
                 id: src,
                 src: `images/${src}`,
-                visible: true,
+                visible: false,
                 url: objUrl
             }
             const hasBg = item => (
-                item.children && item.children.some(c =>
-                    c.attrs && c.attrs.category === 'item_background'
+                item && item.some(c =>
+                    c.attrs && c.attrs.category === 'item'
                 )
             )
 
