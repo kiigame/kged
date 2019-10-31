@@ -30,45 +30,21 @@ function items(state = initialState, action) {
                 ...state,
                 items: state.items.map(item =>
                     item.attrs.id === action.payload.oldId
-                    ? { ...item, attrs: { ...item.attrs, id: action.payload.newId }
-                    }
+                    ? { ...item, attrs: { ...item.attrs, id: action.payload.newId } }
                     : item
                 )
             }
 
-        case 'SET_ITEM_BACKGROUND_IMAGE':
+        case 'SET_ITEM_IMAGE':
             const id = action.payload.itemId
-            const src = action.payload.filePath
+            const filePath = action.payload.filePath
             const objUrl = action.payload.objectUrl
 
-            const newBg = {
-                category: 'item',
-                id: src,
-                src: `images/${src}`,
-                visible: false,
-                url: objUrl
-            }
-            const hasBg = item => (
-                item && item.some(c =>
-                    c.attrs && c.attrs.category === 'item'
-                )
-            )
-
-            // TODO: refactor this to use helper functions (for clarity)
             return {
                 ...state,
                 items: state.items.map(item =>
                     item.attrs.id === id
-                    ? { ...item, children: hasBg(item)
-                        // patch item_background attrs if it already exists
-                        ? item.children.map(c =>
-                            c.attrs.category === 'item_background'
-                            ? { ...c, attrs: newBg}
-                            : c
-                        )
-                        // otherwise create a new object under children
-                        : [...(item.children || []), { attrs: newBg, className: 'Image' }]
-                    }
+                    ? { ...item, attrs: { ...item.attrs, src: 'images/' + filePath, url: objUrl } }
                     : item
                 )
             }
