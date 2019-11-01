@@ -11,14 +11,29 @@ describe('room creation', function() {
         cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
         cy.get("[type='name']").type('huone123')
         cy.get("[type='submit']").click()
+        cy.get('div').contains('huone123')
     })
     it('cancels the room creation', () => {
         cy.visit('https://kged-dev.netlify.com/')
         cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
         cy.get("[type='button']").contains('Peruuta').click()
     })
+    it('deletes a room', () => {
+        cy.visit('https://kged-dev.netlify.com/')
+        cy.get('div').should('have.class', 'listitem').contains('object_layer_wc_2').click()
+        cy.get('span').should('have.class', 'trash').click()
+        expect('div').contains('object_layer_wc_1').not.to.exist()
+    })
 })
 // TODO: INTERAKTIOT, INSPEKTORI, KUMOA, TOISTA, TALLENNA, TUO, VIE
+describe('switching the active room/item', function(){
+    it('switches the active room', () => {
+        cy.visit('https://kged-dev.netlify.com/')
+        cy.get('div').should('have.class', 'listitem').contains('object_layer_wc_2').click()
+        cy.get('div').should('have.class', 'listitem active-listitem').contains('object_layer_wc_2')
+    })
+})
+
 
 describe('item creation', function() {
     it('creates an item', () => {
@@ -26,7 +41,8 @@ describe('item creation', function() {
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Esineet').click()
         cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
         cy.get("[type='name']").type('esine123')
-        cy.get("[type='submit']").click()        
+        cy.get("[type='submit']").click()
+        cy.get('div').contains('esine123')        
     })
 
 })
