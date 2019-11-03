@@ -1,7 +1,7 @@
 import sortBy from 'lodash/fp/sortBy'
 
 import { fetchItems } from 'api'
-import { setActiveEntity, updateActiveEntity } from './entity'
+import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
@@ -61,12 +61,17 @@ export const updateItem = (oldId, newData) => {
     }
 }
 
-export const deleteItem = (item) => ({
-    type: 'DELETE_ITEM',
-    payload: {
-        item: item
+export const deleteItem = (item) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'DELETE_ITEM',
+            payload: {
+                item: item
+            }
+        })
+        dispatch(removeActiveEntity())
     }
-})
+}
 
 export const setActiveItem = (item) => {
     return (dispatch) => {

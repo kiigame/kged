@@ -50,7 +50,10 @@ export class Items extends React.Component {
                                     {item.attrs.id}
                                 </span>
                                 {this.isActiveItem(item) &&
-                                    <span className="trash" onClick={() => this.props.removeItem(item)}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                                    <span className="trash" onClick={(e) => {
+                                        this.props.removeItem(item)
+                                        e.stopPropagation()
+                                    }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                                 }
                             </div>
                         )
