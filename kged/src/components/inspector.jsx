@@ -5,7 +5,7 @@ import { Formik, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
 
 import { setRoomBackgroundImage, updateRoomId, getRooms } from 'actions/rooms'
-import { setFurnitureImage, updateFurnitureId, getFurnitures } from 'actions/furnitures'
+import { setFurnitureImage, updateFurniture, getFurnitures } from 'actions/furnitures'
 import { setItemImage, updateItem, getItems } from 'actions/items'
 import FileDialog from './file_dialog'
 import 'styles/inspector.scss'
@@ -192,7 +192,7 @@ export class Inspector extends React.Component {
                             }}
                             onSubmit={(values, actions) => {
                                 try {
-                                    this.props.updateFurnitureId(this.getActiveEntityId(), values.name)
+                                    this.props.updateFurniture(this.getActiveEntityId(), values)
                                 } catch (e) {
                                     actions.setFieldError('name', e.message)
                                 }
@@ -217,13 +217,13 @@ export class Inspector extends React.Component {
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-981">
                                             X-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" type="number" name="xValue" />
+                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="xValue" />
                                     </div>
                                     <div className="col-6 my-2 xy-col">
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-583">
                                             Y-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" type="number" name="yValue" />
+                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="yValue" />
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
@@ -300,13 +300,13 @@ export class Inspector extends React.Component {
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-981">
                                             X-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" type="number" name="xValue" />
+                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="xValue" />
                                     </div>
                                     <div className="col-6 my-2 xy-col">
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-583">
                                             Y-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" type="number" name="yValue" />
+                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="yValue" />
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
@@ -341,7 +341,7 @@ const mapDispatchToProps = dispatch => ({
     setFurnitureImage: (id, path, objUrl) => dispatch(setFurnitureImage(id, path, objUrl)),
     setItemImage: (id, path, objUrl) => dispatch(setItemImage(id, path, objUrl)),
     updateRoomId: (oldId, newId) => dispatch(updateRoomId(oldId, newId)),
-    updateFurnitureId: (oldId, newId) => dispatch(updateFurnitureId(oldId, newId)),
+    updateFurniture: (oldId, newId) => dispatch(updateFurniture(oldId, newId)),
     updateItem: (oldId, newId) => dispatch(updateItem(oldId, newId)),
 })
 

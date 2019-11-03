@@ -47,19 +47,22 @@ export const addFurniture = (furniture) => ({
     }
 })
 
-export const updateFurnitureId = (oldId, newId) => {
+export const updateFurniture = (oldId, newData) => {
     return (dispatch, getState) => {
-        if (oldId !== newId && isExistingEntity(getState(), newId)) {
+        if (oldId !== newData && isExistingEntity(getState(), newData.name)) {
             throw new DuplicateEntityError('Nimi on jo käytössä')
         }
         dispatch({
-            type: 'UPDATE_FURNITURE_ID',
+            type: 'UPDATE_FURNITURE',
             payload: {
                 oldId: oldId,
-                newId: newId
+                newId: newData.name,
+                containerRoom: newData.selectedFurniture.attrs.id,
+                xValue: newData.xValue,
+                yValue: newData.yValue
             }
         })
-        dispatch(updateActiveFurniture(newId))
+        dispatch(updateActiveFurniture(newData.name))
     }
 }
 

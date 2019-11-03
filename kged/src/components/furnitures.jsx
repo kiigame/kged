@@ -17,7 +17,6 @@ export class Furnitures extends React.Component {
     }
 
     render() {
-        console.log('furnitures',this.props.furnitures)
         return (
             <div>
                 <div className="action-header-container">
