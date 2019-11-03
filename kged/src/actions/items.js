@@ -42,19 +42,22 @@ export const addItem = (item) => ({
     }
 })
 
-export const updateItem = (oldId, newId) => {
+export const updateItem = (oldId, newData) => {
     return (dispatch, getState) => {
-        if (oldId !== newId && isExistingEntity(getState(), newId)) {
+        if (oldId !== newData.name && isExistingEntity(getState(), newData.name)) {
             throw new DuplicateEntityError('Nimi on jo käytössä')
         }
         dispatch({
             type: 'UPDATE_ITEM',
             payload: {
                 oldId: oldId,
-                newId: newId
+                newId: newData.name,
+                containerRoom: newData.selectedItem.attrs.id,
+                xValue: newData.xValue,
+                yValue: newData.yValue
             }
         })
-        dispatch(updateActiveItem(newId))
+        dispatch(updateActiveItem(newData.name))
     }
 }
 

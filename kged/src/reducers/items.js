@@ -30,7 +30,13 @@ function items(state = initialState, action) {
                 ...state,
                 items: state.items.map(item =>
                     item.attrs.id === action.payload.oldId
-                    ? { ...item, attrs: { ...item.attrs, id: action.payload.newId } }
+                    ? { ...item, attrs: {
+                        ...item.attrs,
+                        id: action.payload.newId,
+                        containerRoom: action.payload.containerRoom,
+                        xValue: action.payload.xValue,
+                        yValue: action.payload.yValue }
+                    }
                     : item
                 )
             }

@@ -34,6 +34,11 @@ export class Items extends React.Component {
                     </div>
                 </div>
                 <div className="listitem-container">
+                    {this.props.items.length === 0 &&
+                        <div className="empty-list-text">
+                            Ei esineitä! Luo uusi esine tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
+                        </div>
+                    }
                     {this.props.items.map((item) => {
                         return (
                             <div

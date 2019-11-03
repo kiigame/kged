@@ -17,6 +17,7 @@ export class Furnitures extends React.Component {
     }
 
     render() {
+        console.log('furnitures',this.props.furnitures)
         return (
             <div>
                 <div className="action-header-container">
@@ -34,6 +35,11 @@ export class Furnitures extends React.Component {
                     </div>
                 </div>
                 <div className="listitem-container">
+                    {this.props.furnitures.length === 0 &&
+                        <div className="empty-list-text">
+                            Ei huonekaluja! Luo uusi huonekalu tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
+                        </div>
+                    }
                     {this.props.furnitures.map((furniture) => {
                         return (
                             <div

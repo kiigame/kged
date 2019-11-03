@@ -1,6 +1,6 @@
 import sortBy from 'lodash/fp/sortBy'
 
-import { fetchRooms, exportRooms } from 'api'
+import { fetchRooms, exportData } from 'api'
 import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
@@ -107,7 +107,7 @@ export const updateActiveRoom = (id = null) => {
 export const saveRooms = () => {
     return (dispatch, getState) => {
         const state = getState()
-        exportRooms(state.rooms.rooms)
+        exportData(state.rooms.rooms, state.furnitures.furnitures, state.items.items)
         dispatch({
             type: 'EXPORT_ROOMS',
             payload: {}

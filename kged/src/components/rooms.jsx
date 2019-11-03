@@ -35,6 +35,11 @@ export class Rooms extends React.Component {
                     {/* <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" /> */}
                 </div>
                 <div className="listitem-container">
+                    {this.props.rooms.length === 0 &&
+                        <div className="empty-list-text">
+                            Ei huoneita! Luo uusi huone tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
+                        </div>
+                    }
                     {this.props.rooms.map((room) => {
                         return (
                             <div
