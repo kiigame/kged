@@ -136,8 +136,11 @@ export class Inspector extends React.Component {
                                     <ErrorMessage component="div" className="error-message" name="attrs.id" />
                                 </div>
                                 <div className="form-check my-3">
-                                    <Field type="checkbox" className="form-check-input" id="startRoom"/>
-                                    <label className="form-check-label" htmlFor="startRoom">Aloitushuone</label>
+                                    <Field key={`${formProps.values.attrs.id}-start`} type="checkbox" id="startRoom" className="form-check-input"
+                                           checked={formProps.values.attrs.start} name="attrs.start"/>
+                                    <label className="form-check-label"
+                                           title="Valitse aloitetaanko peli tästä huoneesta"
+                                           htmlFor="startRoom">Aloitushuone</label>
                                 </div>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
@@ -152,10 +155,10 @@ export class Inspector extends React.Component {
                         />
                     </div>
                 }
+
                 {this.getActiveView() === 'furniture' &&
                     <div className="ins-props">
                         <div className="input-group">
-
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
@@ -223,7 +226,7 @@ export class Inspector extends React.Component {
                                 <div className="form-check my-3">
                                     <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibleCheck" className="form-check-input"
                                            checked={formProps.values.attrs.visible} name="attrs.visible"/>
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä?" htmlFor="visibleCheck">Näkyvissä</label>
+                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="visibleCheck">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
@@ -238,10 +241,10 @@ export class Inspector extends React.Component {
                         />
                     </div>
                 }
+
                 {this.getActiveView() === 'item' &&
                     <div className="ins-props">
                         <div className="input-group">
-
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
@@ -285,7 +288,7 @@ export class Inspector extends React.Component {
                                 <div className="form-check my-3">
                                     <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibleCheck" className="form-check-input"
                                            checked={formProps.values.attrs.visible} name="attrs.visible"/>
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä?" htmlFor="visibleCheck">Näkyvissä</label>
+                                    <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä" htmlFor="visibleCheck">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
