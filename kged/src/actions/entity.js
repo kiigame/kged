@@ -1,18 +1,18 @@
-export const setActiveEntity = (entity) => ({
+export const getActiveEntity = (state) => {
+    let activeEntityId = state.entity.activeEntity
+    return [
+        ...state.rooms.rooms,
+        ...state.furnitures.furnitures,
+        ...state.items.items
+    ].find(e => e.attrs.id === activeEntityId)
+}
+
+export const setActiveEntity = (id) => ({
     type: 'SET_ACTIVE_ENTITY',
     payload: {
-        entity: entity
+        id: id
     }
 })
-
-export const updateActiveEntity = ({category, id}) => {
-    return function(dispatch) {
-        dispatch({
-            type: 'UPDATE_ACTIVE_ENTITY',
-            payload: {category: category, id: id}
-        })
-    }
-}
 
 export const removeActiveEntity = () => ({
     type: 'REMOVE_ACTIVE_ENTITY'

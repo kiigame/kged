@@ -5,6 +5,7 @@ import { Formik, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
 import set from 'lodash/fp/set'
 
+import { getActiveEntity } from 'actions/entity'
 import { setRoomBackgroundImage, updateRoom, getRooms } from 'actions/rooms'
 import { setFurnitureImage, updateFurniture, getFurnitures } from 'actions/furnitures'
 import { setItemImage, updateItem, getItems } from 'actions/items'
@@ -23,8 +24,8 @@ export class Inspector extends React.Component {
     }
 
     getActiveEntity() {
-        if (this.props.entity && this.props.entity.activeEntity) {
-            return this.props.entity.activeEntity;
+        if (this.props.activeEntity) {
+            return this.props.activeEntity;
         }
     }
 
@@ -73,11 +74,11 @@ export class Inspector extends React.Component {
         filePath = filePath.replace("C:\\fakepath\\","")
         const file = e.target.files[0]
         const objectUrl = window.URL.createObjectURL(file)
-        if (this.props.entity.activeEntity.attrs.category === 'room') {
+        if (this.props.activeEntity.attrs.category === 'room') {
             this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath, objectUrl)
-        } else if (this.props.entity.activeEntity.attrs.category === 'furniture') {
+        } else if (this.props.activeEntity.attrs.category === 'furniture') {
             this.props.setFurnitureImage(this.getActiveEntityId(), filePath, objectUrl)
-        } else if (this.props.entity.activeEntity.attrs.category === 'item') {
+        } else if (this.props.activeEntity.attrs.category === 'item') {
             this.props.setItemImage(this.getActiveEntityId(), filePath, objectUrl)
         }
     }
@@ -302,7 +303,7 @@ export class Inspector extends React.Component {
 const mapStateToProps = state => ({
     rooms: getRooms(state),
     furnitures: getFurnitures(state),
-    entity: state.entity,
+    activeEntity: getActiveEntity(state),
     items: getItems(state)
 })
 const mapDispatchToProps = dispatch => ({

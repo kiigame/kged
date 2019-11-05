@@ -70,9 +70,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    onClickItem: event => dispatch(setActiveItem(event)),
-    addItem: event => dispatch(addItem(event)),
-    removeItem: event => dispatch(deleteItem(event)),
+    onClickItem: item => dispatch(setActiveItem(item.attrs.id)),
+    addItem: item => dispatch(addItem(item)),
+    removeItem: item => dispatch(deleteItem(item)),
 })
 
 export default connect(
