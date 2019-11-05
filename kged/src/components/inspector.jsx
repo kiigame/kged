@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/Button'
 import { Formik, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
-import set from 'lodash/fp/set'
+import { set } from 'lodash/fp'
 
 import { getActiveEntity } from 'actions/entity'
 import { setRoomBackgroundImage, updateRoom, getRooms } from 'actions/rooms'

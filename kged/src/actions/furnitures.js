@@ -1,4 +1,4 @@
-import sortBy from 'lodash/fp/sortBy'
+import {sortBy } from 'lodash/fp'
 
 import { fetchFurnitures } from 'api'
 import { setActiveEntity, removeActiveEntity } from './entity'

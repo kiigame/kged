@@ -1,4 +1,4 @@
-import sortBy from 'lodash/fp/sortBy'
+import { sortBy } from 'lodash/fp'
 
 import { fetchInteractions } from 'api'
 import { setActiveEntity, removeActiveEntity } from './entity'
