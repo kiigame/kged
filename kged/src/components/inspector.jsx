@@ -16,20 +16,10 @@ import { defaultSelectStyles } from 'utils/styleObjects.js'
 export class Inspector extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            selectedOption: null
-        }
         this.onFileSelected = this.onFileSelected.bind(this);
         this.openFileDialog = this.openFileDialog.bind(this);
         this.fileDialogRef = React.createRef();
     }
-
-    handleChange = selectedOption => {
-        this.setState({
-            selectedOption
-            }, () => console.log(`Option selected:`, this.state.selectedOption)
-        );
-    };
 
     getActiveEntity() {
         if (this.props.entity && this.props.entity.activeEntity) {
