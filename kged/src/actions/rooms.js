@@ -107,7 +107,7 @@ export const updateActiveRoom = (id = null) => {
 export const saveRooms = () => {
     return (dispatch, getState) => {
         const state = getState()
-        exportData(state.rooms.rooms, state.furnitures.furnitures, state.items.items)
+        exportData(state.rooms.rooms, state.furnitures.furnitures, state.items.items, state.interactions.interactions)
         dispatch({
             type: 'EXPORT_ROOMS',
             payload: {}

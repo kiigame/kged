@@ -5,6 +5,7 @@ import Tabs from './tabs'
 import Rooms from './rooms'
 import Items from './items'
 import Furnitures from './furnitures'
+import Interactions from './interactions'
 
 export class Sidebar extends React.Component {
     render() {
@@ -21,7 +22,7 @@ export class Sidebar extends React.Component {
                         <Furnitures/>
                     </div>
                     <div label="Interaktiot">
-                        Interaktiot
+                        <Interactions/>
                     </div>
                 </Tabs>
             </div>

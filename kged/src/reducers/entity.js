@@ -34,7 +34,16 @@ function entity(state = initialState, action, globalState = {}) {
                         r.attrs.id === entityId
                     )
                 }
-            } else {
+            }
+            else if (action.payload.category === 'interaction') {
+                return {
+                    ...state,
+                    activeEntity: globalState.interactions.interactions.find(r =>
+                        r.attrs.id === entityId
+                    )
+                }
+            }
+            else {
                 return state;
             }
         case 'REMOVE_ACTIVE_ENTITY':

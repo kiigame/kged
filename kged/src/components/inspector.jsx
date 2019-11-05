@@ -16,20 +16,10 @@ import { defaultSelectStyles } from 'utils/styleObjects.js'
 export class Inspector extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            selectedOption: null
-        }
         this.onFileSelected = this.onFileSelected.bind(this);
         this.openFileDialog = this.openFileDialog.bind(this);
         this.fileDialogRef = React.createRef();
     }
-
-    handleChange = selectedOption => {
-        this.setState({
-            selectedOption
-            }, () => console.log(`Option selected:`, this.state.selectedOption)
-        );
-    };
 
     getActiveEntity() {
         if (this.props.entity && this.props.entity.activeEntity) {
@@ -206,10 +196,10 @@ export class Inspector extends React.Component {
                                 </div>
                                 <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
                                 <Select styles={defaultSelectStyles}
-                                        value={formProps.selectedFurniture}
+                                        value={formProps.selectedRoom}
                                         getOptionLabel={(option)=>option.attrs.id}
                                         options={this.props.rooms}
-                                        onChange={e => formProps.setFieldValue('selectedFurniture', e)}
+                                        onChange={e => formProps.setFieldValue('selectedRoom', e.attrs.id)}
                                         placeholder="Etsi huonetta..."/>
                                 <label className="change-color-onhover" title="Huonekalun sijainti huoneessa">Huonekalun sijainti</label>
                                 <div className="xy-container">
@@ -262,13 +252,13 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={{ name: this.getActiveEntityId(), selectedItem: null, yValue: '', xValue: '', visibleCheckbox: undefined }}
+                            initialValues={ this.getActiveEntity() }
                             validate={values => {
                                 let errors = {}
-                                if (!values.name) {
+                                if (!values.attrs.id) {
                                     errors.name = 'Nimi on pakollinen'
                                 }
-                                if (values.name && /\s/.test(values.name)) {
+                                if (values.attrs.id && /\s/.test(values.attrs.id)) {
                                     errors.name = 'Nimessä ei saa olla välilyöntejä'
                                 }
                                 return errors
@@ -284,33 +274,18 @@ export class Inspector extends React.Component {
                             <form onSubmit={formProps.handleSubmit}>
                                 <div className="form-group">
                                     <label className="change-color-onhover" title="Syötä nimi esinelle">Nimi</label>
-                                    <Field className="form-control" type="name" name="name" />
+                                    <Field className="form-control" type="name" name="attrs.id" />
                                     <ErrorMessage component="div" className="error-message" name="name" />
                                 </div>
                                 <label className="change-color-onhover" title="Valitse mihin huoneeseen esine kuuluu">Esineen huone</label>
                                 <Select styles={defaultSelectStyles}
-                                        value={formProps.selectedItem}
+                                        value={formProps.selectedRoom}
                                         getOptionLabel={(option)=>option.attrs.id}
                                         options={this.props.rooms}
-                                        onChange={e => formProps.setFieldValue('selectedItem', e)}
+                                        onChange={e => formProps.setFieldValue('selectedRoom', e.attrs.id)}
                                         placeholder="Etsi huonetta..."/>
-                                <label className="change-color-onhover" title="Esineen sijainti huoneessa">Esineen sijainti</label>
-                                <div className="xy-container">
-                                    <div className="col-6 xy-col">
-                                        <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-981">
-                                            X-arvo
-                                        </label>
-                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="xValue" />
-                                    </div>
-                                    <div className="col-6 my-2 xy-col">
-                                        <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-583">
-                                            Y-arvo
-                                        </label>
-                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="yValue" />
-                                    </div>
-                                </div>
                                 <div className="form-check my-3">
-                                    <input type="checkbox" className="form-check-input" name="visibleCheckbox"/>
+                                    <input type="checkbox" className="form-check-input" name="attrs.visible"/>
                                     <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä?" htmlFor="exampleCheck1">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">
@@ -340,9 +315,9 @@ const mapDispatchToProps = dispatch => ({
     setRoomBackgroundImage: (id, path, objUrl) => dispatch(setRoomBackgroundImage(id, path, objUrl)),
     setFurnitureImage: (id, path, objUrl) => dispatch(setFurnitureImage(id, path, objUrl)),
     setItemImage: (id, path, objUrl) => dispatch(setItemImage(id, path, objUrl)),
-    updateRoomId: (oldId, newId) => dispatch(updateRoomId(oldId, newId)),
-    updateFurniture: (oldId, newId) => dispatch(updateFurniture(oldId, newId)),
-    updateItem: (oldId, newId) => dispatch(updateItem(oldId, newId)),
+    updateRoomId: (oldId, room) => dispatch(updateRoomId(oldId, room)),
+    updateFurniture: (oldId, furniture) => dispatch(updateFurniture(oldId, furniture)),
+    updateItem: (oldId, item) => dispatch(updateItem(oldId, item)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Inspector);

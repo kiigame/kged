@@ -22,8 +22,13 @@ export function fetchItems() {
     return items
 }
 
-export function exportData(rooms, furnitures, items) {
-    const dataObject = {rooms: rooms, furnitures: furnitures, items: items}
+export function fetchInteractions() {
+    const interactions = require('data/interactions.json')
+    return interactions
+}
+
+export function exportData(rooms, furnitures, items, interactions) {
+    const dataObject = {rooms: rooms, furnitures: furnitures, items: items, interactions: interactions}
     console.log('EXPORT ROOMS', dataObject)
     exportJSON(dataObject, 'rooms.json')
 }

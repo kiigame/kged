@@ -32,10 +32,9 @@ function items(state = initialState, action) {
                     item.attrs.id === action.payload.oldId
                     ? { ...item, attrs: {
                         ...item.attrs,
-                        id: action.payload.newId,
-                        containerRoom: action.payload.containerRoom,
-                        xValue: action.payload.xValue,
-                        yValue: action.payload.yValue }
+                        id: action.payload.item.attrs.id,
+                        selectedRoom: action.payload.item.selectedRoom
+                        }
                     }
                     : item
                 )
