@@ -43,15 +43,15 @@ export class Inspector extends React.Component {
         }
     }
 
-    getBackground() {
+    getImage() {
         const activeEntity = this.getActiveEntity()
         const activeView = this.getActiveView()
 
         if (activeEntity) {
             if (activeView === 'room' && activeEntity.children) {
-                const bg = activeEntity.children.find(c => c.attrs && c.attrs.category === 'room_background')
-                if (bg) {
-                    return bg.attrs
+                const img = activeEntity.children.find(c => c.attrs && c.attrs.category === 'room_background')
+                if (img) {
+                    return img.attrs
                 }
             } else if (activeView === 'furniture') {
                 return activeEntity.attrs
@@ -84,7 +84,7 @@ export class Inspector extends React.Component {
     }
 
     render() {
-        let bg = this.getBackground()
+        let img = this.getImage()
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
                 <div className="row">
@@ -98,9 +98,9 @@ export class Inspector extends React.Component {
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
-                                    {bg
+                                    {img
                                         ?
-                                        ( <img alt="" src={bg.url} height={bg.height} width={bg.width}/>)
+                                        ( <img alt="" src={img.url} height={img.height} width={img.width}/>)
                                         :
                                         ( <span>Lisää kuva klikkaamalla</span> )
                                     }
@@ -159,9 +159,9 @@ export class Inspector extends React.Component {
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
-                                    {bg
+                                    {img
                                         ?
-                                        ( <img alt="" src={bg.url} height={bg.height} width={bg.width}/>)
+                                        ( <img alt="" src={img.url} height={img.height} width={img.width}/>)
                                         :
                                         ( <span>Lisää kuva klikkaamalla</span> )
                                     }
@@ -244,9 +244,9 @@ export class Inspector extends React.Component {
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
-                                    {bg
+                                    {img
                                         ?
-                                        ( <img alt="" src={bg.url} height={bg.height} width={bg.width}/>)
+                                        ( <img alt="" src={img.url} height={img.height} width={img.width}/>)
                                         :
                                         ( <span>Lisää kuva klikkaamalla</span> )
                                     }
