@@ -9,6 +9,10 @@ export const getItems = (state) => {
     return sortBy('attrs.id')(state.items.items)
 }
 
+export const getActiveItem = (state) => {
+    return state.items.items.find(i => i.attrs.id === state.items.activeItem)
+}
+
 export const loadItems = () => {
     return (dispatch, getState) => {
         const items = fetchItems()

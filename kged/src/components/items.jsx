@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Select from 'react-select'
 
-import { setActiveItem, addItem, deleteItem, getItems } from 'actions/items'
+import { getActiveItem, setActiveItem, addItem, deleteItem, getItems } from 'actions/items'
 import CreateContainer from './create_container'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
 
@@ -66,7 +66,7 @@ export class Items extends React.Component {
 
 const mapStateToProps = state => ({
     items: getItems(state),
-    activeItem: state.items.activeItem
+    activeItem: getActiveItem(state)
 })
 
 const mapDispatchToProps = dispatch => ({
