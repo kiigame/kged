@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { Formik, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
 
-import { setRoomBackgroundImage, updateRoomId, getRooms } from 'actions/rooms'
+import { setRoomBackgroundImage, updateRoom, getRooms } from 'actions/rooms'
 import { setFurnitureImage, updateFurniture, getFurnitures } from 'actions/furnitures'
 import { setItemImage, updateItem, getItems } from 'actions/items'
 import FileDialog from './file_dialog'
@@ -121,7 +121,7 @@ export class Inspector extends React.Component {
                             }}
                             onSubmit={(values, actions) => {
                                 try {
-                                    this.props.updateRoomId(this.getActiveEntityId(), values.name)
+                                    this.props.updateRoom(this.getActiveEntityId(), values)
                                 } catch (e) {
                                     actions.setFieldError('name', e.message)
                                 }
@@ -134,8 +134,8 @@ export class Inspector extends React.Component {
                                     <ErrorMessage component="div" className="error-message" name="name" />
                                 </div>
                                 <div className="form-check my-3">
-                                    <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                    <label className="form-check-label" htmlFor="exampleCheck1">Aloitushuone</label>
+                                    <input type="checkbox" className="form-check-input" id="startRoom"/>
+                                    <label className="form-check-label" htmlFor="startRoom">Aloitushuone</label>
                                 </div>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
@@ -315,7 +315,7 @@ const mapDispatchToProps = dispatch => ({
     setRoomBackgroundImage: (id, path, objUrl) => dispatch(setRoomBackgroundImage(id, path, objUrl)),
     setFurnitureImage: (id, path, objUrl) => dispatch(setFurnitureImage(id, path, objUrl)),
     setItemImage: (id, path, objUrl) => dispatch(setItemImage(id, path, objUrl)),
-    updateRoomId: (oldId, room) => dispatch(updateRoomId(oldId, room)),
+    updateRoom: (oldId, room) => dispatch(updateRoom(oldId, room)),
     updateFurniture: (oldId, furniture) => dispatch(updateFurniture(oldId, furniture)),
     updateItem: (oldId, item) => dispatch(updateItem(oldId, item)),
 })

@@ -54,19 +54,19 @@ export const addRoom = (room) => {
     }
 }
 
-export const updateRoomId = (oldId, newId) => {
+export const updateRoom = (oldId, room) => {
     return (dispatch, getState) => {
-        if (oldId !== newId && isExistingEntity(getState(), newId)) {
+        if (oldId !== room.name && isExistingEntity(getState(), room.name)) {
             throw new DuplicateEntityError('Nimi on jo käytössä')
         }
         dispatch({
-            type: 'UPDATE_ROOM_ID',
+            type: 'UPDATE_ROOM',
             payload: {
                 oldId: oldId,
-                newId: newId
+                room: room.name
             }
         })
-        dispatch(updateActiveRoom(newId))
+        dispatch(updateActiveRoom(room.name))
     }
 }
 

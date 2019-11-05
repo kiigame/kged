@@ -35,12 +35,12 @@ function rooms(state = initialState, action) {
                 ]
             }
 
-        case 'UPDATE_ROOM_ID':
+        case 'UPDATE_ROOM':
             return {
                 ...state,
                 rooms: state.rooms.map(room =>
                     room.attrs.id === action.payload.oldId
-                    ? { ...room, attrs: { ...room.attrs, id: action.payload.newId }
+                    ? { ...room, attrs: { ...room.attrs, id: action.payload.room }
                     }
                     : room
                 )

@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Select from 'react-select'
 
 import { setActiveItem, addItem, deleteItem, getItems } from 'actions/items'
