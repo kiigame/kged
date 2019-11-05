@@ -221,7 +221,8 @@ export class Inspector extends React.Component {
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
-                                    <input type="checkbox" className="form-check-input" id="visibleCheck"/>
+                                    <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibleCheck" className="form-check-input"
+                                           checked={formProps.values.attrs.visible} name="attrs.visible"/>
                                     <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä?" htmlFor="visibleCheck">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">
@@ -282,7 +283,8 @@ export class Inspector extends React.Component {
                                     <ErrorMessage component="div" className="error-message" name="attrs.id" />
                                 </div>
                                 <div className="form-check my-3">
-                                    <Field type="checkbox" id="visibleCheck" className="form-check-input" name="attrs.visible"/>
+                                    <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibleCheck" className="form-check-input"
+                                           checked={formProps.values.attrs.visible} name="attrs.visible"/>
                                     <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä?" htmlFor="visibleCheck">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">
