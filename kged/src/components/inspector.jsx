@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/Button'
 import { Formik, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
+import set from 'lodash/fp/set'
 
 import { setRoomBackgroundImage, updateRoom, getRooms } from 'actions/rooms'
 import { setFurnitureImage, updateFurniture, getFurnitures } from 'actions/furnitures'
@@ -108,14 +109,14 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={{ name: this.getActiveEntityId() }}
+                            initialValues={this.getActiveEntity()}
                             validate={values => {
                                 let errors = {}
-                                if (!values.name) {
-                                    errors.name = 'Nimi on pakollinen'
+                                if (!values.attrs.id) {
+                                    errors = set('attrs.id', 'Nimi on pakollinen', errors)
                                 }
-                                if (values.name && /\s/.test(values.name)) {
-                                    errors.name = 'Nimessä ei saa olla välilyöntejä'
+                                if (values.attrs.id && /\s/.test(values.attrs.id)) {
+                                    errors = set('attrs.id', 'Nimessä ei saa olla välilyöntejä', errors)
                                 }
                                 return errors
                             }}
@@ -123,18 +124,18 @@ export class Inspector extends React.Component {
                                 try {
                                     this.props.updateRoom(this.getActiveEntityId(), values)
                                 } catch (e) {
-                                    actions.setFieldError('name', e.message)
+                                    actions.setFieldError('attrs.id', e.message)
                                 }
                             }}
                             render={(formProps) => (
                             <form onSubmit={formProps.handleSubmit}>
                                 <div className="form-group">
                                     <label>Nimi</label>
-                                    <Field className="form-control" type="name" name="name" />
-                                    <ErrorMessage component="div" className="error-message" name="name" />
+                                    <Field className="form-control" type="name" name="attrs.id" />
+                                    <ErrorMessage component="div" className="error-message" name="attrs.id" />
                                 </div>
                                 <div className="form-check my-3">
-                                    <input type="checkbox" className="form-check-input" id="startRoom"/>
+                                    <Field type="checkbox" className="form-check-input" id="startRoom"/>
                                     <label className="form-check-label" htmlFor="startRoom">Aloitushuone</label>
                                 </div>
                                 <div className="item-edit-actions">
@@ -169,14 +170,14 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={{ name: this.getActiveEntityId(), selectedFurniture: null, xValue: '', yValue: '' }}
+                            initialValues={this.getActiveEntity()}
                             validate={values => {
                                 let errors = {}
-                                if (!values.name) {
-                                    errors.name = 'Nimi on pakollinen'
+                                if (!values.attrs.id) {
+                                    errors = set('attrs.id', 'Nimi on pakollinen', errors)
                                 }
-                                if (values.name && /\s/.test(values.name)) {
-                                    errors.name = 'Nimessä ei saa olla välilyöntejä'
+                                if (values.attrs.id && /\s/.test(values.attrs.id)) {
+                                    errors = set('attrs.id', 'Nimessä ei saa olla välilyöntejä', errors)
                                 }
                                 return errors
                             }}
@@ -184,15 +185,15 @@ export class Inspector extends React.Component {
                                 try {
                                     this.props.updateFurniture(this.getActiveEntityId(), values)
                                 } catch (e) {
-                                    actions.setFieldError('name', e.message)
+                                    actions.setFieldError('attrs.id', e.message)
                                 }
                             }}
                             render={(formProps) => (
                             <form onSubmit={formProps.handleSubmit}>
                                 <div className="form-group">
                                     <label className="change-color-onhover" title="Syötä nimi huonekalulle">Nimi</label>
-                                    <Field className="form-control" type="name" name="name" />
-                                    <ErrorMessage component="div" className="error-message" name="name" />
+                                    <Field className="form-control" type="name" name="attrs.id" />
+                                    <ErrorMessage component="div" className="error-message" name="attrs.id" />
                                 </div>
                                 <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
                                 <Select styles={defaultSelectStyles}
@@ -207,13 +208,13 @@ export class Inspector extends React.Component {
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-981">
                                             X-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="xValue" />
+                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="attrs.x" />
                                     </div>
                                     <div className="col-6 my-2 xy-col">
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-583">
                                             Y-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="yValue" />
+                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="attrs.y" />
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
@@ -254,20 +255,21 @@ export class Inspector extends React.Component {
                             enableReinitialize
                             initialValues={this.getActiveEntity()}
                             validate={values => {
-                                let errors = { attrs: {} }
+                                let errors = {}
                                 if (!values.attrs.id) {
-                                    errors.attrs.id = 'Nimi on pakollinen'
+                                    errors = set('attrs.id', 'Nimi on pakollinen', errors)
                                 }
                                 if (values.attrs.id && /\s/.test(values.attrs.id)) {
-                                    errors.attrs.id = 'Nimessä ei saa olla välilyöntejä'
+                                    errors = set('attrs.id', 'Nimessä ei saa olla välilyöntejä', errors)
                                 }
                                 return errors
                             }}
                             onSubmit={(values, actions) => {
+                                console.log(values)
                                 try {
                                     this.props.updateItem(this.getActiveEntityId(), values)
                                 } catch (e) {
-                                    actions.setFieldError('name', e.message)
+                                    actions.setFieldError('attrs.id', e.message)
                                 }
                             }}
                             render={(formProps) => (
@@ -278,7 +280,7 @@ export class Inspector extends React.Component {
                                     <ErrorMessage component="div" className="error-message" name="attrs.id" />
                                 </div>
                                 <div className="form-check my-3">
-                                    <input type="checkbox" id="visibleCheck" className="form-check-input" name="attrs.visible"/>
+                                    <Field type="checkbox" id="visibleCheck" className="form-check-input" name="attrs.visible"/>
                                     <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä?" htmlFor="visibleCheck">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">

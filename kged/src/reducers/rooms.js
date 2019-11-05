@@ -40,8 +40,7 @@ function rooms(state = initialState, action) {
                 ...state,
                 rooms: state.rooms.map(room =>
                     room.attrs.id === action.payload.oldId
-                    ? { ...room, attrs: { ...room.attrs, id: action.payload.room }
-                    }
+                    ? action.payload.room
                     : room
                 )
             }

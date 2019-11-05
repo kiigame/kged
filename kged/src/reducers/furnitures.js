@@ -29,13 +29,7 @@ function furnitures(state = initialState, action) {
                 ...state,
                 furnitures: state.furnitures.map(furniture =>
                     furniture.attrs.id === action.payload.oldId
-                    ? { ...furniture, attrs: {
-                        ...furniture.attrs,
-                        id: action.payload.newId,
-                        containerRoom: action.payload.containerRoom,
-                        xValue: action.payload.xValue,
-                        yValue: action.payload.yValue }
-                    }
+                    ? action.payload.furniture
                     : furniture
                 )
             }

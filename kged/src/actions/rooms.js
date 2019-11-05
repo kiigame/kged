@@ -56,17 +56,17 @@ export const addRoom = (room) => {
 
 export const updateRoom = (oldId, room) => {
     return (dispatch, getState) => {
-        if (oldId !== room.name && isExistingEntity(getState(), room.name)) {
+        if (oldId !== room.attrs.id && isExistingEntity(getState(), room.attrs.id)) {
             throw new DuplicateEntityError('Nimi on jo käytössä')
         }
         dispatch({
             type: 'UPDATE_ROOM',
             payload: {
                 oldId: oldId,
-                room: room.name
+                room: room
             }
         })
-        dispatch(updateActiveRoom(room.name))
+        dispatch(updateActiveRoom(room.attrs.id))
     }
 }
 
