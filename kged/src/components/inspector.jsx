@@ -217,8 +217,8 @@ export class Inspector extends React.Component {
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
-                                    <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä?" htmlFor="exampleCheck1">Näkyvissä</label>
+                                    <input type="checkbox" className="form-check-input" id="visibleCheck"/>
+                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä?" htmlFor="visibleCheck">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
@@ -252,14 +252,14 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={ this.getActiveEntity() }
+                            initialValues={this.getActiveEntity()}
                             validate={values => {
-                                let errors = {}
+                                let errors = { attrs: {} }
                                 if (!values.attrs.id) {
-                                    errors.name = 'Nimi on pakollinen'
+                                    errors.attrs.id = 'Nimi on pakollinen'
                                 }
                                 if (values.attrs.id && /\s/.test(values.attrs.id)) {
-                                    errors.name = 'Nimessä ei saa olla välilyöntejä'
+                                    errors.attrs.id = 'Nimessä ei saa olla välilyöntejä'
                                 }
                                 return errors
                             }}
@@ -275,18 +275,11 @@ export class Inspector extends React.Component {
                                 <div className="form-group">
                                     <label className="change-color-onhover" title="Syötä nimi esinelle">Nimi</label>
                                     <Field className="form-control" type="name" name="attrs.id" />
-                                    <ErrorMessage component="div" className="error-message" name="name" />
+                                    <ErrorMessage component="div" className="error-message" name="attrs.id" />
                                 </div>
-                                <label className="change-color-onhover" title="Valitse mihin huoneeseen esine kuuluu">Esineen huone</label>
-                                <Select styles={defaultSelectStyles}
-                                        value={formProps.selectedRoom}
-                                        getOptionLabel={(option)=>option.attrs.id}
-                                        options={this.props.rooms}
-                                        onChange={e => formProps.setFieldValue('selectedRoom', e.attrs.id)}
-                                        placeholder="Etsi huonetta..."/>
                                 <div className="form-check my-3">
-                                    <input type="checkbox" className="form-check-input" name="attrs.visible"/>
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä?" htmlFor="exampleCheck1">Näkyvissä</label>
+                                    <input type="checkbox" id="visibleCheck" className="form-check-input" name="attrs.visible"/>
+                                    <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä?" htmlFor="visibleCheck">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
