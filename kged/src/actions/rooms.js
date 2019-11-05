@@ -1,7 +1,7 @@
-import sortBy from 'lodash/fp/sortBy'
+import { sortBy } from 'lodash/fp'
 
 import { fetchRooms, exportData } from 'api'
-import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entity'
+import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
@@ -9,6 +9,10 @@ import { DuplicateEntityError } from 'utils/errors'
 
 export const getRooms = (state) => {
     return sortBy('attrs.id')(state.rooms.rooms)
+}
+
+export const getActiveRoom = (state) => {
+    return state.rooms.rooms.find(r => r.attrs.id === state.rooms.activeRoom)
 }
 
 
@@ -36,7 +40,6 @@ export const setRoomBackgroundImage = (roomId, filePath, objectUrl) => {
                 objectUrl: objectUrl
             }
         })
-        dispatch(updateActiveRoom())
     }
 }
 
@@ -66,7 +69,7 @@ export const updateRoom = (oldId, room) => {
                 room: room
             }
         })
-        dispatch(updateActiveRoom(room.attrs.id))
+        dispatch(setActiveRoom(room.attrs.id))
     }
 }
 
@@ -82,25 +85,15 @@ export const deleteRoom = (room) => {
     }
 }
 
-export const setActiveRoom = (room) => {
+export const setActiveRoom = (id) => {
     return (dispatch) => {
-        dispatch(setActiveEntity(room))
+        dispatch(setActiveEntity(id))
         dispatch({
             type: 'SET_ACTIVE_ROOM',
             payload: {
-                room: room
+                id: id
             }
         })
-    }
-}
-
-export const updateActiveRoom = (id = null) => {
-    return (dispatch) => {
-        dispatch({
-            type: 'UPDATE_ACTIVE_ROOM',
-            payload: { id: id }
-        })
-        dispatch(updateActiveEntity({category: 'room', id: id}))
     }
 }
 

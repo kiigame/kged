@@ -1,12 +1,16 @@
-import sortBy from 'lodash/fp/sortBy'
+import { sortBy } from 'lodash/fp'
 
 import { fetchItems } from 'api'
-import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entity'
+import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
 export const getItems = (state) => {
     return sortBy('attrs.id')(state.items.items)
+}
+
+export const getActiveItem = (state) => {
+    return state.items.items.find(i => i.attrs.id === state.items.activeItem)
 }
 
 export const loadItems = () => {
@@ -31,7 +35,6 @@ export const setItemImage = (itemId, filePath, objectUrl) => {
                 objectUrl: objectUrl
             }
         })
-        dispatch(updateActiveItem())
     }
 }
 
@@ -54,7 +57,7 @@ export const updateItem = (oldId, item) => {
                 item: item
             }
         })
-        dispatch(updateActiveItem(item.attrs.id))
+        dispatch(setActiveItem(item.attrs.id))
     }
 }
 
@@ -70,24 +73,14 @@ export const deleteItem = (item) => {
     }
 }
 
-export const setActiveItem = (item) => {
+export const setActiveItem = (id) => {
     return (dispatch) => {
-        dispatch(setActiveEntity(item))
+        dispatch(setActiveEntity(id))
         dispatch({
             type: 'SET_ACTIVE_ITEM',
             payload: {
-                item: item
+                id: id
             }
         })
-    }
-}
-
-export const updateActiveItem = (id = null) => {
-    return (dispatch) => {
-        dispatch({
-            type: 'UPDATE_ACTIVE_ITEM',
-            payload: { id: id }
-        })
-        dispatch(updateActiveEntity({category: 'item', id: id}))
     }
 }

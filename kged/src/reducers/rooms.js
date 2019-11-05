@@ -2,7 +2,7 @@ import { fetchRooms } from 'api'
 
 const initialState = {
     rooms: fetchRooms(),
-    activeRoom: {}
+    activeRoom: undefined
 }
 
 function rooms(state = initialState, action) {
@@ -94,16 +94,7 @@ function rooms(state = initialState, action) {
         case 'SET_ACTIVE_ROOM':
             return {
                 ...state,
-                activeRoom: action.payload.room
-            }
-
-        case 'UPDATE_ACTIVE_ROOM':
-            const roomId = action.payload.id || state.activeRoom.attrs.id
-            return {
-                ...state,
-                activeRoom: state.rooms.find(r =>
-                    r.attrs.id === roomId
-                )
+                activeRoom: action.payload.id
             }
 
         default:

@@ -2,7 +2,7 @@ import { fetchItems } from 'api'
 
 const initialState = {
     items: fetchItems(),
-    activeItem: {}
+    activeItem: undefined
 }
 function items(state = initialState, action) {
     let attrs;
@@ -59,16 +59,7 @@ function items(state = initialState, action) {
         case 'SET_ACTIVE_ITEM':
             return {
                 ...state,
-                activeItem: action.payload.item
-            }
-
-        case 'UPDATE_ACTIVE_ITEM':
-            const itemId = action.payload.id || state.activeItem.attrs.id
-            return {
-                ...state,
-                activeItem: state.items.find(r =>
-                    r.attrs.id === itemId
-                )
+                activeItem: action.payload.id
             }
 
         default:

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Select from 'react-select'
 
-import { setActiveRoom, addRoom, deleteRoom, getRooms } from 'actions/rooms'
+import { getActiveRoom, setActiveRoom, addRoom, deleteRoom, getRooms } from 'actions/rooms'
 import CreateContainer from './create_container'
 import 'styles/rooms.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
@@ -67,13 +67,13 @@ export class Rooms extends React.Component {
 
 const mapStateToProps = state => ({
     rooms: getRooms(state),
-    activeRoom: state.rooms.activeRoom
+    activeRoom: getActiveRoom(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-    onClickRoom: event => dispatch(setActiveRoom(event)),
-    addRoom: event => dispatch(addRoom(event)),
-    removeRoom: event => dispatch(deleteRoom(event)),
+    onClickRoom: room => dispatch(setActiveRoom(room.attrs.id)),
+    addRoom: room => dispatch(addRoom(room)),
+    removeRoom: room => dispatch(deleteRoom(room)),
 })
 
 export default connect(

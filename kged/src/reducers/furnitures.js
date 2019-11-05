@@ -2,7 +2,7 @@ import { fetchFurnitures } from 'api'
 
 const initialState = {
     furnitures: fetchFurnitures(),
-    activeFurniture: {}
+    activeFurniture: undefined
 }
 
 function furnitures(state = initialState, action) {
@@ -44,16 +44,7 @@ function furnitures(state = initialState, action) {
         case 'SET_ACTIVE_FURNITURE':
             return {
                 ...state,
-                activeFurniture: action.payload.furniture
-            }
-
-        case 'UPDATE_ACTIVE_FURNITURE':
-            const fid = action.payload.id || state.activeFurniture.attrs.id
-            return {
-                ...state,
-                activeFurniture: state.furnitures.find(r =>
-                    r.attrs.id === fid
-                )
+                activeFurniture: action.payload.id
             }
 
         case 'SET_FURNITURE_IMAGE':

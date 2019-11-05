@@ -1,7 +1,7 @@
-import sortBy from 'lodash/fp/sortBy'
+import {sortBy } from 'lodash/fp'
 
 import { fetchFurnitures } from 'api'
-import { setActiveEntity, updateActiveEntity, removeActiveEntity } from './entity'
+import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
@@ -9,6 +9,11 @@ import { DuplicateEntityError } from 'utils/errors'
 
 export const getFurnitures = (state) => {
     return sortBy('attrs.id')(state.furnitures.furnitures)
+}
+
+export const getActiveFurniture = (state) => {
+    return state.furnitures.furnitures.find(f =>
+        f.attrs.id === state.furnitures.activeFurniture)
 }
 
 
@@ -36,7 +41,6 @@ export const setFurnitureImage = (furnitureId, filePath, objectUrl) => {
                 objectUrl: objectUrl
             }
         })
-        dispatch(updateActiveFurniture())
     }
 }
 
@@ -59,7 +63,7 @@ export const updateFurniture = (oldId, furniture) => {
                 furniture: furniture
             }
         })
-        dispatch(updateActiveFurniture(furniture.attrs.id))
+        dispatch(setActiveFurniture(furniture.attrs.id))
     }
 }
 
@@ -75,24 +79,14 @@ export const deleteFurniture = (furniture) => {
     }
 }
 
-export const setActiveFurniture = (furniture) => {
+export const setActiveFurniture = (id) => {
     return (dispatch) => {
-        dispatch(setActiveEntity(furniture))
+        dispatch(setActiveEntity(id))
         dispatch({
             type: 'SET_ACTIVE_FURNITURE',
             payload: {
-                furniture: furniture
+                id: id
             }
         })
-    }
-}
-
-export const updateActiveFurniture = (id = null) => {
-    return (dispatch) => {
-        dispatch({
-            type: 'UPDATE_ACTIVE_FURNITURE',
-            payload: { id: id }
-        })
-        dispatch(updateActiveEntity({category: 'furniture', id: id}))
     }
 }
