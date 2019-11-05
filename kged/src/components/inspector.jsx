@@ -131,14 +131,14 @@ export class Inspector extends React.Component {
                             render={(formProps) => (
                             <form onSubmit={formProps.handleSubmit}>
                                 <div className="form-group">
-                                    <label>Nimi</label>
+                                    <label className="change-color-onhover" title="Syötä nimi huoneelle">Nimi</label>
                                     <Field className="form-control" type="name" name="attrs.id" />
                                     <ErrorMessage component="div" className="error-message" name="attrs.id" />
                                 </div>
                                 <div className="form-check my-3">
                                     <Field key={`${formProps.values.attrs.id}-start`} type="checkbox" id="startRoom" className="form-check-input"
                                            checked={formProps.values.attrs.start} name="attrs.start"/>
-                                    <label className="form-check-label"
+                                    <label className="form-check-label change-color-onhover"
                                            title="Valitse aloitetaanko peli tästä huoneesta"
                                            htmlFor="startRoom">Aloitushuone</label>
                                 </div>
