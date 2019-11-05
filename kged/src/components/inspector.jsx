@@ -171,6 +171,7 @@ export class Inspector extends React.Component {
                         <Formik
                             enableReinitialize
                             initialValues={this.getActiveEntity()}
+                            key={`formik__${this.props.entity.activeEntity.attrs.id}`}
                             validate={values => {
                                 let errors = {}
                                 if (!values.attrs.id) {
@@ -198,9 +199,10 @@ export class Inspector extends React.Component {
                                 <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
                                 <Select styles={defaultSelectStyles}
                                         value={formProps.selectedRoom}
+                                        defaultValue={this.props.entity.activeEntity.selectedRoom}
                                         getOptionLabel={(option)=>option.attrs.id}
                                         options={this.props.rooms}
-                                        onChange={e => formProps.setFieldValue('selectedRoom', e.attrs.id)}
+                                        onChange={e => formProps.setFieldValue('selectedRoom', {'attrs': {'id':e.attrs.id}})}
                                         placeholder="Etsi huonetta..."/>
                                 <label className="change-color-onhover" title="Huonekalun sijainti huoneessa">Huonekalun sijainti</label>
                                 <div className="xy-container">
