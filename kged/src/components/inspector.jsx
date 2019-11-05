@@ -265,7 +265,6 @@ export class Inspector extends React.Component {
                                 return errors
                             }}
                             onSubmit={(values, actions) => {
-                                console.log(values)
                                 try {
                                     this.props.updateItem(this.getActiveEntityId(), values)
                                 } catch (e) {
