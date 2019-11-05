@@ -30,12 +30,7 @@ function items(state = initialState, action) {
                 ...state,
                 items: state.items.map(item =>
                     item.attrs.id === action.payload.oldId
-                    ? { ...item, attrs: {
-                        ...item.attrs,
-                        id: action.payload.item.attrs.id,
-                        selectedRoom: action.payload.item.selectedRoom
-                        }
-                    }
+                    ? action.payload.item
                     : item
                 )
             }
