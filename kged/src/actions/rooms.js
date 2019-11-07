@@ -96,15 +96,3 @@ export const setActiveRoom = (id) => {
         })
     }
 }
-
-export const saveRooms = () => {
-    return (dispatch, getState) => {
-        const state = getState()
-        // exportData(state.rooms.rooms, state.furnitures.furnitures, state.items.items, state.interactions.interactions)
-        console.log('EXPORT ROOMS:', exportRooms(state))
-        // dispatch({
-        //     type: 'EXPORT_ROOMS',
-        //     payload: {}
-        // })
-    }
-}

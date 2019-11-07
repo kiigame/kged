@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import 'styles/preview.scss';
-import { saveRooms } from 'actions/rooms';
+import { exportProject } from 'actions/global';
 
 export class ActionBar extends React.Component {
     render() {
@@ -32,7 +32,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    onExport: event => dispatch(saveRooms(event)),
+    onExport: event => dispatch(exportProject(event)),
 })
 
 export default connect(

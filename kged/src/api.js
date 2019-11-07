@@ -63,8 +63,20 @@ export function exportRooms(state) {
     return rooms
 }
 
+export function exportItems(state) {
+    let items = cloneDeep(state.items.items)
+
+    items.forEach(item => {
+        if (item.attrs && item.attrs.url) {
+            item.attrs.src = item.attrs.url.replace('assets/', 'images/')
+            delete item.attrs.url
+        }
+    })
+
+    return items
+}
+
 export function exportData(rooms, furnitures, items, interactions) {
     const dataObject = {rooms: rooms, furnitures: furnitures, items: items, interactions: interactions}
     // console.log('EXPORT ROOMS', dataObject)
-    exportJSON(dataObject, 'rooms.json')
 }
