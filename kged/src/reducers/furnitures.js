@@ -19,7 +19,8 @@ function furnitures(state = initialState, action) {
                             id: action.payload.furniture.name,
                             category: 'furniture',
                             url: 'assets/placeholders/furniture.jpg'
-                        }
+                        },
+                        className: 'Image'
                     }
                 ]
             }

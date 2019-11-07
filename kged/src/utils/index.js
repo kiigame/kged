@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash/fp'
+
 export function isExistingEntity(state, entityId) {
     // TODO: add other entity types
     if (state.rooms && state.rooms.rooms &&
@@ -23,3 +25,16 @@ export function exportJSON(content, name) {
     anchor.download = name
     anchor.click()
 }
+
+export function filterFurnitures(rooms) {
+    let filteredRooms = cloneDeep(rooms)
+
+    for (let room of filteredRooms) {
+        if (room.children && room.children.some(c => c.attrs.category === 'furniture')) {
+            room.children = room.children.filter(c => c.attrs.category !== 'furniture')
+        }
+    }
+
+    return filteredRooms
+}
+
