@@ -1,5 +1,3 @@
-import { sortBy } from 'lodash/fp'
-
 import { fetchTexts } from 'api'
 import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
@@ -8,8 +6,7 @@ import { DuplicateEntityError } from 'utils/errors'
 // selectors
 
 export const getTexts = (state) => {
-    // console.log('gettexts state',sortBy(Object.keys(state.texts.texts))(state.texts))
-    return state.texts.texts
+    return Object.keys(state.texts.texts).sort()
 }
 
 export const getActiveText = (state) => {

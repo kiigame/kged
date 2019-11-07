@@ -40,7 +40,7 @@ export class Texts extends React.Component {
                             Ei huoneita! Luo uusi huone tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
                         </div>
                     }
-                    {Object.keys(this.props.texts).map((text) => {
+                    {this.props.texts.map((text) => {
                         return (
                             <div
                                 className={'listitem ' + (this.isActiveText(text) ? 'active-listitem' : '')}
