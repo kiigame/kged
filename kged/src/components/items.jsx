@@ -30,6 +30,8 @@ export class Items extends React.Component {
                         <Select styles={defaultSelectStyles}
                                 getOptionLabel={(option)=>option.attrs.id}
                                 options={this.props.items}
+                                onChange={e => this.props.onClickItem(e)}
+                                noOptionsMessage={() => 'Ei tuloksia'}
                                 placeholder="Etsi esinettä..."/>
                     </div>
                 </div>

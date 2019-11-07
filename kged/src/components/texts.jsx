@@ -28,8 +28,9 @@ export class Texts extends React.Component {
                     />
                     <div className="searchbox-container">
                         <Select styles={defaultSelectStyles}
-                                getOptionLabel={(option)=>option.attrs.id}
+                                getOptionLabel={option => option}
                                 options={this.props.texts}
+                                noOptionsMessage={() => 'Ei tuloksia'}
                                 placeholder="Etsi huonetta..."/>
                     </div>
                     {/* <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" /> */}

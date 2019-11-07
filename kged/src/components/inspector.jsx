@@ -209,6 +209,7 @@ export class Inspector extends React.Component {
                                         defaultValue={this.props.activeEntity.selectedRoom}
                                         getOptionLabel={(option)=>option.attrs.id}
                                         options={this.props.rooms}
+                                        noOptionsMessage={() => 'Ei tuloksia'}
                                         onChange={e => formProps.setFieldValue('selectedRoom', {'attrs': {'id':e.attrs.id}})}
                                         placeholder="Etsi huonetta..."/>
                                 <label className="change-color-onhover" title="Huonekalun sijainti huoneessa">Huonekalun sijainti</label>

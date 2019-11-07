@@ -30,6 +30,8 @@ export class Rooms extends React.Component {
                         <Select styles={defaultSelectStyles}
                                 getOptionLabel={(option)=>option.attrs.id}
                                 options={this.props.rooms}
+                                onChange={e => this.props.onClickRoom(e)}
+                                noOptionsMessage={() => 'Ei tuloksia'}
                                 placeholder="Etsi huonetta..."/>
                     </div>
                     {/* <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" /> */}

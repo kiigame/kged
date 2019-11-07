@@ -30,6 +30,8 @@ export class Furnitures extends React.Component {
                         <Select styles={defaultSelectStyles}
                                 getOptionLabel={(option)=>option.attrs.id}
                                 options={this.props.furnitures}
+                                onChange={e => this.props.onClickFurniture(e)}
+                                noOptionsMessage={() => 'Ei tuloksia'}
                                 placeholder="Etsi huonekalua..."/>
                     </div>
                 </div>

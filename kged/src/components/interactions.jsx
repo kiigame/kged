@@ -37,6 +37,7 @@ export class Interactions extends React.Component {
                         <Select styles={defaultSelectStyles}
                                 getOptionLabel={(option)=>option.attrs.id}
                                 options={this.props.items}
+                                noOptionsMessage={() => 'Ei tuloksia'}
                                 placeholder="Etsi interaktiota..."/>
                     </div>
                 </div>
