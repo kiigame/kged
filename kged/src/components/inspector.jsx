@@ -98,11 +98,14 @@ export class Inspector extends React.Component {
                             {this.props.activeEntity !== {} &&
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
-                                    {img
-                                        ?
-                                        ( <img alt="" src={img.url} height={img.height} width={img.width}/>)
-                                        :
+                                    { !img &&
                                         ( <span>Lisää kuva klikkaamalla</span> )
+                                    }
+                                    {img && img.url &&
+                                        ( <img alt="" src={img.url} height={img.height} width={img.width}/> )
+                                    }
+                                    {img && img.src && !img.url &&
+                                        ( <span>Kuvaa ei voitu ladata</span> )
                                     }
                                 </div>
                             }

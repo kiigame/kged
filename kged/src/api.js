@@ -50,7 +50,19 @@ export function exportRooms(state) {
         let roomFurnitures = furnitures.filter(f => f.selectedRoom && f.selectedRoom.attrs.id === room.attrs.id)
         // TODO: use schema for this
         for (let f of roomFurnitures) {
+            if (f.attrs && f.attrs.url) {
+                f.attrs.src = f.attrs.url.replace('assets/', 'images/')
+                delete f.attrs.url
+            }
             delete f.selectedRoom
+        }
+        if (room.children) {
+            for (let c of room.children) {
+                if (c.attrs && c.attrs.url && c.attrs.category === 'room_background') {
+                    c.attrs.src = c.attrs.url.replace('assets/', 'images/')
+                    delete c.attrs.url
+                }
+            }
         }
         if (roomFurnitures && roomFurnitures.length) {
             if (!room.children) {
