@@ -2,18 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
 
-import { setActiveItem, addItem, deleteItem, getItems } from 'actions/items'
+import { setActiveInteraction, addInteraction, deleteInteraction, getInteractions } from 'actions/interactions'
 import CreateContainer from './create_container'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
 import { getFurnitures } from 'actions/furnitures'
-import { getInteractions } from 'actions/interactions'
+import { getItems } from 'actions/items'
 import { getRooms } from 'actions/rooms'
 
 export class Interactions extends React.Component {
 
-    isActiveItem(item) {
-        if (this.props.activeItem && this.props.activeItem.attrs) {
-            return this.props.activeItem.attrs.id === item.attrs.id;
+    isActiveInteraction(interaction) {
+        if (this.props.activeInteraction && this.props.activeInteraction.attrs) {
+            return this.props.activeInteraction.attrs.id === interaction.attrs.id;
         }
         return false;
     }
@@ -23,7 +23,7 @@ export class Interactions extends React.Component {
         //     console.log('1', item)
         //     console.log('2',item[Object.keys(item)])
         // })
-        console.log('interactions',this.props.interactions)
+        console.log('activeInteraction',this.props.activeInteraction)
         return (
             <div>
                 <div className="action-header-container">
@@ -57,7 +57,11 @@ export class Interactions extends React.Component {
                     </table>
                     {this.props.interactions.map((interaction,key) => {
                         return (
-                            <table className="interactions-table" key={'table-'+key}>
+                            <table
+                                className={'interactions-table listitem ' + (this.isActiveInteraction(interaction) ? 'active-listeitem': '')}
+                                key={'table-'+key}
+                                onClick={() => this.props.onClickInteraction(interaction)}
+                            >
                                 <tbody>
                                     {Object.keys(interaction) === 'click' &&
                                         <tr key={'tr-'+key}>
@@ -102,13 +106,13 @@ const mapStateToProps = state => ({
     furnitures: getFurnitures(state),
     rooms: getRooms(state),
     interactions: getInteractions(state),
-    activeItem: state.items.activeItem
+    activeInteraction: state.interactions.activeInteraction
 })
 
 const mapDispatchToProps = dispatch => ({
-    onClickItem: event => dispatch(setActiveItem(event)),
-    addItem: event => dispatch(addItem(event)),
-    removeItem: event => dispatch(deleteItem(event)),
+    onClickInteraction: event => dispatch(setActiveInteraction(event)),
+    addInteraction: event => dispatch(addInteraction(event)),
+    removeInteraction: event => dispatch(deleteInteraction(event)),
 })
 
 export default connect(
