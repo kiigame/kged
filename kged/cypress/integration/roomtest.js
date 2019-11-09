@@ -21,7 +21,6 @@ describe('room creation', function() {
     it('deletes a room', () => {
         cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'listitem').contains('object_layer_wc_1').click()
-        cy.get('span').should('have.class', 'trash').parent().should('have.class','active-listitem').click()
     })
 })
 // TODO: INTERAKTIOT, INSPEKTORI, KUMOA, TOISTA, TALLENNA, TUO, VIE
