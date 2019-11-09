@@ -1,4 +1,6 @@
 import * as api from 'api'
+import { saveAs } from 'file-saver'
+var JSZip = require('jszip')
 
 export const exportProject = (event) => {
     return (dispatch, getState) => {
@@ -6,10 +8,17 @@ export const exportProject = (event) => {
         const rooms = api.exportRooms(state)
         const items = api.exportItems(state)
 
-        console.log('EXPORT ROOMS:', rooms)
-        console.log('EXPORT ITEMS:', items)
+        const roomsToJSON = JSON.stringify(rooms, null, 4)
+        const itemsToJSON = JSON.stringify(items, null, 4)
 
-        // TODO: build zip from json files and assets
-        // exportJSON(dataObject, 'rooms.json')
+        var zip = new JSZip();
+        zip.file("rooms.json",roomsToJSON);
+        zip.file("items.json",itemsToJSON);
+        zip.generateAsync({type:"blob"})
+        .then(function(content) {
+            saveAs(content, "game_data.zip");
+        });
+        //
+
     }
 }

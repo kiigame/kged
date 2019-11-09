@@ -1,4 +1,3 @@
-import { exportJSON } from 'utils'
 import { cloneDeep } from 'lodash/fp'
 
 export function fetchRooms() {
@@ -88,7 +87,3 @@ export function exportItems(state) {
     return items
 }
 
-export function exportData(rooms, furnitures, items, interactions) {
-    const dataObject = {rooms: rooms, furnitures: furnitures, items: items, interactions: interactions}
-    // console.log('EXPORT ROOMS', dataObject)
-}

@@ -1,6 +1,6 @@
 import { sortBy } from 'lodash/fp'
 
-import { fetchRooms, exportRooms, exportData } from 'api'
+import { fetchRooms } from 'api'
 import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
