@@ -45,3 +45,30 @@ describe('item creation', function() {
     })
 
 })
+describe('inspector tests', function(){
+    it('changes the name of a room in the inspector', () => {
+        cy.visit('https://kged-dev.netlify.com/')
+        cy.get('div').should('have.class', 'listitem').contains('object_layer_wc_1').click()
+        cy.get("[type='name'").clear()
+        cy.get("[type='name'").type('huone123')
+        cy.get("[type='submit']").click()
+        cy.get('div').contains('huone123')
+    })
+    it('cancels the edit of the room in inspector', () => {
+        cy.visit('https://kged-dev.netlify.com/')
+        cy.get('div').should('have.class', 'listitem').contains('object_layer_wc_1').click()
+        cy.get("[type='name'").clear()
+        cy.get("[type='name'").type('huone123')
+        cy.get("[type='button']").contains('Peruuta').click()
+        cy.get('div').should('have.class', 'listitem').contains('object_layer_wc_1')
+    })
+    it('changes the name of an item in the inspector', () => {
+        cy.visit('https://kged-dev.netlify.com/')
+        cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Esineet').click()
+        cy.get('div').should('have.class', 'listitem').contains('airfreshener').click()
+        cy.get("[type='name'").clear()
+        cy.get("[type='name'").type('esine123')
+        cy.get("[type='submit']").click()
+        cy.get('div').contains('esine123') 
+    })
+})
