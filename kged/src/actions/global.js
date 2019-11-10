@@ -22,3 +22,20 @@ export const exportProject = (event) => {
 
     }
 }
+
+export const importProject = (event) => {
+    return (dispatch, getState) => {
+        JSZip.loadAsync(event).then(function (zip) {
+            Object.keys(zip.files).forEach(function (filename) {
+                zip.files[filename].async('string').then(function (fileData) {
+                    var name = zip.files[filename].name
+                    var data = {
+                        [name]: JSON.parse(fileData)
+                    }
+                    console.log('data',data)
+                    console.log('name',name)
+                })
+            })
+        })
+    }
+}
