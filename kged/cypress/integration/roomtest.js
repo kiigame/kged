@@ -71,3 +71,9 @@ describe('inspector tests', function(){
         cy.get('div').contains('esine123') 
     })
 })
+describe('Furniture testing', function() {
+    it('creates a furniture', () => {
+        cy.visit('https://kged-dev.netlify.com/')
+        cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
+    })
+})
