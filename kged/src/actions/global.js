@@ -1,6 +1,6 @@
 import * as api from 'api'
 import { saveAs } from 'file-saver'
-var JSZip = require('jszip')
+import JSZip from 'jszip'
 
 export const exportProject = (event) => {
     return (dispatch, getState) => {
@@ -11,25 +11,23 @@ export const exportProject = (event) => {
         const roomsToJSON = JSON.stringify(rooms, null, 4)
         const itemsToJSON = JSON.stringify(items, null, 4)
 
-        var zip = new JSZip();
-        zip.file("rooms.json",roomsToJSON);
-        zip.file("items.json",itemsToJSON);
-        zip.generateAsync({type:"blob"})
-        .then(function(content) {
-            saveAs(content, "game_data.zip");
+        const zip = new JSZip();
+        zip.file('rooms.json', roomsToJSON);
+        zip.file('items.json', itemsToJSON);
+        zip.generateAsync({type: 'blob'})
+        .then(content => {
+            saveAs(content, 'game_data.zip');
         });
-        //
-
     }
 }
 
-export const importProject = (event) => {
+export const importProject = (pkg) => {
     return (dispatch, getState) => {
-        JSZip.loadAsync(event).then(function (zip) {
-            Object.keys(zip.files).forEach(function (filename) {
-                zip.files[filename].async('string').then(function (fileData) {
-                    var name = zip.files[filename].name
-                    var data = {
+        JSZip.loadAsync(pkg).then(zip => {
+            Object.keys(zip.files).forEach(filename => {
+                zip.files[filename].async('string').then(fileData => {
+                    const name = zip.files[filename].name
+                    const data = {
                         [name]: JSON.parse(fileData)
                     }
                     console.log('data',data)

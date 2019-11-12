@@ -10,6 +10,7 @@ export class ActionBar extends React.Component {
         super(props);
         this.clickHiddenInput = this.clickHiddenInput.bind(this);
     }
+
     clickHiddenInput() {
         var input = document.getElementById('hidden-input')
         input.click()
@@ -17,8 +18,8 @@ export class ActionBar extends React.Component {
             this.props.onImport(e.target.files[0])
         }
     }
-    render() {
 
+    render() {
         return (
             <div className="row pre-controls">
                 <div className="col">
