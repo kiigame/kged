@@ -1,6 +1,5 @@
 import { sortBy } from 'lodash/fp'
 
-import { fetchRooms } from 'api'
 import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
@@ -18,13 +17,12 @@ export const getActiveRoom = (state) => {
 
 // actions
 
-export const loadRooms = () => {
+export const loadRooms = (rooms) => {
     return (dispatch, getState) => {
-        const rooms = fetchRooms()
         dispatch({
-            type: 'GET_ROOMS',
+            type: 'LOAD_ROOMS',
             payload: {
-                rooms
+                rooms: rooms
             }
         })
     }

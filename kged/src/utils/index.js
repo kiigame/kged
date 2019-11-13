@@ -38,3 +38,21 @@ export function filterFurnitures(rooms) {
     return filteredRooms
 }
 
+export function extractFurnitures(rooms) {
+    const furnitures = rooms.flatMap(room => {
+        if (room.attrs && room.children) {
+            return room.children
+                .filter(c => c.attrs && c.attrs.category === 'furniture')
+                .map(c => {
+                    return {
+                        ...c,
+                        selectedRoom: {
+                            attrs: { id: room.attrs.id }
+                        }
+                    }
+                })
+        }
+    }).filter(f => f)
+    return furnitures
+}
+

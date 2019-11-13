@@ -1,7 +1,7 @@
-import { fetchItems } from 'api'
+// import { fetchItems } from 'api'
 
 const initialState = {
-    items: fetchItems(),
+    items: [],
     activeItem: undefined
 }
 function items(state = initialState, action) {
@@ -23,6 +23,12 @@ function items(state = initialState, action) {
                         className: 'Image'
                     }
                 ]
+            }
+
+        case 'LOAD_ITEMS':
+            return {
+                ...state,
+                items: action.payload.items
             }
 
         case 'UPDATE_ITEM':

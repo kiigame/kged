@@ -1,6 +1,5 @@
 import {sortBy } from 'lodash/fp'
 
-import { fetchFurnitures } from 'api'
 import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
@@ -19,13 +18,12 @@ export const getActiveFurniture = (state) => {
 
 // actions
 
-export const loadFurnitures = () => {
+export const loadFurnitures = (furnitures) => {
     return (dispatch, getState) => {
-        const furnitures = fetchFurnitures()
         dispatch({
-            type: 'GET_FURNITURES',
+            type: 'LOAD_FURNITURES',
             payload: {
-                furnitures
+                furnitures: furnitures
             }
         })
     }

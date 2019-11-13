@@ -1,6 +1,5 @@
 import { sortBy } from 'lodash/fp'
 
-import { fetchItems } from 'api'
 import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
@@ -13,13 +12,12 @@ export const getActiveItem = (state) => {
     return state.items.items.find(i => i.attrs.id === state.items.activeItem)
 }
 
-export const loadItems = () => {
+export const loadItems = (items) => {
     return (dispatch, getState) => {
-        const items = fetchItems()
         dispatch({
-            type: 'GET_ITEMS',
+            type: 'LOAD_ITEMS',
             payload: {
-                items
+                items: items
             }
         })
     }

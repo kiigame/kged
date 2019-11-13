@@ -1,8 +1,8 @@
-import { fetchRooms } from 'api'
-import { filterFurnitures } from 'utils'
+// import { fetchRooms } from 'api'
+// import { filterFurnitures } from 'utils'
 
 const initialState = {
-    rooms: filterFurnitures(fetchRooms()),
+    rooms: [],
     activeRoom: undefined
 }
 
@@ -34,6 +34,12 @@ function rooms(state = initialState, action) {
                         className: 'Layer'
                     }
                 ]
+            }
+
+        case 'LOAD_ROOMS':
+            return {
+                ...state,
+                rooms: action.payload.rooms
             }
 
         case 'UPDATE_ROOM':

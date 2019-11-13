@@ -1,7 +1,7 @@
-import { fetchFurnitures } from 'api'
+// import { fetchFurnitures } from 'api'
 
 const initialState = {
-    furnitures: fetchFurnitures(),
+    furnitures: [],
     activeFurniture: undefined
 }
 
@@ -23,6 +23,11 @@ function furnitures(state = initialState, action) {
                         className: 'Image'
                     }
                 ]
+            }
+        case 'LOAD_FURNITURES':
+            return {
+                ...state,
+                furnitures: action.payload.furnitures
             }
 
         case 'UPDATE_FURNITURE':
