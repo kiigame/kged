@@ -79,7 +79,7 @@ export const deleteFurniture = (furniture) => {
 
 export const setActiveFurniture = (id) => {
     return (dispatch) => {
-        dispatch(setActiveEntity(id))
+        dispatch(setActiveEntity(id, 'furniture'))
         dispatch({
             type: 'SET_ACTIVE_FURNITURE',
             payload: {

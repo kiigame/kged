@@ -5,15 +5,13 @@ import { Formik, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
 import { set } from 'lodash/fp'
 
-import { getActiveEntity } from 'actions/entity'
+import { getActiveEntity, getActiveEntityCategory, getActiveEntityId } from 'actions/entity'
 import { setRoomBackgroundImage, updateRoom, getRooms } from 'actions/rooms'
 import { setFurnitureImage, updateFurniture, getFurnitures } from 'actions/furnitures'
 import { setItemImage, updateItem, getItems } from 'actions/items'
 import FileDialog from './file_dialog'
 import 'styles/inspector.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
-
-// TODO: clean up and remove extra getters, replace with proper data helpers
 
 export class Inspector extends React.Component {
     constructor(props) {
@@ -23,29 +21,9 @@ export class Inspector extends React.Component {
         this.fileDialogRef = React.createRef();
     }
 
-    getActiveEntity() {
-        if (this.props.activeEntity) {
-            return this.props.activeEntity;
-        }
-    }
-
-    getActiveEntityId() {
-        const activeEntity = this.getActiveEntity()
-        if (activeEntity) {
-            return activeEntity.attrs ? activeEntity.attrs.id : undefined;
-        }
-    }
-
-    getActiveView() {
-        const activeEntity = this.getActiveEntity()
-        if (activeEntity && activeEntity.attrs && activeEntity.attrs.category) {
-            return activeEntity.attrs.category;
-        }
-    }
-
     getImage() {
-        const activeEntity = this.getActiveEntity()
-        const activeView = this.getActiveView()
+        const activeEntity = this.props.activeEntity
+        const activeView = this.props.activeEntityCategory
 
         if (activeEntity) {
             if (activeView === 'room' && activeEntity.children) {
@@ -75,11 +53,11 @@ export class Inspector extends React.Component {
         const file = e.target.files[0]
         const objectUrl = window.URL.createObjectURL(file)
         if (this.props.activeEntity.attrs.category === 'room') {
-            this.props.setRoomBackgroundImage(this.getActiveEntityId(), filePath, objectUrl)
+            this.props.setRoomBackgroundImage(this.props.activeEntityId, filePath, objectUrl)
         } else if (this.props.activeEntity.attrs.category === 'furniture') {
-            this.props.setFurnitureImage(this.getActiveEntityId(), filePath, objectUrl)
+            this.props.setFurnitureImage(this.props.activeEntityId, filePath, objectUrl)
         } else if (this.props.activeEntity.attrs.category === 'item') {
-            this.props.setItemImage(this.getActiveEntityId(), filePath, objectUrl)
+            this.props.setItemImage(this.props.activeEntityId, filePath, objectUrl)
         }
     }
 
@@ -92,7 +70,7 @@ export class Inspector extends React.Component {
                         Inspektori
                     </div>
                 </div>
-                {this.getActiveView() === 'room' &&
+                {this.props.activeEntityCategory === 'room' && this.props.activeEntity &&
                     <div className="ins-props">
                         <div className="input-group">
                             {this.props.activeEntity !== {} &&
@@ -113,7 +91,7 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={this.getActiveEntity()}
+                            initialValues={this.props.activeEntity}
                             validate={values => {
                                 let errors = {}
                                 if (!values.attrs.id) {
@@ -126,40 +104,42 @@ export class Inspector extends React.Component {
                             }}
                             onSubmit={(values, actions) => {
                                 try {
-                                    this.props.updateRoom(this.getActiveEntityId(), values)
+                                    this.props.updateRoom(this.props.activeEntityId, values)
                                 } catch (e) {
                                     actions.setFieldError('attrs.id', e.message)
                                 }
                             }}
-                            render={(formProps) => (
-                            <form onSubmit={formProps.handleSubmit}>
-                                <div className="form-group">
-                                    <label className="change-color-onhover" title="Syötä nimi huoneelle">Nimi</label>
-                                    <Field className="form-control" type="name" name="attrs.id" />
-                                    <ErrorMessage component="div" className="error-message" name="attrs.id" />
-                                </div>
-                                <div className="form-check my-3">
-                                    <Field key={`${formProps.values.attrs.id}-start`} type="checkbox" id="startRoom" className="form-check-input"
-                                           checked={formProps.values.attrs.start} name="attrs.start"/>
-                                    <label className="form-check-label change-color-onhover"
-                                           title="Valitse aloitetaanko peli tästä huoneesta"
-                                           htmlFor="startRoom">Aloitushuone</label>
-                                </div>
-                                <div className="item-edit-actions">
-                                    <Button type="submit" variant="success" disabled={!formProps.dirty}>
-                                        Tallenna
-                                    </Button>
-                                    <Button variant="secondary" className="ml-2" onClick={formProps.handleReset} disabled={!formProps.dirty}>
-                                        Peruuta
-                                    </Button>
-                                </div>
-                            </form>
-                            )}
+                            render={(formProps) => {
+                                return (
+                                    <form onSubmit={formProps.handleSubmit}>
+                                        <div className="form-group">
+                                            <label className="change-color-onhover" title="Syötä nimi huoneelle">Nimi</label>
+                                            <Field className="form-control" type="name" name="attrs.id" />
+                                            <ErrorMessage component="div" className="error-message" name="attrs.id" />
+                                        </div>
+                                        <div className="form-check my-3">
+                                            <Field key={`${formProps.values.attrs.id}-start`} type="checkbox" id="startRoom" className="form-check-input"
+                                                checked={formProps.values.attrs.start} name="attrs.start"/>
+                                            <label className="form-check-label change-color-onhover"
+                                                title="Valitse aloitetaanko peli tästä huoneesta"
+                                                htmlFor="startRoom">Aloitushuone</label>
+                                        </div>
+                                        <div className="item-edit-actions">
+                                            <Button type="submit" variant="success" disabled={!formProps.dirty}>
+                                                Tallenna
+                                            </Button>
+                                            <Button variant="secondary" className="ml-2" onClick={formProps.handleReset} disabled={!formProps.dirty}>
+                                                Peruuta
+                                            </Button>
+                                        </div>
+                                    </form>
+                                )
+                            }}
                         />
                     </div>
                 }
 
-                {this.getActiveView() === 'furniture' &&
+                {this.props.activeEntityCategory === 'furniture' && this.props.activeEntity &&
                     <div className="ins-props">
                         <div className="input-group">
                             {this.props.activeEntity !== {} &&
@@ -177,7 +157,7 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={this.getActiveEntity()}
+                            initialValues={this.props.activeEntity}
                             key={`formik__${this.props.activeEntity.attrs.id}`}
                             validate={values => {
                                 let errors = {}
@@ -191,7 +171,7 @@ export class Inspector extends React.Component {
                             }}
                             onSubmit={(values, actions) => {
                                 try {
-                                    this.props.updateFurniture(this.getActiveEntityId(), values)
+                                    this.props.updateFurniture(this.props.activeEntityId, values)
                                 } catch (e) {
                                     actions.setFieldError('attrs.id', e.message)
                                 }
@@ -246,7 +226,7 @@ export class Inspector extends React.Component {
                     </div>
                 }
 
-                {this.getActiveView() === 'item' &&
+                {this.props.activeEntityCategory === 'item' && this.props.activeEntity &&
                     <div className="ins-props">
                         <div className="input-group">
                             {this.props.activeEntity !== {} &&
@@ -264,7 +244,7 @@ export class Inspector extends React.Component {
                         <span className="ins-props-header">Ominaisuudet</span>
                         <Formik
                             enableReinitialize
-                            initialValues={this.getActiveEntity()}
+                            initialValues={this.props.activeEntity}
                             validate={values => {
                                 let errors = {}
                                 if (!values.attrs.id) {
@@ -277,7 +257,7 @@ export class Inspector extends React.Component {
                             }}
                             onSubmit={(values, actions) => {
                                 try {
-                                    this.props.updateItem(this.getActiveEntityId(), values)
+                                    this.props.updateItem(this.props.activeEntityId, values)
                                 } catch (e) {
                                     actions.setFieldError('attrs.id', e.message)
                                 }
@@ -307,6 +287,49 @@ export class Inspector extends React.Component {
                         />
                     </div>
                 }
+                {this.props.activeEntityCategory === 'interaction' && this.props.activeEntity &&
+                    <div className="ins-props">
+                        <span className="ins-props-header">Ominaisuudet</span>
+                        <Formik
+                            enableReinitialize
+                            initialValues={{id: ''}}
+                            validate={values => {
+                                let errors = {}
+                                if (!values.id) {
+                                    errors = set('id', 'Nimi on pakollinen', errors)
+                                }
+                                return errors
+                            }}
+                            onSubmit={(values, actions) => {
+                                try {
+                                    this.props.updateItem(this.props.activeEntityId, values)
+                                } catch (e) {
+                                    actions.setFieldError('attrs.id', e.message)
+                                }
+                            }}
+                            render={(formProps) => (
+                            <form onSubmit={formProps.handleSubmit}>
+                                <Select styles={defaultSelectStyles}
+                                        value={formProps.id}
+                                        defaultValue={this.props.activeEntity}
+                                        getOptionLabel={(option)=>option}
+                                        options={[...this.props.items, ...this.props.furnitures]}
+                                        noOptionsMessage={() => 'Ei tuloksia'}
+                                        onChange={e => formProps.setFieldValue('id', e.attrs.id)}
+                                        placeholder="Etsi lähdehuonekalua/esinettä..."/>
+                                <div className="item-edit-actions">
+                                    <Button type="submit" variant="success" disabled={!formProps.dirty}>
+                                        Tallenna
+                                    </Button>
+                                    <Button variant="secondary" className="ml-2" onClick={formProps.handleReset} disabled={!formProps.dirty}>
+                                        Peruuta
+                                    </Button>
+                                </div>
+                            </form>
+                            )}
+                        />
+                    </div>
+                }
             </div>
         );
     }
@@ -315,6 +338,8 @@ const mapStateToProps = state => ({
     rooms: getRooms(state),
     furnitures: getFurnitures(state),
     activeEntity: getActiveEntity(state),
+    activeEntityCategory: getActiveEntityCategory(state),
+    activeEntityId: getActiveEntityId(state),
     items: getItems(state)
 })
 const mapDispatchToProps = dispatch => ({

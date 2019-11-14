@@ -73,7 +73,7 @@ export const deleteText = (text) => {
 
 export const setActiveText = (id) => {
     return (dispatch) => {
-        dispatch(setActiveEntity(id))
+        dispatch(setActiveEntity(id, 'text'))
         dispatch({
             type: 'SET_ACTIVE_TEXT',
             payload: {

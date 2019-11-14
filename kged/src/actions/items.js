@@ -73,7 +73,7 @@ export const deleteItem = (item) => {
 
 export const setActiveItem = (id) => {
     return (dispatch) => {
-        dispatch(setActiveEntity(id))
+        dispatch(setActiveEntity(id, 'item'))
         dispatch({
             type: 'SET_ACTIVE_ITEM',
             payload: {

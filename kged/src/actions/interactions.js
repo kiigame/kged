@@ -1,5 +1,3 @@
-import { sortBy } from 'lodash/fp'
-
 import { fetchInteractions } from 'api'
 import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
@@ -7,7 +5,7 @@ import { DuplicateEntityError } from 'utils/errors'
 import 'styles/interactions.scss'
 
 export const getInteractions = (state) => {
-    return sortBy('attrs.id')(state.interactions.interactions)
+    return state.interactions.interactions
 }
 
 export const loadInteractions = () => {
@@ -45,7 +43,6 @@ export const updateInteraction = (oldId, newData) => {
                 command: newData.command
             }
         })
-        dispatch(updateActiveInteraction(newData.name))
     }
 }
 
@@ -63,21 +60,12 @@ export const deleteInteraction = (interaction) => {
 
 export const setActiveInteraction = (interaction) => {
     return (dispatch) => {
-        dispatch(setActiveEntity({id: interaction}))
+        dispatch(setActiveEntity(interaction, 'interaction'))
         dispatch({
             type: 'SET_ACTIVE_INTERACTION',
             payload: {
                 interaction: interaction
             }
-        })
-    }
-}
-
-export const updateActiveInteraction = (id = null) => {
-    return (dispatch) => {
-        dispatch({
-            type: 'UPDATE_ACTIVE_INTERACTION',
-            payload: { id: id }
         })
     }
 }

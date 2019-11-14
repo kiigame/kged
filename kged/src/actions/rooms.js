@@ -85,7 +85,7 @@ export const deleteRoom = (room) => {
 
 export const setActiveRoom = (id) => {
     return (dispatch) => {
-        dispatch(setActiveEntity(id))
+        dispatch(setActiveEntity(id, 'room'))
         dispatch({
             type: 'SET_ACTIVE_ROOM',
             payload: {

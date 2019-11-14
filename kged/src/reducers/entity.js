@@ -7,7 +7,7 @@ function entity(state = initialState, action, globalState = {}) {
         case 'SET_ACTIVE_ENTITY':
             return {
                 ...state,
-                activeEntity: action.payload.id
+                activeEntity: {id: action.payload.id, category: action.payload.category}
             }
 
         case 'REMOVE_ACTIVE_ENTITY':

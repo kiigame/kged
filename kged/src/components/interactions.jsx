@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { setActiveInteraction, addInteraction, deleteInteraction, getInteractions } from 'actions/interactions'
 import CreateContainer from './create_container'
@@ -12,8 +13,8 @@ import { getRooms } from 'actions/rooms'
 export class Interactions extends React.Component {
 
     isActiveInteraction(interaction) {
-        if (this.props.activeInteraction && this.props.activeInteraction.attrs) {
-            return this.props.activeInteraction.attrs.id === interaction.attrs.id;
+        if (this.props.activeInteraction === interaction) {
+            return this.props.activeInteraction;
         }
         return false;
     }
@@ -23,77 +24,51 @@ export class Interactions extends React.Component {
         //     console.log('1', item)
         //     console.log('2',item[Object.keys(item)])
         // })
-        console.log('activeInteraction',this.props.activeInteraction)
+        // this.props.interactions.map((interaction,key) => {
+        //     console.log('interaction',interaction)
+        //     console.log('key',key)
+        // })
+        console.log(this.props.interactions)
         return (
             <div>
                 <div className="action-header-container">
                     <CreateContainer
                         initialState={{name: ''}}
-                        addItem={this.props.addItem}
+                        addItem={this.props.addInteraction}
                         namePlaceholder={'Syötä interaktion nimi'}
                         submitLabel={'Lisää interaktio'}
                     />
                     <div className="searchbox-container">
                         <Select styles={defaultSelectStyles}
-                                getOptionLabel={(option)=>option.attrs.id}
-                                options={this.props.items}
+                                getOptionLabel={(option)=>option}
+                                options={Object.keys(this.props.interactions)}
                                 noOptionsMessage={() => 'Ei tuloksia'}
                                 placeholder="Etsi interaktiota..."/>
                     </div>
                 </div>
                 <div className="listitem-container">
-                    {this.props.items.length === 0 &&
+                    {this.props.interactions.length === 0 &&
                         <div className="empty-list-text">
-                            Ei esineitä! Luo uusi esine tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
+                            Ei interaktioita! Luo uusi interaktio tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
                         </div>
                     }
-                    <table className="interactions-table">
-                        <tbody>
-                            <tr>
-                                <th>Lähde</th>
-                                <th>Kohde</th>
-                                <th>Interaktio</th>
-                            </tr>
-                        </tbody>
-                    </table>
-                    {this.props.interactions.map((interaction,key) => {
+                    {Object.keys(this.props.interactions).map((interaction) => {
                         return (
-                            <table
-                                className={'interactions-table listitem ' + (this.isActiveInteraction(interaction) ? 'active-listeitem': '')}
-                                key={'table-'+key}
+                            <div
+                                className={'listitem ' + (this.isActiveInteraction(interaction) ? 'active-listitem' : '')}
+                                key={interaction}
                                 onClick={() => this.props.onClickInteraction(interaction)}
                             >
-                                <tbody>
-                                    {Object.keys(interaction) === 'click' &&
-                                        <tr key={'tr-'+key}>
-                                            <th key={'th-source-'+key}>{}</th>
-                                            <th key={'th-dest-'+key}>{interaction[Object.keys(interaction)].destination}</th>
-                                        </tr>
-                                    }
-                                    {Object.keys(interaction) !== 'click' &&
-                                        <tr key={'tr-'+key}>
-                                            <th key={'th-source-'+key}>{Object.keys(interaction)}</th>
-                                            <th key={'th-dest-'+key}>{Object.keys(interaction)}</th>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-
-                            // <div
-                            //     className={'listitem ' + (this.isActiveItem(item) ? 'active-listitem' : '')}
-                            //     key={item.attrs.id}
-                            //     onClick={() => this.props.onClickItem(item)}
-                            // >
-                            //     <span className="listitem-name">
-                            //         {item.attrs.id}
-                            //     </span>
-                            //     {this.isActiveItem(item) &&
-                            //         <span className="trash" onClick={(e) => {
-                            //             this.props.removeItem(item)
-                            //             e.stopPropagation()
-                            //         }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
-                            //     }
-                            // </div>
+                                <span className="listitem-name">
+                                    {interaction}
+                                </span>
+                                {this.isActiveInteraction(interaction) &&
+                                    <span className="trash" onClick={(e) => {
+                                        this.props.removeInteraction(interaction)
+                                        e.stopPropagation()
+                                    }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                                }
+                            </div>
                         )
                     })}
                 </div>

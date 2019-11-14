@@ -38,7 +38,7 @@ export class Texts extends React.Component {
                 <div className="listitem-container">
                     {this.props.texts.length === 0 &&
                         <div className="empty-list-text">
-                            Ei huoneita! Luo uusi huone tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
+                            Ei tekstejä! Luo uusi teksti tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
                         </div>
                     }
                     {this.props.texts.map((text) => {
