@@ -33,7 +33,7 @@ export class ActionBar extends React.Component {
                 </div>
                 <div className="col" id="import-zip-container" onClick={this.clickHiddenInput}>
                     Tuo
-                    <input type="file" id="hidden-input"/>
+                    <input type="file" accept=".zip" id="hidden-input"/>
                 </div>
                 <div className="col" onClick={this.props.onExport}>
                     Vie
