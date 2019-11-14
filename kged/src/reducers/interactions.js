@@ -2,7 +2,7 @@ import { fetchInteractions } from 'api'
 
 const initialState = {
     interactions: fetchInteractions(),
-    activeInteraction: {}
+    activeInteraction: undefined
 }
 
 function interactions(state = initialState, action) {

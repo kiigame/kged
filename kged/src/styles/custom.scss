@@ -13,6 +13,12 @@ html, body {
     height: 100%;
 }
 
+.list-container {
+    border-radius: 5px;
+    padding-bottom: 8px;
+    background-color: $color-gray-875;
+}
+
 .listitem {
     background: $color-gray-875;
     padding: 0.2em 0.4em 0 0.6em;

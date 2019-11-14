@@ -36,7 +36,6 @@ export class Inspector extends React.Component {
             } else if (activeView === 'item') {
                 return activeEntity.attrs
             }
-
         }
     }
 
@@ -311,11 +310,11 @@ export class Inspector extends React.Component {
                             <form onSubmit={formProps.handleSubmit}>
                                 <Select styles={defaultSelectStyles}
                                         value={formProps.id}
-                                        defaultValue={this.props.activeEntity}
-                                        getOptionLabel={(option)=>option}
+                                        defaultValue={{attrs: {id: this.props.activeEntity}}}
+                                        getOptionLabel={(option)=>option.attrs.id}
                                         options={[...this.props.items, ...this.props.furnitures]}
                                         noOptionsMessage={() => 'Ei tuloksia'}
-                                        onChange={e => formProps.setFieldValue('id', e.attrs.id)}
+                                        onChange={e => formProps.setFieldValue('id', {'attrs': {'id':e.attrs.id}})}
                                         placeholder="Etsi lähdehuonekalua/esinettä..."/>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>

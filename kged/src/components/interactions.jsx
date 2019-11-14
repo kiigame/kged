@@ -20,58 +20,97 @@ export class Interactions extends React.Component {
     }
 
     render() {
-        // this.props.interactions.map((item) => {
-        //     console.log('1', item)
-        //     console.log('2',item[Object.keys(item)])
-        // })
-        // this.props.interactions.map((interaction,key) => {
-        //     console.log('interaction',interaction)
-        //     console.log('key',key)
-        // })
-        console.log(this.props.interactions)
+        console.log('active',this.props.activeInteraction)
         return (
             <div>
-                <div className="action-header-container">
-                    <CreateContainer
-                        initialState={{name: ''}}
-                        addItem={this.props.addInteraction}
-                        namePlaceholder={'Syötä interaktion nimi'}
-                        submitLabel={'Lisää interaktio'}
-                    />
-                    <div className="searchbox-container">
-                        <Select styles={defaultSelectStyles}
-                                getOptionLabel={(option)=>option}
-                                options={Object.keys(this.props.interactions)}
-                                noOptionsMessage={() => 'Ei tuloksia'}
-                                placeholder="Etsi interaktiota..."/>
+                <div className="list-container mb-2">
+                    <div className="action-header-container">
+                        <CreateContainer
+                            initialState={{name: ''}}
+                            addItem={this.props.addInteraction}
+                            namePlaceholder={'Syötä interaktion nimi'}
+                            submitLabel={'Lisää interaktio'}
+                        />
+                        <div className="searchbox-container">
+                            <Select styles={defaultSelectStyles}
+                                    getOptionLabel={(option)=>option}
+                                    options={Object.keys(this.props.interactions)}
+                                    noOptionsMessage={() => 'Ei tuloksia'}
+                                    placeholder="Etsi interaktiota..."/>
+                        </div>
+                    </div>
+                    <div className="listitem-container">
+                        {this.props.interactions.length === 0 &&
+                            <div className="empty-list-text">
+                                Ei interaktioita! Luo uusi interaktio tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
+                            </div>
+                        }
+                        {Object.keys(this.props.interactions).map((interaction) => {
+                            return (
+                                <div
+                                    className={'listitem ' + (this.isActiveInteraction(interaction) ? 'active-listitem' : '')}
+                                    key={interaction}
+                                    onClick={() => this.props.onClickInteraction(interaction)}
+                                >
+                                    <span className="listitem-name">
+                                        {interaction}
+                                    </span>
+                                    {this.isActiveInteraction(interaction) &&
+                                        <span className="trash" onClick={(e) => {
+                                            this.props.removeInteraction(interaction)
+                                            e.stopPropagation()
+                                        }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                                    }
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
-                <div className="listitem-container">
-                    {this.props.interactions.length === 0 &&
-                        <div className="empty-list-text">
-                            Ei interaktioita! Luo uusi interaktio tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
-                        </div>
-                    }
-                    {Object.keys(this.props.interactions).map((interaction) => {
-                        return (
-                            <div
-                                className={'listitem ' + (this.isActiveInteraction(interaction) ? 'active-listitem' : '')}
-                                key={interaction}
-                                onClick={() => this.props.onClickInteraction(interaction)}
-                            >
-                                <span className="listitem-name">
-                                    {interaction}
-                                </span>
-                                {this.isActiveInteraction(interaction) &&
-                                    <span className="trash" onClick={(e) => {
-                                        this.props.removeInteraction(interaction)
-                                        e.stopPropagation()
-                                    }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
-                                }
+                {this.props.activeInteraction &&
+                    <div className="list-container">
+                        <div className="action-header-container">
+                            <CreateContainer
+                                initialState={{name: ''}}
+                                addItem={this.props.addInteraction}
+                                namePlaceholder={'Syötä interaktion nimi'}
+                                submitLabel={'Lisää interaktio'}
+                            />
+                            <div className="searchbox-container">
+                                <Select styles={defaultSelectStyles}
+                                        getOptionLabel={(option)=>option}
+                                        options={Object.keys(this.props.interactions)}
+                                        noOptionsMessage={() => 'Ei tuloksia'}
+                                        placeholder="Etsi interaktiota..."/>
                             </div>
-                        )
-                    })}
-                </div>
+                        </div>
+                        <div className="listitem-container">
+                            {this.props.interactions.length === 0 &&
+                                <div className="empty-list-text">
+                                    Ei interaktioita! Luo uusi interaktio tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
+                                </div>
+                            }
+                            {Object.keys(this.props.interactions).map((interaction) => {
+                                return (
+                                    <div
+                                        className={'listitem ' + (this.isActiveInteraction(interaction) ? 'active-listitem' : '')}
+                                        key={interaction}
+                                        onClick={() => this.props.onClickInteraction(interaction)}
+                                    >
+                                        <span className="listitem-name">
+                                            {interaction}
+                                        </span>
+                                        {this.isActiveInteraction(interaction) &&
+                                            <span className="trash" onClick={(e) => {
+                                                this.props.removeInteraction(interaction)
+                                                e.stopPropagation()
+                                            }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
+                                        }
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                }
             </div>
         );
     }

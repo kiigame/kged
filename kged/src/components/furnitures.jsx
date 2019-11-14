@@ -18,7 +18,7 @@ export class Furnitures extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="list-container">
                 <div className="action-header-container">
                     <CreateContainer
                         initialState={{name: ''}}
