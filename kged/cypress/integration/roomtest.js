@@ -35,9 +35,9 @@ describe('item creation', function() {
     it('creates an item', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Esineet').click()
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('esine123')
-        cy.get("[type='submit']").click()
+        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get("[type='name']").should('have.class', 'form-control').first().type('esine123')
+        cy.get("[type='submit']").first().click()
         cy.get('div').contains('esine123')        
     })
 
@@ -45,6 +45,7 @@ describe('item creation', function() {
 describe('inspector tests', function(){
     it('changes the name of a room in the inspector', () => {
         //cy.visit('https://kged-dev.netlify.com/')
+        cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Huoneet').click()
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
         cy.get("[type='name'").clear()
         cy.get("[type='name'").type('huone246')
