@@ -25,11 +25,12 @@ describe('room creation', function() {
     })
     it('deletes a room', () => {
         //cy.visit('https://kged-dev.netlify.com/')
-        cy.get('div').should('have.class', 'listitem').contains('object_layer_wc_1').click()
+        cy.get('div').should('have.class', 'listitem').contains('huone123').click()
+
     })
 
 })
-// TODO: INTERAKTIOT, INSPEKTORI, KUMOA, TOISTA, TALLENNA, TUO, VIE
+// TODO: INTERAKTIOT, KUMOA, TOISTA, TALLENNA, TUO, VIE
 
 describe('item creation', function() {
     it('creates an item', () => {
@@ -72,16 +73,28 @@ describe('inspector tests', function(){
 })
 describe('Furniture testing', function() {
     it('creates a furniture', () => {
-        cy.visit('https://kged-dev.netlify.com/')
+        //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('huonekalu123')
-        cy.get("[type='submit']").click()
+        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get("[type='name']").first().type('huonekalu123')
+        cy.get("[type='submit']").first().click()
         cy.get('div').contains('huonekalu123')  
     })
     it('cancels a furniture creation', () => {
-        cy.visit('https://kged-dev.netlify.com')
+        //cy.visit('https://kged-dev.netlify.com')
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
-        
+        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get("[type='name']").first().type('huonekalu321')
+        cy.get("[type='button']").contains('Peruuta').first().click()
+    })
+    it('edits the furniture in the inspector', () => {
+        cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
+        cy.get("[type='name']").clear()
+        cy.get("[type='name']").type('huonekalu321')
+        cy.get('div').should('have.class', 'css-yk16xz-control').first().click()
+        cy.get('div').should('have.class', 'css-1e5ysj4').first().click()
+        cy.get('div').should('have.class', 'css-yk16zx-control').contains('huone123')
+        cy.get("[type='submit']").click()
+        cy.get('div').contains('huonekalu321')
     })
 })
