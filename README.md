@@ -4,3 +4,10 @@
 
 kged is a web-based game editor for [KiiGame Adventure Engine](https://github.com/evktalo/kiigame), enabling users to easily create their own adventures.
 
+## Architecture
+
+### React component architecture
+
+The following diagram describes the architecture of the React components. 
+
+![Component architecture diagram](docs/assets/react-component-architecture.png?raw=true "React component diagram")
