@@ -38,21 +38,35 @@ export function filterFurnitures(rooms) {
     return filteredRooms
 }
 
-export function extractFurnitures(rooms) {
+export function extractFurnitures(rooms, interactions) {
     const furnitures = rooms.flatMap(room => {
         if (room.attrs && room.children) {
-            return room.children
-                .filter(c => c.attrs && c.attrs.category === 'furniture')
-                .map(c => {
-                    return {
-                        ...c,
-                        selectedRoom: {
-                            attrs: { id: room.attrs.id }
+            let furnitureChildren = room.children.filter(c => c.attrs && c.attrs.category === 'furniture')
+            return furnitureChildren.map(c => {
+                let data = {
+                    ...c,
+                    selectedRoom: {
+                        attrs: { id: room.attrs.id }
+                    }
+                }
+                let interaction = getInteraction(c.attrs.id, interactions)
+                if (interaction) {
+                    data = {
+                        ...data,
+                        isDoor: true,
+                        selectedDestination: {
+                            attrs: { id: interaction}
                         }
                     }
-                })
+                }
+                return data
+            })
         }
     }).filter(f => f)
     return furnitures
+}
+
+function getInteraction(furniture, interactions) {
+    return Object.keys(interactions).find(i => i === furniture)
 }
 

@@ -54,7 +54,6 @@ export const deleteInteraction = (interaction) => {
                 interaction: interaction
             }
         })
-        dispatch(removeActiveEntity())
     }
 }
 
@@ -69,3 +68,16 @@ export const setActiveInteraction = (interaction) => {
         })
     }
 }
+
+export const setDoorInteraction = (id, destination) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_DOOR_INTERACTION',
+            payload: {
+                interaction: id,
+                destination: destination.attrs.id
+            }
+        })
+    }
+}
+

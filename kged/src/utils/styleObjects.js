@@ -15,6 +15,10 @@ export const defaultSelectStyles = {
         marginBottom: '10px'
     }),
     container: (provided, state) => ({
-        marginBottom: '1rem'
+        marginBottom: '1rem',
+    }),
+    control: (provided, state) => ({
+        ...provided,
+        opacity: state.isDisabled ? '0.5' : '1'
     })
 }

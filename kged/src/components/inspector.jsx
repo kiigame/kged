@@ -9,6 +9,7 @@ import { getActiveEntity, getActiveEntityCategory, getActiveEntityId } from 'act
 import { setRoomBackgroundImage, updateRoom, getRooms } from 'actions/rooms'
 import { setFurnitureImage, updateFurniture, getFurnitures } from 'actions/furnitures'
 import { setItemImage, updateItem, getItems } from 'actions/items'
+import { setDoorInteraction, deleteInteraction } from 'actions/interactions'
 import FileDialog from './file_dialog'
 import 'styles/inspector.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
@@ -171,6 +172,12 @@ export class Inspector extends React.Component {
                             onSubmit={(values, actions) => {
                                 try {
                                     this.props.updateFurniture(this.props.activeEntityId, values)
+                                    if (values.isDoor) {
+                                        this.props.setDoorInteraction(this.props.activeEntityId, values.selectedDestination)
+                                    }
+                                    else {
+                                        this.props.deleteInteraction(this.props.activeEntityId)
+                                    }
                                 } catch (e) {
                                     actions.setFieldError('attrs.id', e.message)
                                 }
@@ -207,10 +214,25 @@ export class Inspector extends React.Component {
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
-                                    <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibleCheck" className="form-check-input"
+                                    <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibility-checkbox" className="form-check-input"
                                            checked={formProps.values.attrs.visible} name="attrs.visible"/>
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="visibleCheck">Näkyvissä</label>
+                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="visibility-checkbox">Näkyvissä</label>
                                 </div>
+                                <div className="form-check my-3">
+                                    <Field key={`${formProps.values.doorTo}-door`} type="checkbox" id="door-checkbox" className="form-check-input"
+                                           checked={formProps.values.isDoor} name="isDoor"/>
+                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="door-checkbox">Ovi</label>
+                                </div>
+                                <Select styles={defaultSelectStyles}
+                                        value={formProps.selectedDestination}
+                                        isDisabled={!formProps.values.isDoor}
+                                        defaultValue={this.props.activeEntity.selectedDestination}
+                                        getOptionLabel={(option)=>option.attrs.id}
+                                        options={this.props.rooms}
+                                        noOptionsMessage={() => 'Ei tuloksia'}
+                                        onChange={e => formProps.setFieldValue('selectedDestination', {'attrs': {'id':e.attrs.id}})}
+                                        placeholder="Etsi huonetta..."/>
+
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
                                         Tallenna
@@ -269,9 +291,9 @@ export class Inspector extends React.Component {
                                     <ErrorMessage component="div" className="error-message" name="attrs.id" />
                                 </div>
                                 <div className="form-check my-3">
-                                    <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibleCheck" className="form-check-input"
+                                    <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibility-checkbox" className="form-check-input"
                                            checked={formProps.values.attrs.visible} name="attrs.visible"/>
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä" htmlFor="visibleCheck">Näkyvissä</label>
+                                    <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä" htmlFor="visibility-checkbox">Näkyvissä</label>
                                 </div>
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
@@ -348,6 +370,8 @@ const mapDispatchToProps = dispatch => ({
     updateRoom: (oldId, room) => dispatch(updateRoom(oldId, room)),
     updateFurniture: (oldId, furniture) => dispatch(updateFurniture(oldId, furniture)),
     updateItem: (oldId, item) => dispatch(updateItem(oldId, item)),
+    setDoorInteraction: (id, selectedDestination) => dispatch(setDoorInteraction(id,selectedDestination)),
+    deleteInteraction: (id) => dispatch(deleteInteraction(id))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Inspector);

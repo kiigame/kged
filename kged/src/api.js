@@ -54,6 +54,8 @@ export function exportRooms(state) {
                 delete f.attrs.url
             }
             delete f.selectedRoom
+            delete f.selectedDestination
+            delete f.isDoor
         }
         if (room.children) {
             for (let c of room.children) {
@@ -87,3 +89,12 @@ export function exportItems(state) {
     return items
 }
 
+export function exportInteractions(state) {
+    let interactions = cloneDeep(state.interactions.interactions)
+
+    // Object.keys(interactions).forEach(interaction => {
+
+    // })
+
+    return interactions
+}
