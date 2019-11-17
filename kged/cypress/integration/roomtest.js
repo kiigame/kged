@@ -91,10 +91,21 @@ describe('Furniture testing', function() {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
         cy.get("[type='name']").clear()
         cy.get("[type='name']").type('huonekalu321')
-        cy.get('div').should('have.class', 'css-yk16xz-control').first().click()
-        cy.get('div').should('have.class', 'css-1e5ysj4').first().click()
-        cy.get('div').should('have.class', 'css-yk16zx-control').contains('huone123')
-        cy.get("[type='submit']").click()
-        cy.get('div').contains('huonekalu321')
+        cy.get('div:visible').should('have.class', 'css-1hwfws3').contains('Etsi huonetta...').click()
+        cy.get('div:visible').should('have.class', 'css-1e5ysj4').contains('huone246').click()
+    })
+
+})
+
+//Alempi testattu ja toimii, kommentoitu pois jottei se lataisi tuota 
+//zippiä joka kerta kun pyörittää testit
+/*
+describe('Download/Upload', function() {
+    it('downloads a zip of the game', () => {
+        cy.get('div').should('have.class', 'col').contains('Vie').click()
+    })
+    it('uploads a zip to the editor', () => {
+        cy.get('div').should('have.class', 'col').contains('Tuo').click()
     })
 })
+*/
