@@ -220,7 +220,7 @@ export class Inspector extends React.Component {
                                 </div>
                                 <div className="form-check my-3">
                                     <Field key={`${formProps.values.doorTo}-door`} type="checkbox" id="door-checkbox" className="form-check-input"
-                                           checked={formProps.values.isDoor} name="isDoor"/>
+                                           checked={formProps.values.isDoor === true} name="isDoor"/>
                                     <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="door-checkbox">Ovi</label>
                                 </div>
                                 <Select styles={defaultSelectStyles}
