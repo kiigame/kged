@@ -20,6 +20,8 @@ function furnitures(state = initialState, action) {
                             category: 'furniture',
                             url: 'assets/placeholders/furniture.jpg'
                         },
+                        selectedRoom: {attrs: {}},
+                        selectedDestination: {attrs: {}},
                         className: 'Image'
                     }
                 ]

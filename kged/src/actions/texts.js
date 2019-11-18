@@ -17,11 +17,10 @@ export const getActiveText = (state) => {
 
 // actions
 
-export const loadTexts = () => {
+export const loadTexts = (texts) => {
     return (dispatch, getState) => {
-        const texts = fetchTexts()
         dispatch({
-            type: 'GET_TEXTS',
+            type: 'LOAD_TEXTS',
             payload: {
                 texts
             }
@@ -68,6 +67,17 @@ export const deleteText = (text) => {
             }
         })
         dispatch(removeActiveEntity())
+    }
+}
+
+export const deleteExamineText = (textId) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'DELETE_EXAMINE_TEXT',
+            payload: {
+                object: textId
+            }
+        })
     }
 }
 

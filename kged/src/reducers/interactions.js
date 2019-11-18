@@ -42,6 +42,25 @@ function interactions(state = initialState, action) {
                 }
             }
 
+        case 'SET_EXAMINE_INTERACTION':
+            return {
+                ...state,
+                interactions: {
+                    ...state.interactions,
+                    [action.payload.interaction]: {
+                        'click': [
+                            {
+                                'command': 'monologue',
+                                'textkey': {
+                                    'object': action.payload.interaction,
+                                    'string': 'examine'
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+
         default:
             return state
     }

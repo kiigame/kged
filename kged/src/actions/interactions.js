@@ -81,3 +81,21 @@ export const setDoorInteraction = (id, destination) => {
     }
 }
 
+export const setExamineInteraction = (id, examineText) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_EXAMINE_INTERACTION',
+            payload: {
+                interaction: id
+            }
+        })
+        dispatch({
+            type: 'SET_EXAMINE_TEXT',
+            payload: {
+                object: id,
+                examineText: examineText
+            }
+        })
+    }
+}
+

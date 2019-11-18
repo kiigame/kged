@@ -9,7 +9,8 @@ import { getActiveEntity, getActiveEntityCategory, getActiveEntityId } from 'act
 import { setRoomBackgroundImage, updateRoom, getRooms } from 'actions/rooms'
 import { setFurnitureImage, updateFurniture, getFurnitures } from 'actions/furnitures'
 import { setItemImage, updateItem, getItems } from 'actions/items'
-import { setDoorInteraction, deleteInteraction } from 'actions/interactions'
+import { deleteExamineText } from 'actions/texts'
+import { setDoorInteraction, deleteInteraction, setExamineInteraction } from 'actions/interactions'
 import FileDialog from './file_dialog'
 import 'styles/inspector.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
@@ -167,16 +168,23 @@ export class Inspector extends React.Component {
                                 if (values.attrs.id && /\s/.test(values.attrs.id)) {
                                     errors = set('attrs.id', 'Nimessä ei saa olla välilyöntejä', errors)
                                 }
+                                if (!values.selectedRoom || !values.selectedRoom.attrs.id) {
+                                    errors = set('selectedRoom', 'Huonekalulle valittava huone on pakollinen', errors)
+                                }
+                                if (values.isDoor && (!values.selectedDestination || !values.selectedDestination.attrs.id)) {
+                                    errors = set('selectedDestination', 'Ovelle valittava huone on pakollinen', errors)
+                                }
                                 return errors
                             }}
                             onSubmit={(values, actions) => {
                                 try {
                                     this.props.updateFurniture(this.props.activeEntityId, values)
+                                    this.props.deleteExamineText(this.props.activeEntityId)
+                                    this.props.deleteInteraction(this.props.activeEntityId)
                                     if (values.isDoor) {
                                         this.props.setDoorInteraction(this.props.activeEntityId, values.selectedDestination)
-                                    }
-                                    else {
-                                        this.props.deleteInteraction(this.props.activeEntityId)
+                                    } else if (values.isExaminable) {
+                                        this.props.setExamineInteraction(this.props.activeEntityId, values.examineText)
                                     }
                                 } catch (e) {
                                     actions.setFieldError('attrs.id', e.message)
@@ -189,15 +197,22 @@ export class Inspector extends React.Component {
                                     <Field className="form-control" type="name" name="attrs.id" />
                                     <ErrorMessage component="div" className="error-message" name="attrs.id" />
                                 </div>
-                                <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
-                                <Select styles={defaultSelectStyles}
-                                        value={formProps.selectedRoom}
-                                        defaultValue={this.props.activeEntity.selectedRoom}
-                                        getOptionLabel={(option)=>option.attrs.id}
-                                        options={this.props.rooms}
-                                        noOptionsMessage={() => 'Ei tuloksia'}
-                                        onChange={e => formProps.setFieldValue('selectedRoom', {'attrs': {'id':e.attrs.id}})}
-                                        placeholder="Etsi huonetta..."/>
+                                <div className="form-group">
+                                    <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
+                                    <Select styles={defaultSelectStyles}
+                                            name="selectedRoom"
+                                            value={formProps.selectedRoom}
+                                            defaultValue={this.props.activeEntity.selectedDoor &&
+                                                this.props.activeEntity.selectedDoor.attrs &&
+                                                this.props.activeEntity.selectedDoor.attrs.id ?
+                                                this.props.activeEntity.selectedDoor : undefined}
+                                            getOptionLabel={(option)=>option.attrs.id}
+                                            options={this.props.rooms}
+                                            noOptionsMessage={() => 'Ei tuloksia'}
+                                            onChange={e => formProps.setFieldValue('selectedRoom', {'attrs': {'id':e.attrs.id}})}
+                                            placeholder="Etsi huonetta..."/>
+                                    <ErrorMessage component="div" className="error-message" name="selectedRoom" />
+                                </div>
                                 <label className="change-color-onhover" title="Huonekalun sijainti huoneessa">Huonekalun sijainti</label>
                                 <div className="xy-container">
                                     <div className="col-6 xy-col">
@@ -214,25 +229,80 @@ export class Inspector extends React.Component {
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
-                                    <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibility-checkbox" className="form-check-input"
-                                           checked={formProps.values.attrs.visible} name="attrs.visible"/>
+                                    <Field
+                                        key={`${formProps.values.attrs.id}-visible`}
+                                        type="checkbox"
+                                        id="visibility-checkbox"
+                                        className="form-check-input"
+                                        checked={formProps.values.attrs.visible}
+                                        name="attrs.visible"
+                                    />
                                     <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="visibility-checkbox">Näkyvissä</label>
                                 </div>
-                                <div className="form-check my-3">
-                                    <Field key={`${formProps.values.doorTo}-door`} type="checkbox" id="door-checkbox" className="form-check-input"
-                                           checked={formProps.values.isDoor === true} name="isDoor"/>
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="door-checkbox">Ovi</label>
+                                <div className="form-group">
+                                    <label className="change-color-onhover" title="Valitse interaktio huonekalulle">Interaktio</label>
+                                    <div className="form-check my-3">
+                                        <Field
+                                            key={`${this.props.activeEntityId}-no-interaction`}
+                                            type="radio"
+                                            id="no-interaction-checkbox"
+                                            className="form-check-input"
+                                            checked={!formProps.values.isDoor && !formProps.values.isExaminable}
+                                            onChange={e => {formProps.setFieldValue('isExaminable', false); formProps.setFieldValue('isDoor', false)}}
+                                            name="noInteraction"
+                                            value="noInteraction"
+                                        />
+                                        <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="no-interaction-checkbox">Ei interaktiota</label>
+                                    </div>
+                                    <div className="form-check my-3">
+                                        <Field
+                                            key={`${this.props.activeEntityId}-examinable`}
+                                            type="radio"
+                                            id="examinable-checkbox"
+                                            className="form-check-input"
+                                            checked={formProps.values.isExaminable === true}
+                                            onChange={e => {formProps.setFieldValue('isExaminable', true); formProps.setFieldValue('isDoor', false)}}
+                                            value="isExaminable"
+                                            name="isExaminable"
+                                        />
+                                        <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu tarkasteltavissa" htmlFor="examinable-checkbox">Tarkasteltavissa</label>
+                                        <textarea
+                                            disabled={formProps.values.isExaminable === false}
+                                            className="form-control"
+                                            id="examinable-text"
+                                            rows="2"
+                                            value={formProps.values.examineText}
+                                            onChange={e => formProps.setFieldValue('examineText', e.target.value)}>
+                                        </textarea>
+                                    </div>
+                                    <div className="form-check my-3">
+                                        <Field
+                                            key={`${this.props.activeEntityId}-door`}
+                                            type="radio"
+                                            id="door-checkbox"
+                                            className="form-check-input"
+                                            checked={formProps.values.isDoor === true}
+                                            onChange={e => {formProps.setFieldValue('isExaminable', false); formProps.setFieldValue('isDoor', true)}}
+                                            value="isDoor"
+                                            name="isDoor"
+                                        />
+                                        <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="door-checkbox">Ovi</label>
+                                    </div>
+                                    <Select styles={defaultSelectStyles}
+                                            name="selectedDestination"
+                                            value={formProps.selectedDestination}
+                                            isDisabled={!formProps.values.isDoor}
+                                            defaultValue={this.props.activeEntity.selectedDestination &&
+                                                this.props.activeEntity.selectedDestination.attrs &&
+                                                this.props.activeEntity.selectedDestination.attrs.id ?
+                                                this.props.activeEntity.selectedDestination : undefined}
+                                            getOptionLabel={(option)=>option.attrs.id}
+                                            options={this.props.rooms}
+                                            noOptionsMessage={() => 'Ei tuloksia'}
+                                            onChange={e => formProps.setFieldValue('selectedDestination', {'attrs': {'id':e.attrs.id}})}
+                                            placeholder="Etsi huonetta..."/>
+                                    <ErrorMessage component="div" className="error-message" name="selectedDestination" />
                                 </div>
-                                <Select styles={defaultSelectStyles}
-                                        value={formProps.selectedDestination}
-                                        isDisabled={!formProps.values.isDoor}
-                                        defaultValue={this.props.activeEntity.selectedDestination}
-                                        getOptionLabel={(option)=>option.attrs.id}
-                                        options={this.props.rooms}
-                                        noOptionsMessage={() => 'Ei tuloksia'}
-                                        onChange={e => formProps.setFieldValue('selectedDestination', {'attrs': {'id':e.attrs.id}})}
-                                        placeholder="Etsi huonetta..."/>
-
                                 <div className="item-edit-actions">
                                     <Button type="submit" variant="success" disabled={!formProps.dirty}>
                                         Tallenna
@@ -370,8 +440,10 @@ const mapDispatchToProps = dispatch => ({
     updateRoom: (oldId, room) => dispatch(updateRoom(oldId, room)),
     updateFurniture: (oldId, furniture) => dispatch(updateFurniture(oldId, furniture)),
     updateItem: (oldId, item) => dispatch(updateItem(oldId, item)),
-    setDoorInteraction: (id, selectedDestination) => dispatch(setDoorInteraction(id,selectedDestination)),
-    deleteInteraction: (id) => dispatch(deleteInteraction(id))
+    setDoorInteraction: (id, selectedDestination) => dispatch(setDoorInteraction(id, selectedDestination)),
+    setExamineInteraction: (id, examineText) => dispatch(setExamineInteraction(id, examineText)),
+    deleteInteraction: (id) => dispatch(deleteInteraction(id)),
+    deleteExamineText: (id) => dispatch(deleteExamineText(id))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Inspector);

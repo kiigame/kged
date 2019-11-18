@@ -38,7 +38,7 @@ export function filterFurnitures(rooms) {
     return filteredRooms
 }
 
-export function extractFurnitures(rooms, interactions) {
+export function extractFurnitures(rooms, interactions, texts) {
     const furnitures = rooms.flatMap(room => {
         if (room.attrs && room.children) {
             let furnitureChildren = room.children.filter(c => c.attrs && c.attrs.category === 'furniture')
@@ -49,14 +49,22 @@ export function extractFurnitures(rooms, interactions) {
                         attrs: { id: room.attrs.id }
                     }
                 }
-                let interaction = getInteraction(c.attrs.id, interactions)
-                if (interaction) {
+                let ti = getTransitionInteraction(c.attrs.id, interactions)
+                if (ti) {
                     data = {
                         ...data,
                         isDoor: true,
                         selectedDestination: {
-                            attrs: { id: interaction}
+                            attrs: { id: ti.click[0].destination }
                         }
+                    }
+                }
+                let ei = getExamineInteraction(c.attrs.id, interactions)
+                if (ei) {
+                    data = {
+                        ...data,
+                        isExaminable: true,
+                        examineText: texts[c.attrs.id]['examine']
                     }
                 }
                 return data
@@ -66,7 +74,30 @@ export function extractFurnitures(rooms, interactions) {
     return furnitures
 }
 
-function getInteraction(furniture, interactions) {
-    return Object.keys(interactions).find(i => i === furniture)
+function getTransitionInteraction(furniture, interactions) {
+    let match = Object.keys(interactions).find(i => i === furniture)
+
+    if (!match || !interactions[match].click) {
+        return
+    }
+    let interaction = interactions[match]
+    for (let c of interaction.click) {
+        if (c.command === 'do_transition') {
+            return interaction
+        }
+    }
 }
 
+function getExamineInteraction(furniture, interactions) {
+    let match = Object.keys(interactions).find(i => i === furniture)
+    if (!match || !interactions[match].click) {
+        return
+    }
+
+    let interaction = interactions[match]
+    for (let c of interaction.click) {
+        if (c.command === 'monologue' && c.textkey.string === 'examine') {
+            return interaction
+        }
+    }
+}
