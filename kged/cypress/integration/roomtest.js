@@ -12,6 +12,17 @@ describe('room creation', function() {
         cy.get("[type='name']").type('huone123')
         cy.get("[type='submit']").click()
         cy.get('div').contains('huone123')
+
+        //Create another room for testing
+        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        cy.get("[type='name']").type('huone321')
+        cy.get("[type='submit']").click()
+
+        //...And another one
+        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        cy.get("[type='name']").type('huone555')
+        cy.get("[type='submit']").click()
+
     })
     it('cancels the room creation', () => {
         //cy.visit('https://kged-dev.netlify.com/')
@@ -26,20 +37,30 @@ describe('room creation', function() {
     it('deletes a room', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
-
+        cy.get('.trash:visible').click()
     })
 
 })
 // TODO: INTERAKTIOT, KUMOA, TOISTA, TALLENNA, TUO, VIE
 
 describe('item creation', function() {
-    it('creates an item', () => {
+    it('creates 2 items', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Esineet').click()
         cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
         cy.get("[type='name']").should('have.class', 'form-control').first().type('esine123')
         cy.get("[type='submit']").first().click()
-        cy.get('div').contains('esine123')        
+        cy.get('div').contains('esine123')
+        
+        //Creates another item for testing purposes
+        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get("[type='name']").should('have.class', 'form-control').first().type('esine333')
+        cy.get("[type='submit']").first().click()
+        cy.get('div').contains('esine333')    
+    })
+    it('cancels the item creation', () => {
+        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get("[type='button']").contains('Peruuta').click()   
     })
 
 })
@@ -47,7 +68,7 @@ describe('inspector tests', function(){
     it('changes the name of a room in the inspector', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Huoneet').click()
-        cy.get('div').should('have.class', 'listitem').contains('huone123').click()
+        cy.get('div').should('have.class', 'listitem').contains('huone321').click()
         cy.get("[type='name'").clear()
         cy.get("[type='name'").type('huone246')
         cy.get("[type='submit']").click()
@@ -91,8 +112,19 @@ describe('Furniture testing', function() {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
         cy.get("[type='name']").clear()
         cy.get("[type='name']").type('huonekalu321')
-        cy.get('div:visible').should('have.class', 'css-1hwfws3').contains('Etsi huonetta...').click()
-        cy.get('div:visible').should('have.class', 'css-1e5ysj4').contains('huone246').click()
+        cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
+        cy.get('.css-1e5ysj4:visible').click()
+
+        cy.get('input[name="attrs.x"]').clear()
+        cy.get('input[name="attrs.x"]').type('2')
+        cy.get('input[name="attrs.y"]').clear()
+        cy.get('input[name="attrs.y"]').type('4')
+
+        cy.get('input[name="attrs.visible"]').click()
+        cy.get('input[name="attrs.isDoor"]').click()
+        cy.get('.1hwfws3:visible').contains('Etsi huonetta...').click()
+        cy.get('.css-1e5ysj4:visible').contains('huone555').click()
+
     })
 
 })
