@@ -40,13 +40,21 @@ function rooms(state = initialState, action) {
             }
 
         case 'UPDATE_ROOM':
+            const isStartRoom = action.payload.room.attrs.start
             return {
                 ...state,
-                rooms: state.rooms.map(room =>
-                    room.attrs.id === action.payload.oldId
-                    ? action.payload.room
-                    : room
-                )
+                rooms: state.rooms.map(room => {
+                    if (room.attrs.id === action.payload.oldId) {
+                        return action.payload.room
+                    } else if (isStartRoom){
+                        return {
+                            ...room,
+                            attrs: {...room.attrs, start: false}
+                        }
+                    } else {
+                        return room
+                    }
+                })
             }
 
         case 'SET_ROOM_BACKGROUND_IMAGE':
