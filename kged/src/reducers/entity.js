@@ -2,7 +2,7 @@ const initialState = {
     activeEntity: {}
 }
 
-function entity(state = initialState, action, globalState = {}) {
+function entity(state = initialState, action) {
     switch (action.type) {
         case 'SET_ACTIVE_ENTITY':
             return {

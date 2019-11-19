@@ -34,7 +34,6 @@ export class Rooms extends React.Component {
                                 noOptionsMessage={() => 'Ei tuloksia'}
                                 placeholder="Etsi huonetta..."/>
                     </div>
-                    {/* <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" /> */}
                 </div>
                 <div className="listitem-container">
                     {this.props.rooms.length === 0 &&

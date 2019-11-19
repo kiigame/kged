@@ -6,7 +6,7 @@ import texts from './texts'
 import interactions from './interactions'
 
 const rootReducer = (state = {}, actions) => ({
-    entity: entity(state.entity, actions, state),
+    entity: entity(state.entity, actions),
     rooms: rooms(state.rooms, actions),
     furnitures: furnitures(state.furnitures, actions),
     items: items(state.items, actions),

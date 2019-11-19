@@ -1,13 +1,9 @@
-// import { fetchFurnitures } from 'api'
-
 const initialState = {
     furnitures: [],
     activeFurniture: undefined
 }
 
 function furnitures(state = initialState, action) {
-    let attrs;
-
     switch (action.type) {
         case 'ADD_FURNITURE':
             return {
@@ -43,7 +39,7 @@ function furnitures(state = initialState, action) {
             }
 
         case 'DELETE_FURNITURE':
-            attrs = action.payload.furniture.attrs;
+            let attrs = action.payload.furniture.attrs;
             return {
                 ...state,
                 furnitures: state.furnitures.filter(furniture => furniture.attrs.id !== attrs.id)
@@ -59,10 +55,10 @@ function furnitures(state = initialState, action) {
             const {furnitureId, filePath, objectUrl} = action.payload;
             return {
                 ...state,
-                furnitures: state.furnitures.map(furn =>
-                    furn.attrs.id === furnitureId
-                    ? { ...furn, attrs: {...furn.attrs, src: filePath, url: objectUrl } }
-                    : furn
+                furnitures: state.furnitures.map(furniture =>
+                    furniture.attrs.id === furnitureId
+                    ? { ...furniture, attrs: {...furniture.attrs, src: filePath, url: objectUrl } }
+                    : furniture
                 )
             }
 

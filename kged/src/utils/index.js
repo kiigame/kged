@@ -17,15 +17,6 @@ export function isExistingEntity(state, entityId) {
     return false;
 }
 
-export function exportJSON(content, name) {
-    const jsonContent = JSON.stringify(content, null, 4)
-    const file = new Blob([jsonContent], {type: 'application/json'})
-    const anchor = document.createElement('a')
-    anchor.href = URL.createObjectURL(file)
-    anchor.download = name
-    anchor.click()
-}
-
 export function extractRooms(rooms) {
     let filteredRooms = cloneDeep(rooms)
 

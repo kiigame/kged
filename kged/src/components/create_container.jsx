@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Formik, Field, ErrorMessage } from 'formik'
 import Button from 'react-bootstrap/Button'
 import 'styles/create_container.scss'
+import { DuplicateEntityError } from 'utils/errors'
 
 export class CreateContainer extends React.Component {
 	constructor(props) {
@@ -42,7 +43,9 @@ export class CreateContainer extends React.Component {
                                     this.props.addItem({ name: values.name.trim() })
                                     this.setIsActive(false)
                                 } catch (e) {
-                                    actions.setFieldError('name', e.message)
+                                    if (e instanceof DuplicateEntityError) {
+                                        actions.setFieldError('name', e.message)
+                                    }
                                 }
                             }}
                             render={(formProps) => (

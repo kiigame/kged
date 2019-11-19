@@ -7,7 +7,6 @@ export const getActiveEntity = (state) => {
     } else if (category === 'text') {
         return ''
     } else {
-
         return cloneDeep([
             ...state.rooms.rooms,
             ...state.furnitures.furnitures,

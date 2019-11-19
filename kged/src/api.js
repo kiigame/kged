@@ -1,36 +1,5 @@
 import { cloneDeep } from 'lodash/fp'
 
-export function fetchRooms() {
-    const rooms = require('data/rooms.json')['rooms']
-    return rooms
-}
-
-export function fetchFurnitures() {
-    const rooms = fetchRooms()
-
-    const furnitures = rooms.flatMap(room => {
-        if (room.attrs && room.children) {
-            return room.children
-                .filter(c => c.attrs && c.attrs.category === 'furniture')
-                .map(c => {
-                    return {
-                        ...c,
-                        selectedRoom: {
-                            attrs: { id: room.attrs.id }
-                        }
-                    }
-                })
-        }
-    }).filter(f => f)
-
-    return furnitures
-}
-
-export function fetchItems() {
-    const items = require('data/items.json')
-    return items
-}
-
 export function fetchInteractions() {
     const interactions = require('data/interactions.json')
     return interactions

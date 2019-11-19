@@ -4,8 +4,6 @@ const initialState = {
 }
 
 function rooms(state = initialState, action) {
-    let attrs;
-
     switch (action.type) {
         case 'ADD_ROOM':
             return {
@@ -97,7 +95,7 @@ function rooms(state = initialState, action) {
             }
 
         case 'DELETE_ROOM':
-            attrs = action.payload.room.attrs;
+            let attrs = action.payload.room.attrs;
             return {
                 ...state,
                 rooms: state.rooms.filter(room => room.attrs.id !== attrs.id)

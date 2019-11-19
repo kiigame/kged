@@ -4,8 +4,8 @@
 
 html, body {
     height: 100%;
-    color: $color-gray-300 !important; //demo
-    font-weight: bold !important; //demo
+    color: $color-gray-300 !important;
+    font-weight: bold !important;
 }
 
 #root {
@@ -40,25 +40,6 @@ html, body {
     padding: 0.75em;
 }
 
-
-// Inspector
-
-.ins-container, .side-container {
-    background: $color-gray-800 !important; //demo
-}
-
-
-// Preview
-
-.pre-container {
-    background: $color-gray-850 !important; //demo
-}
-
-.pre-screen {
-    background: $color-gray-900 !important; //demo
-}
-
-
 // Tabs
 
 .tab-list-active {
@@ -67,7 +48,7 @@ html, body {
 
 .tab-list-item {
     padding: 10px;
-    font-size: 1.2rem;
+    font-size: $font-large;
 
     &:hover {
         background: $color-gray-700;
@@ -84,6 +65,12 @@ html, body {
     color: $color-red-500;
 }
 
-// Add custom styles above this line
+.btn-success {
+    background-color: $color-green-700 !important;
+    border-color: $color-green-700 !important;
+    color: $color-gray-100 !important;
+    margin-left: 5px !important;
+}
 
+// Add custom styles before bootstrap import
 @import '~bootstrap/scss/bootstrap.scss';

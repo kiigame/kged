@@ -43,15 +43,12 @@ export class ActionBar extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-})
-
 const mapDispatchToProps = dispatch => ({
     onExport: event => dispatch(exportProject(event)),
     onImport: event => dispatch(importProject(event))
 })
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(ActionBar);

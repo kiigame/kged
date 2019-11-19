@@ -81,7 +81,12 @@ export class Inspector extends React.Component {
                                         ( <span>Lisää kuva klikkaamalla</span> )
                                     }
                                     {img && img.url &&
-                                        ( <img alt="" src={img.url} height={img.height} width={img.width}/> )
+                                        ( <img
+                                            alt=""
+                                            src={img.url}
+                                            height={img.height}
+                                            width={img.width}
+                                        /> )
                                     }
                                     {img && img.src && !img.url &&
                                         ( <span>Kuvaa ei voitu ladata</span> )
@@ -114,22 +119,50 @@ export class Inspector extends React.Component {
                                 return (
                                     <form onSubmit={formProps.handleSubmit}>
                                         <div className="form-group">
-                                            <label className="change-color-onhover" title="Syötä nimi huoneelle">Nimi</label>
-                                            <Field className="form-control" type="name" name="attrs.id" />
-                                            <ErrorMessage component="div" className="error-message" name="attrs.id" />
+                                            <label
+                                                className="change-color-onhover"
+                                                title="Syötä nimi huoneelle">
+                                                Nimi
+                                            </label>
+                                            <Field
+                                                className="form-control"
+                                                type="name"
+                                                name="attrs.id"
+                                            />
+                                            <ErrorMessage
+                                                component="div"
+                                                className="error-message"
+                                                name="attrs.id"
+                                            />
                                         </div>
                                         <div className="form-check my-3">
-                                            <Field key={`${formProps.values.attrs.id}-start`} type="checkbox" id="startRoom" className="form-check-input"
-                                                checked={formProps.values.attrs.start} name="attrs.start"/>
-                                            <label className="form-check-label change-color-onhover"
+                                            <Field
+                                                key={`${formProps.values.attrs.id}-start`}
+                                                type="checkbox"
+                                                id="startRoom"
+                                                className="form-check-input"
+                                                checked={formProps.values.attrs.start}
+                                                name="attrs.start"
+                                            />
+                                            <label
+                                                className="form-check-label change-color-onhover"
                                                 title="Valitse aloitetaanko peli tästä huoneesta"
-                                                htmlFor="startRoom">Aloitushuone</label>
+                                                htmlFor="startRoom">
+                                                Aloitushuone
+                                            </label>
                                         </div>
                                         <div className="item-edit-actions">
-                                            <Button type="submit" variant="success" disabled={!formProps.dirty}>
+                                            <Button
+                                                type="submit"
+                                                variant="success"
+                                                disabled={!formProps.dirty}>
                                                 Tallenna
                                             </Button>
-                                            <Button variant="secondary" className="ml-2" onClick={formProps.handleReset} disabled={!formProps.dirty}>
+                                            <Button
+                                                variant="secondary"
+                                                className="ml-2"
+                                                onClick={formProps.handleReset}
+                                                disabled={!formProps.dirty}>
                                                 Peruuta
                                             </Button>
                                         </div>
@@ -147,10 +180,8 @@ export class Inspector extends React.Component {
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
                                     {img
-                                        ?
-                                        ( <img alt="" src={img.url} height={img.height} width={img.width}/>)
-                                        :
-                                        ( <span>Lisää kuva klikkaamalla</span> )
+                                        ? ( <img alt="" src={img.url} height={img.height} width={img.width}/> )
+                                        : ( <span>Lisää kuva klikkaamalla</span> )
                                     }
                                 </div>
                             }
@@ -193,9 +224,21 @@ export class Inspector extends React.Component {
                             render={(formProps) => (
                             <form onSubmit={formProps.handleSubmit}>
                                 <div className="form-group">
-                                    <label className="change-color-onhover" title="Syötä nimi huonekalulle">Nimi</label>
-                                    <Field className="form-control" type="name" name="attrs.id" />
-                                    <ErrorMessage component="div" className="error-message" name="attrs.id" />
+                                    <label
+                                        className="change-color-onhover"
+                                        title="Syötä nimi huonekalulle">
+                                        Nimi
+                                    </label>
+                                    <Field
+                                        className="form-control"
+                                        type="name"
+                                        name="attrs.id"
+                                    />
+                                    <ErrorMessage
+                                        component="div"
+                                        className="error-message"
+                                        name="attrs.id"
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
@@ -203,29 +246,47 @@ export class Inspector extends React.Component {
                                             name="selectedRoom"
                                             value={formProps.selectedRoom}
                                             defaultValue={this.props.activeEntity.selectedRoom &&
-                                                this.props.activeEntity.selectedRoom.attrs &&
-                                                this.props.activeEntity.selectedRoom.attrs.id ?
-                                                this.props.activeEntity.selectedRoom : undefined}
+                                                          this.props.activeEntity.selectedRoom.attrs &&
+                                                          this.props.activeEntity.selectedRoom.attrs.id ?
+                                                          this.props.activeEntity.selectedRoom : undefined}
                                             getOptionLabel={(option)=>option.attrs.id}
                                             options={this.props.rooms}
                                             noOptionsMessage={() => 'Ei tuloksia'}
                                             onChange={e => formProps.setFieldValue('selectedRoom', {'attrs': {'id':e.attrs.id}})}
                                             placeholder="Etsi huonetta..."/>
-                                    <ErrorMessage component="div" className="error-message" name="selectedRoom" />
+                                    <ErrorMessage
+                                        component="div"
+                                        className="error-message"
+                                        name="selectedRoom"
+                                    />
                                 </div>
-                                <label className="change-color-onhover" title="Huonekalun sijainti huoneessa">Huonekalun sijainti</label>
+                                <label
+                                    className="change-color-onhover"
+                                    title="Huonekalun sijainti huoneessa">
+                                    Huonekalun sijainti
+                                </label>
                                 <div className="xy-container">
                                     <div className="col-6 xy-col">
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-981">
                                             X-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="attrs.x" />
+                                        <Field
+                                            className="form-control col-6 xy-input xy-col"
+                                            min="0"
+                                            type="number"
+                                            name="attrs.x"
+                                        />
                                     </div>
                                     <div className="col-6 my-2 xy-col">
                                         <label className="col-6 change-color-onhover xy-col" title="Syötä arvo väliltä 0-583">
                                             Y-arvo
                                         </label>
-                                        <Field className="form-control col-6 xy-input xy-col" min="0" type="number" name="attrs.y" />
+                                        <Field
+                                            className="form-control col-6 xy-input xy-col"
+                                            min="0"
+                                            type="number"
+                                            name="attrs.y"
+                                        />
                                     </div>
                                 </div>
                                 <div className="form-check my-3">
@@ -237,10 +298,19 @@ export class Inspector extends React.Component {
                                         checked={formProps.values.attrs.visible}
                                         name="attrs.visible"
                                     />
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="visibility-checkbox">Näkyvissä</label>
+                                    <label
+                                        className="form-check-label change-color-onhover"
+                                        title="Valitse onko huonekalu näkyvissä"
+                                        htmlFor="visibility-checkbox">
+                                        Näkyvissä
+                                    </label>
                                 </div>
                                 <div className="form-group">
-                                    <label className="change-color-onhover" title="Valitse interaktio huonekalulle">Interaktio</label>
+                                    <label
+                                        className="change-color-onhover"
+                                        title="Valitse interaktio huonekalulle">
+                                        Interaktio
+                                    </label>
                                     <div className="form-check my-3">
                                         <Field
                                             key={`${this.props.activeEntityId}-no-interaction`}
@@ -252,7 +322,12 @@ export class Inspector extends React.Component {
                                             name="noInteraction"
                                             value="noInteraction"
                                         />
-                                        <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="no-interaction-checkbox">Ei interaktiota</label>
+                                        <label
+                                            className="form-check-label change-color-onhover"
+                                            title="Valitse onko huonekalu näkyvissä"
+                                            htmlFor="no-interaction-checkbox">
+                                            Ei interaktiota
+                                        </label>
                                     </div>
                                     <div className="form-check my-3">
                                         <Field
@@ -265,7 +340,12 @@ export class Inspector extends React.Component {
                                             value="isExaminable"
                                             name="isExaminable"
                                         />
-                                        <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu tarkasteltavissa" htmlFor="examinable-checkbox">Tarkasteltavissa</label>
+                                        <label
+                                            className="form-check-label change-color-onhover"
+                                            title="Valitse onko huonekalu tarkasteltavissa"
+                                            htmlFor="examinable-checkbox">
+                                            Tarkasteltavissa
+                                        </label>
                                         <textarea
                                             disabled={formProps.values.isExaminable === false}
                                             className="form-control"
@@ -286,28 +366,44 @@ export class Inspector extends React.Component {
                                             value="isDoor"
                                             name="isDoor"
                                         />
-                                        <label className="form-check-label change-color-onhover" title="Valitse onko huonekalu näkyvissä" htmlFor="door-checkbox">Ovi</label>
+                                        <label
+                                            className="form-check-label change-color-onhover"
+                                            title="Valitse onko huonekalu näkyvissä"
+                                            htmlFor="door-checkbox">
+                                            Ovi
+                                        </label>
                                     </div>
                                     <Select styles={defaultSelectStyles}
                                             name="selectedDestination"
                                             value={formProps.selectedDestination}
                                             isDisabled={!formProps.values.isDoor}
                                             defaultValue={this.props.activeEntity.selectedDestination &&
-                                                this.props.activeEntity.selectedDestination.attrs &&
-                                                this.props.activeEntity.selectedDestination.attrs.id ?
-                                                this.props.activeEntity.selectedDestination : undefined}
+                                                          this.props.activeEntity.selectedDestination.attrs &&
+                                                          this.props.activeEntity.selectedDestination.attrs.id ?
+                                                          this.props.activeEntity.selectedDestination : undefined}
                                             getOptionLabel={(option)=>option.attrs.id}
                                             options={this.props.rooms}
                                             noOptionsMessage={() => 'Ei tuloksia'}
                                             onChange={e => formProps.setFieldValue('selectedDestination', {'attrs': {'id':e.attrs.id}})}
                                             placeholder="Etsi huonetta..."/>
-                                    <ErrorMessage component="div" className="error-message" name="selectedDestination" />
+                                    <ErrorMessage
+                                        component="div"
+                                        className="error-message"
+                                        name="selectedDestination"
+                                    />
                                 </div>
                                 <div className="item-edit-actions">
-                                    <Button type="submit" variant="success" disabled={!formProps.dirty}>
+                                    <Button
+                                        type="submit"
+                                        variant="success"
+                                        disabled={!formProps.dirty}>
                                         Tallenna
                                     </Button>
-                                    <Button variant="secondary" className="ml-2" onClick={formProps.handleReset} disabled={!formProps.dirty}>
+                                    <Button
+                                        variant="secondary"
+                                        className="ml-2"
+                                        onClick={formProps.handleReset}
+                                        disabled={!formProps.dirty}>
                                         Peruuta
                                     </Button>
                                 </div>
@@ -324,10 +420,8 @@ export class Inspector extends React.Component {
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
                                     {img
-                                        ?
-                                        ( <img alt="" src={img.url} height={img.height} width={img.width}/>)
-                                        :
-                                        ( <span>Lisää kuva klikkaamalla</span> )
+                                        ? ( <img alt="" src={img.url} height={img.height} width={img.width}/> )
+                                        : ( <span>Lisää kuva klikkaamalla</span> )
                                     }
                                 </div>
                             }
@@ -356,20 +450,50 @@ export class Inspector extends React.Component {
                             render={(formProps) => (
                             <form onSubmit={formProps.handleSubmit}>
                                 <div className="form-group">
-                                    <label className="change-color-onhover" title="Syötä nimi esinelle">Nimi</label>
-                                    <Field className="form-control" type="name" name="attrs.id" />
-                                    <ErrorMessage component="div" className="error-message" name="attrs.id" />
+                                    <label
+                                        className="change-color-onhover"
+                                        title="Syötä nimi esinelle">
+                                        Nimi
+                                    </label>
+                                    <Field
+                                        className="form-control"
+                                        type="name"
+                                        name="attrs.id"
+                                    />
+                                    <ErrorMessage
+                                        component="div"
+                                        className="error-message"
+                                        name="attrs.id"
+                                    />
                                 </div>
                                 <div className="form-check my-3">
-                                    <Field key={`${formProps.values.attrs.id}-visible`} type="checkbox" id="visibility-checkbox" className="form-check-input"
-                                           checked={formProps.values.attrs.visible} name="attrs.visible"/>
-                                    <label className="form-check-label change-color-onhover" title="Valitse onko esine näkyvissä" htmlFor="visibility-checkbox">Näkyvissä</label>
+                                    <Field
+                                        key={`${formProps.values.attrs.id}-visible`}
+                                        type="checkbox"
+                                        id="visibility-checkbox"
+                                        className="form-check-input"
+                                        checked={formProps.values.attrs.visible}
+                                        name="attrs.visible"
+                                    />
+                                    <label
+                                        className="form-check-label change-color-onhover"
+                                        title="Valitse onko esine näkyvissä"
+                                        htmlFor="visibility-checkbox">
+                                        Näkyvissä
+                                    </label>
                                 </div>
                                 <div className="item-edit-actions">
-                                    <Button type="submit" variant="success" disabled={!formProps.dirty}>
+                                    <Button
+                                        type="submit"
+                                        variant="success"
+                                        disabled={!formProps.dirty}>
                                         Tallenna
                                     </Button>
-                                    <Button variant="secondary" className="ml-2" onClick={formProps.handleReset} disabled={!formProps.dirty}>
+                                    <Button
+                                        variant="secondary"
+                                        className="ml-2"
+                                        onClick={formProps.handleReset}
+                                        disabled={!formProps.dirty}>
                                         Peruuta
                                     </Button>
                                 </div>
@@ -409,10 +533,17 @@ export class Inspector extends React.Component {
                                         onChange={e => formProps.setFieldValue('id', {'attrs': {'id':e.attrs.id}})}
                                         placeholder="Etsi lähdehuonekalua/esinettä..."/>
                                 <div className="item-edit-actions">
-                                    <Button type="submit" variant="success" disabled={!formProps.dirty}>
+                                    <Button
+                                        type="submit"
+                                        variant="success"
+                                        disabled={!formProps.dirty}>
                                         Tallenna
                                     </Button>
-                                    <Button variant="secondary" className="ml-2" onClick={formProps.handleReset} disabled={!formProps.dirty}>
+                                    <Button
+                                        variant="secondary"
+                                        className="ml-2"
+                                        onClick={formProps.handleReset}
+                                        disabled={!formProps.dirty}>
                                         Peruuta
                                     </Button>
                                 </div>
@@ -434,16 +565,16 @@ const mapStateToProps = state => ({
     items: getItems(state)
 })
 const mapDispatchToProps = dispatch => ({
-    setRoomBackgroundImage: (id, path, objUrl) => dispatch(setRoomBackgroundImage(id, path, objUrl)),
-    setFurnitureImage: (id, path, objUrl) => dispatch(setFurnitureImage(id, path, objUrl)),
-    setItemImage: (id, path, objUrl) => dispatch(setItemImage(id, path, objUrl)),
-    updateRoom: (oldId, room) => dispatch(updateRoom(oldId, room)),
-    updateFurniture: (oldId, furniture) => dispatch(updateFurniture(oldId, furniture)),
-    updateItem: (oldId, item) => dispatch(updateItem(oldId, item)),
-    setDoorInteraction: (id, selectedDestination) => dispatch(setDoorInteraction(id, selectedDestination)),
-    setExamineInteraction: (id, examineText) => dispatch(setExamineInteraction(id, examineText)),
-    deleteInteraction: (id) => dispatch(deleteInteraction(id)),
-    deleteExamineText: (id) => dispatch(deleteExamineText(id))
+    setRoomBackgroundImage: (roomId, path, objectUrl) => dispatch(setRoomBackgroundImage(roomId, path, objectUrl)),
+    setFurnitureImage: (furnitureId, path, objectUrl) => dispatch(setFurnitureImage(furnitureId, path, objectUrl)),
+    setItemImage: (itemId, path, objectUrl) => dispatch(setItemImage(itemId, path, objectUrl)),
+    updateRoom: (oldId, roomObject) => dispatch(updateRoom(oldId, roomObject)),
+    updateFurniture: (oldId, furnitureObject) => dispatch(updateFurniture(oldId, furnitureObject)),
+    updateItem: (oldId, itemObject) => dispatch(updateItem(oldId, itemObject)),
+    setDoorInteraction: (furnitureId, selectedDestination) => dispatch(setDoorInteraction(furnitureId, selectedDestination)),
+    setExamineInteraction: (furnitureId, examineText) => dispatch(setExamineInteraction(furnitureId, examineText)),
+    deleteInteraction: (interactionId) => dispatch(deleteInteraction(interactionId)),
+    deleteExamineText: (furnitureId) => dispatch(deleteExamineText(furnitureId))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Inspector);

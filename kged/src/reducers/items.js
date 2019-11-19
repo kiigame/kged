@@ -1,12 +1,8 @@
-// import { fetchItems } from 'api'
-
 const initialState = {
     items: [],
     activeItem: undefined
 }
 function items(state = initialState, action) {
-    let attrs;
-
     switch (action.type) {
         case 'ADD_ITEM':
             return {
@@ -56,7 +52,7 @@ function items(state = initialState, action) {
             }
 
         case 'DELETE_ITEM':
-            attrs = action.payload.item.attrs;
+            let attrs = action.payload.item.attrs;
             return {
                 ...state,
                 items: state.items.filter(item => item.attrs.id !== attrs.id)
