@@ -4,7 +4,7 @@ import JSZip from 'jszip'
 import { loadRooms } from './rooms'
 import { loadItems } from './items'
 import { loadTexts } from './texts'
-import { filterFurnitures, extractFurnitures, extractImagesFromRooms, extractImagesFromFurnitures, extractImagesFromItems } from 'utils/index'
+import { extractRooms, extractFurnitures, extractImagesFromRooms, extractImagesFromFurnitures, extractImagesFromItems } from 'utils/index'
 import { loadFurnitures } from './furnitures'
 
 export const exportProject = (event) => {
@@ -16,11 +16,11 @@ export const exportProject = (event) => {
         const furnitureImages = extractImagesFromFurnitures(state.furnitures.furnitures)
         const itemImages = extractImagesFromItems(state.items.items)
 
-        zip.folder("images");
+        zip.folder('images');
 
-        zip.file("images/placeholder/room.png",fetch(`${window.location}/assets/placeholders/room.png`).then(r => r.blob()))
-        zip.file("images/placeholder/furniture.png",fetch(`${window.location}/assets/placeholders/furniture.png`).then(r => r.blob()))
-        zip.file("images/placeholder/item.png",fetch(`${window.location}/assets/placeholders/item.png`).then(r => r.blob()))
+        zip.file('images/placeholder/room.png',fetch(`${window.location}/assets/placeholders/room.png`).then(r => r.blob()))
+        zip.file('images/placeholder/furniture.png',fetch(`${window.location}/assets/placeholders/furniture.png`).then(r => r.blob()))
+        zip.file('images/placeholder/item.png',fetch(`${window.location}/assets/placeholders/item.png`).then(r => r.blob()))
 
         roomImages.forEach(i => {
             zip.file(`images/${i.name}`, i.file)
@@ -54,47 +54,58 @@ export const exportProject = (event) => {
     }
 }
 
+function loadZipData(zip, filename, type='string') {
+    return zip.files[filename].async(type).then(data => {
+        return { name: filename, data: data }
+    })
+}
+
 export const importProject = (pkg) => {
     return (dispatch, getState) => {
         JSZip.loadAsync(pkg).then(zip => {
-            let files = Object.keys(zip.files)
-            let interactionData
-            (async () => {
-                return await zip.files['interactions.json'].async('string').then(data => {interactionData = JSON.parse(data)})
-            })()
-            let textData
-            (async () => {
-                return await zip.files['texts.json'].async('string').then(data => {textData = JSON.parse(data)})
-            })()
-            files.forEach(filename => {
-                let file = zip.files[filename]
+
+            const imageData = {}
+            const jsonData = {}
+
+            const imagePromises = []
+            zip.folder('images').forEach((path, file) => {
                 if (file.dir) {
+                    // skip directories
                     return
-                } else if (filename.endsWith('.json')) {
-                    file.async('string').then(fileData => {
-                        const name = zip.files[filename].name.trim()
-                        const data = JSON.parse(fileData)
-                        switch(name) {
-                            case 'rooms.json':
-                                const rooms = filterFurnitures(data.rooms)
-                                const furnitures = extractFurnitures(data.rooms, interactionData, textData)
-                                dispatch(loadRooms(rooms))
-                                dispatch(loadFurnitures(furnitures))
-                                break
-                            case 'items.json':
-                                dispatch(loadItems(data))
-                                break
-                            case 'texts.json':
-                                dispatch(loadTexts(data))
-                                break
-                            default:
-                                console.log('Unrecognized file:', name)
-                        }
-                    })
-                } else {
-                    console.log('image?', file)
                 }
+                imagePromises.push(loadZipData(zip, `images/${path}`, 'blob'))
             })
+
+            Promise.all(imagePromises).then(data => {
+                data.forEach(d => {
+                    imageData[d.name] = URL.createObjectURL(d.data)
+                })
+            })
+
+            // TODO: ensure imageData is resolved before loading json files
+
+            const jsonPromises = []
+            jsonPromises.push(loadZipData(zip, 'interactions.json'))
+            jsonPromises.push(loadZipData(zip, 'texts.json'))
+            jsonPromises.push(loadZipData(zip, 'items.json'))
+            jsonPromises.push(loadZipData(zip, 'rooms.json'))
+
+            Promise.all(jsonPromises).then((data) => {
+                // json files have been loaded, data is now usable
+
+                data.forEach(d => { jsonData[d.name] = JSON.parse(d.data) })
+
+                // TODO: map json image src's to objectURLs in imageData
+
+                dispatch(loadTexts(jsonData['texts.json']))
+                dispatch(loadItems(jsonData['items.json']))
+
+                const rooms = extractRooms(jsonData['rooms.json'].rooms)
+                const furnitures = extractFurnitures(jsonData['rooms.json'].rooms, jsonData['interactions.json'], jsonData['texts.json'])
+                dispatch(loadRooms(rooms))
+                dispatch(loadFurnitures(furnitures))
+            })
+
         })
     }
 }

@@ -1,6 +1,3 @@
-// import { fetchRooms } from 'api'
-// import { filterFurnitures } from 'utils'
-
 const initialState = {
     rooms: [],
     activeRoom: undefined

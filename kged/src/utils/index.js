@@ -26,7 +26,7 @@ export function exportJSON(content, name) {
     anchor.click()
 }
 
-export function filterFurnitures(rooms) {
+export function extractRooms(rooms) {
     let filteredRooms = cloneDeep(rooms)
 
     for (let room of filteredRooms) {
