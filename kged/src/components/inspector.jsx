@@ -202,10 +202,10 @@ export class Inspector extends React.Component {
                                     <Select styles={defaultSelectStyles}
                                             name="selectedRoom"
                                             value={formProps.selectedRoom}
-                                            defaultValue={this.props.activeEntity.selectedDoor &&
-                                                this.props.activeEntity.selectedDoor.attrs &&
-                                                this.props.activeEntity.selectedDoor.attrs.id ?
-                                                this.props.activeEntity.selectedDoor : undefined}
+                                            defaultValue={this.props.activeEntity.selectedRoom &&
+                                                this.props.activeEntity.selectedRoom.attrs &&
+                                                this.props.activeEntity.selectedRoom.attrs.id ?
+                                                this.props.activeEntity.selectedRoom : undefined}
                                             getOptionLabel={(option)=>option.attrs.id}
                                             options={this.props.rooms}
                                             noOptionsMessage={() => 'Ei tuloksia'}
