@@ -4,7 +4,7 @@ import JSZip from 'jszip'
 import { loadRooms } from './rooms'
 import { loadItems } from './items'
 import { loadTexts } from './texts'
-import { extractRooms, extractFurnitures, extractImagesFromRooms, extractImagesFromFurnitures, extractImagesFromItems } from 'utils/index'
+import * as utils from 'utils/index'
 import { loadFurnitures } from './furnitures'
 
 export const exportProject = (event) => {
@@ -12,9 +12,9 @@ export const exportProject = (event) => {
         const zip = new JSZip();
         const state = getState()
 
-        const roomImages = extractImagesFromRooms(state.rooms.rooms)
-        const furnitureImages = extractImagesFromFurnitures(state.furnitures.furnitures)
-        const itemImages = extractImagesFromItems(state.items.items)
+        const roomImages = utils.extractImagesFromRooms(state.rooms.rooms)
+        const furnitureImages = utils.extractImagesFromFurnitures(state.furnitures.furnitures)
+        const itemImages = utils.extractImagesFromItems(state.items.items)
 
         zip.folder('images');
 
@@ -31,7 +31,6 @@ export const exportProject = (event) => {
         itemImages.forEach(i => {
             zip.file(`images/${i.name}`, i.file)
         })
-
 
         const rooms = api.exportRooms(state)
         const items = api.exportItems(state)
@@ -77,33 +76,40 @@ export const importProject = (pkg) => {
             })
 
             Promise.all(imagePromises).then(data => {
+                // image files have been loaded
+
                 data.forEach(d => {
                     imageData[d.name] = URL.createObjectURL(d.data)
                 })
-            })
 
-            // TODO: ensure imageData is resolved before loading json files
+                const jsonPromises = []
+                jsonPromises.push(loadZipData(zip, 'interactions.json'))
+                jsonPromises.push(loadZipData(zip, 'texts.json'))
+                jsonPromises.push(loadZipData(zip, 'items.json'))
+                jsonPromises.push(loadZipData(zip, 'rooms.json'))
 
-            const jsonPromises = []
-            jsonPromises.push(loadZipData(zip, 'interactions.json'))
-            jsonPromises.push(loadZipData(zip, 'texts.json'))
-            jsonPromises.push(loadZipData(zip, 'items.json'))
-            jsonPromises.push(loadZipData(zip, 'rooms.json'))
+                Promise.all(jsonPromises).then((data) => {
+                    // json files have been loaded, data is now usable
 
-            Promise.all(jsonPromises).then((data) => {
-                // json files have been loaded, data is now usable
+                    data.forEach(d => { jsonData[d.name] = JSON.parse(d.data) })
 
-                data.forEach(d => { jsonData[d.name] = JSON.parse(d.data) })
+                    dispatch(loadTexts(jsonData['texts.json']))
+                    let items = jsonData['items.json']
+                    items = utils.mapAssetsToItems(items, imageData)
 
-                // TODO: map json image src's to objectURLs in imageData
+                    let rooms = utils.extractRooms(jsonData['rooms.json'].rooms)
+                    rooms = utils.mapAssetsToRooms(rooms, imageData)
 
-                dispatch(loadTexts(jsonData['texts.json']))
-                dispatch(loadItems(jsonData['items.json']))
+                    let furnitures = utils.extractFurnitures(jsonData['rooms.json'].rooms,
+                                                       jsonData['interactions.json'],
+                                                       jsonData['texts.json'])
+                    furnitures = utils.mapAssetsToFurnitures(furnitures, imageData)
 
-                const rooms = extractRooms(jsonData['rooms.json'].rooms)
-                const furnitures = extractFurnitures(jsonData['rooms.json'].rooms, jsonData['interactions.json'], jsonData['texts.json'])
-                dispatch(loadRooms(rooms))
-                dispatch(loadFurnitures(furnitures))
+                    dispatch(loadItems(items))
+                    dispatch(loadRooms(rooms))
+                    dispatch(loadFurnitures(furnitures))
+                })
+
             })
 
         })

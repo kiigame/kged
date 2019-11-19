@@ -133,3 +133,46 @@ export function extractImagesFromItems(items) {
     })
     return images
 }
+
+export function mapAssetsToRooms(roomData, imageData) {
+    const rooms = cloneDeep(roomData)
+    rooms.forEach(room => {
+        if (room.children) {
+            room.children.forEach(c => {
+                if (c && c.attrs && c.attrs.src) {
+                    if (imageData[c.attrs.src]) {
+                        c.attrs.url = imageData[c.attrs.src]
+                    }
+                }
+            })
+        }
+    })
+
+    return rooms
+}
+
+export function mapAssetsToFurnitures(furnitureData, imageData) {
+    const furnitures = cloneDeep(furnitureData)
+    furnitures.forEach(furniture => {
+        if (furniture && furniture.attrs && furniture.attrs.src) {
+            if (imageData[furniture.attrs.src]) {
+                furniture.attrs.url = imageData[furniture.attrs.src]
+            }
+        }
+    })
+
+    return furnitures
+}
+
+export function mapAssetsToItems(itemData, imageData) {
+    const items = cloneDeep(itemData)
+    items.forEach(item => {
+        if (item && item.attrs && item.attrs.src) {
+            if (imageData[item.attrs.src]) {
+                item.attrs.url = imageData[item.attrs.src]
+            }
+        }
+    })
+
+    return items
+}
