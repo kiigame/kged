@@ -17,7 +17,7 @@ function items(state = initialState, action) {
                         attrs: {
                             id: action.payload.item.name,
                             category: 'item',
-                            url: 'assets/placeholders/item.jpg',
+                            url: 'assets/placeholders/item.png',
                             visible: false
                         },
                         className: 'Image'

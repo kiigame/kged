@@ -18,7 +18,7 @@ function furnitures(state = initialState, action) {
                         attrs: {
                             id: action.payload.furniture.name,
                             category: 'furniture',
-                            url: 'assets/placeholders/furniture.jpg'
+                            url: 'assets/placeholders/furniture.png'
                         },
                         selectedRoom: {attrs: {}},
                         selectedDestination: {attrs: {}},

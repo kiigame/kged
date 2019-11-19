@@ -101,3 +101,35 @@ function getExamineInteraction(furniture, interactions) {
         }
     }
 }
+
+export function extractImagesFromRooms(rooms) {
+    let images = []
+    rooms.forEach(room => {
+        room.children.forEach(c => {
+            if (c && c.attrs && c.attrs.url != 'assets/placeholders/room.png') {
+                images.push({name: c.attrs.url.split('/').pop(), file: fetch(c.attrs.url).then(r => r.blob())})
+            }
+        })
+    })
+    return images
+}
+
+export function extractImagesFromFurnitures(furnitures) {
+    let images = []
+    furnitures.flatMap(furniture => {
+        if (furniture && furniture.attrs && furniture.attrs.url != 'assets/placeholders/furniture.png') {
+            images.push({name: furniture.attrs.url.split('/').pop(), file: fetch(furniture.attrs.url).then(r => r.blob())})
+        }
+    })
+    return images
+}
+
+export function extractImagesFromItems(items) {
+    let images = []
+    items.flatMap(item => {
+        if (item && item.attrs && item.attrs.url != 'assets/placeholders/item.png') {
+            images.push({name: item.attrs.url.split('/').pop(), file: fetch(item.attrs.url).then(r => r.blob())})
+        }
+    })
+    return images
+}
