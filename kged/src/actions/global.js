@@ -67,25 +67,33 @@ export const importProject = (pkg) => {
                 return await zip.files['texts.json'].async('string').then(data => {textData = JSON.parse(data)})
             })()
             files.forEach(filename => {
-                zip.files[filename].async('string').then(fileData => {
-                    const name = zip.files[filename].name.trim()
-                    const data = JSON.parse(fileData)
-                    switch(name) {
-                        case 'rooms.json':
-                            const rooms = filterFurnitures(data.rooms)
-                            const furnitures = extractFurnitures(data.rooms, interactionData, textData)
-                            dispatch(loadRooms(rooms))
-                            dispatch(loadFurnitures(furnitures))
-                            break
-                        case 'items.json':
-                            dispatch(loadItems(data))
-                            break
-                        case 'texts.json':
-                            dispatch(loadTexts(data))
-                        default:
-                            console.log('Unrecognized file:',name)
-                    }
-                })
+                let file = zip.files[filename]
+                if (file.dir) {
+                    return
+                } else if (filename.endsWith('.json')) {
+                    file.async('string').then(fileData => {
+                        const name = zip.files[filename].name.trim()
+                        const data = JSON.parse(fileData)
+                        switch(name) {
+                            case 'rooms.json':
+                                const rooms = filterFurnitures(data.rooms)
+                                const furnitures = extractFurnitures(data.rooms, interactionData, textData)
+                                dispatch(loadRooms(rooms))
+                                dispatch(loadFurnitures(furnitures))
+                                break
+                            case 'items.json':
+                                dispatch(loadItems(data))
+                                break
+                            case 'texts.json':
+                                dispatch(loadTexts(data))
+                                break
+                            default:
+                                console.log('Unrecognized file:', name)
+                        }
+                    })
+                } else {
+                    console.log('image?', file)
+                }
             })
         })
     }

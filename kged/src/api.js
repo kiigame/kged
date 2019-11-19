@@ -50,7 +50,13 @@ export function exportRooms(state) {
         // TODO: use schema for this
         for (let f of roomFurnitures) {
             if (f.attrs && f.attrs.url) {
-                f.attrs.src = f.attrs.url.replace('assets/', 'images/')
+                if (f.attrs.url.startsWith('blob:')) {
+                    // is an objectURL
+                    f.attrs.src = `images/${f.attrs.url.split('/').pop()}`
+                } else {
+                    // is a placeholder
+                    f.attrs.src = f.attrs.url.replace('assets/', 'images/')
+                }
                 delete f.attrs.url
             }
             delete f.selectedRoom
@@ -62,7 +68,13 @@ export function exportRooms(state) {
         if (room.children) {
             for (let c of room.children) {
                 if (c.attrs && c.attrs.url && c.attrs.category === 'room_background') {
-                    c.attrs.src = c.attrs.url.replace('assets/', 'images/')
+                    if (c.attrs.url.startsWith('blob:')) {
+                        // is an objectURL
+                        c.attrs.src = `images/${c.attrs.url.split('/').pop()}`
+                    } else {
+                        // is a placeholder
+                        c.attrs.src = c.attrs.url.replace('assets/', 'images/')
+                    }
                     delete c.attrs.url
                 }
             }
@@ -83,7 +95,13 @@ export function exportItems(state) {
 
     items.forEach(item => {
         if (item.attrs && item.attrs.url) {
-            item.attrs.src = item.attrs.url.replace('assets/', 'images/')
+            if (item.attrs.url.startsWith('blob:')) {
+                // is an objectURL
+                item.attrs.src = `images/${item.attrs.url.split('/').pop()}`
+            } else {
+                // is a placeholder
+                item.attrs.src = item.attrs.url.replace('assets/', 'images/')
+            }
             delete item.attrs.url
         }
     })

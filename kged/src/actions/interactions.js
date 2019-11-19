@@ -1,5 +1,5 @@
 import { fetchInteractions } from 'api'
-import { setActiveEntity, removeActiveEntity } from './entity'
+import { setActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 import 'styles/interactions.scss'

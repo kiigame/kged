@@ -1,4 +1,3 @@
-import { fetchTexts } from 'api'
 import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
