@@ -132,11 +132,18 @@ describe('Furniture testing', function() {
         cy.get('input[name = "attrs.y"]').clear()
         cy.get('input[name="attrs.y"]').type('4')
     })
+    it('makes the furniture inspectable in game', () => {
+        cy.get('input[name="isExaminable"]').click()
+        cy.get('textarea').type('Wow I can inspect this')
+    })
     it('makes the furniture a visible door and gives the room it leads to', () => {
         cy.get('input[name="attrs.visible"]').click()
         cy.get('input[name="isDoor"]').click()
-        cy.get('1hwfws3:visible').contains('Etsi huonetta...').click()
-        cy.get('.css-1e5ysj4:visible').contains('huone555').click()
+        cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
+        //cy.get('.css-1e5ysj4:visible').contains('huone555').click()
+    })
+    it('saves the inspector edits', () => {
+        cy.get('button[type="submit"]').click()
     })
 
 })
