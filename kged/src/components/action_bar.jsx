@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { importProject, exportProject } from 'actions/global';
+import { startGame, stopGame } from 'actions/preview.js'
 import 'styles/preview.scss';
 import 'styles/action_bar.scss';
-import { importProject, exportProject } from 'actions/global';
 
 export class ActionBar extends React.Component {
     constructor(props) {
@@ -22,14 +23,13 @@ export class ActionBar extends React.Component {
     render() {
         return (
             <div className="row pre-controls">
-                <div className="col">
-                    Kumoa
+                <div className={'col ' + (this.props.isEngineRunning ? 'disabled' : '')}
+                     onClick={e => this.props.onStartGame(e)}>
+                    Käynnistä
                 </div>
-                <div className="col">
-                    Toista
-                </div>
-                <div className="col">
-                    Tallenna
+                <div className={'col ' + (!this.props.isEngineRunning ? 'disabled' : '')}
+                     onClick={e => this.props.onStopGame(e)}>
+                    Lopeta
                 </div>
                 <div className="col" id="import-zip-container" onClick={this.clickHiddenInput}>
                     Tuo
@@ -43,12 +43,18 @@ export class ActionBar extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    isEngineRunning: state.preview.isEngineRunning,
+})
+
 const mapDispatchToProps = dispatch => ({
     onExport: event => dispatch(exportProject(event)),
-    onImport: event => dispatch(importProject(event))
+    onImport: event => dispatch(importProject(event)),
+    onStartGame: event => dispatch(startGame(event)),
+    onStopGame: event => dispatch(stopGame(event))
 })
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(ActionBar);

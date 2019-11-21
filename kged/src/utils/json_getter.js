@@ -1,5 +1,13 @@
 export class JSONGetter {
+    constructor(state) {
+        console.log('jsongetter constructor. state:', state)
+    }
+
     getJSON(file) {
+
+        let data = require(`../data/${file}`)
+        console.log('file:', file, 'data:', data)
+
         switch (file) {
             case 'rooms.json':
                 break
@@ -12,8 +20,12 @@ export class JSONGetter {
             case 'legends.json':
                 return '[]'
             default:
-                return '{}'
+                try {
+                    return JSON.stringify(require(`../data/${file}`))
+                } catch (e) {
+                    return '{}'
+                }
         }
-        return JSON.stringify(file)
+        return JSON.stringify(data)
     }
 }
