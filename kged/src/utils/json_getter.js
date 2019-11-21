@@ -22,9 +22,9 @@ export class JSONGetter {
             case 'items.json':
                 data = JSON.stringify(this.items)
                 break;
-            case 'interactions.json':
-                data = JSON.stringify(this.interactions)
-                break;
+            // case 'interactions.json':
+            //     data = JSON.stringify(this.interactions)
+            //     break;
             case 'texts.json':
                 data = JSON.stringify(this.texts)
                 break;

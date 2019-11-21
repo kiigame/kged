@@ -15,8 +15,6 @@ export class Preview extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    engine: state.engine,
-    isEngineRunning: state.isEngineRunning
 })
 
 const mapDispatchToProps = dispatch => ({

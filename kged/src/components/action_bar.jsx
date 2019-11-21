@@ -20,11 +20,16 @@ export class ActionBar extends React.Component {
         }
     }
 
+    onStartGame(e) {
+        this.props.onStartGame(e)
+        setTimeout(() => this.props.engine.init_hit_regions(), 2000)
+    }
+
     render() {
         return (
             <div className="row pre-controls">
                 <div className={'col ' + (this.props.isEngineRunning ? 'disabled' : '')}
-                     onClick={e => this.props.onStartGame(e)}>
+                     onClick={e => this.onStartGame(e)}>
                     Käynnistä
                 </div>
                 <div className={'col ' + (!this.props.isEngineRunning ? 'disabled' : '')}
@@ -44,6 +49,7 @@ export class ActionBar extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    engine: state.preview.engine,
     isEngineRunning: state.preview.isEngineRunning,
 })
 
