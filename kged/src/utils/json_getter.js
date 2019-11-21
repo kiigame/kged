@@ -1,31 +1,45 @@
+import * as api from 'api'
+
 export class JSONGetter {
     constructor(state) {
-        console.log('jsongetter constructor. state:', state)
+        this.rooms = { rooms: api.exportRooms(state, true) }
+        this.items = api.exportItems(state, true)
+        this.interactions = api.exportInteractions(state)
+        this.texts = api.exportTexts(state)
+
+        console.log('rooms', this.rooms)
+        console.log('items', this.items)
+        console.log('interactions', this.interactions)
+        console.log('texts', this.texts)
     }
 
     getJSON(file) {
-
-        let data = require(`../data/${file}`)
-        console.log('file:', file, 'data:', data)
-
+        let data
         switch (file) {
             case 'rooms.json':
-                break
+                data = JSON.stringify(this.rooms)
+                break;
             case 'items.json':
-                break
+                data = JSON.stringify(this.items)
+                break;
             case 'interactions.json':
-                break
+                data = JSON.stringify(this.interactions)
+                break;
             case 'texts.json':
-                break
+                data = JSON.stringify(this.texts)
+                break;
             case 'legends.json':
-                return '[]'
+                data = '[]'
+                break;
             default:
                 try {
-                    return JSON.stringify(require(`../data/${file}`))
+                    data = JSON.stringify(require(`../data/${file}`))
                 } catch (e) {
-                    return '{}'
+                    data = '{}'
                 }
         }
-        return JSON.stringify(data)
+
+        console.log('data:', data)
+        return data
     }
 }

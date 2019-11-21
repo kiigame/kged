@@ -10,7 +10,7 @@ export function fetchTexts() {
     return texts
 }
 
-export function exportRooms(state) {
+export function exportRooms(state, preview=false) {
     let rooms = cloneDeep(state.rooms.rooms)
     let furnitures = cloneDeep(state.furnitures.furnitures)
 
@@ -21,10 +21,18 @@ export function exportRooms(state) {
             if (f.attrs && f.attrs.url) {
                 if (f.attrs.url.startsWith('blob:')) {
                     // is an objectURL
-                    f.attrs.src = `images/${f.attrs.url.split('/').pop()}`
+                    if (preview) {
+                        f.attrs.src = f.attrs.url
+                    } else {
+                        f.attrs.src = `images/${f.attrs.url.split('/').pop()}`
+                    }
                 } else {
                     // is a placeholder
-                    f.attrs.src = f.attrs.url.replace('assets/', 'images/')
+                    if (preview) {
+                        f.attrs.src = f.attrs.url
+                    } else {
+                        f.attrs.src = f.attrs.url.replace('assets/', 'images/')
+                    }
                 }
                 delete f.attrs.url
             }
@@ -39,10 +47,18 @@ export function exportRooms(state) {
                 if (c.attrs && c.attrs.url && c.attrs.category === 'room_background') {
                     if (c.attrs.url.startsWith('blob:')) {
                         // is an objectURL
-                        c.attrs.src = `images/${c.attrs.url.split('/').pop()}`
+                        if (preview) {
+                            c.attrs.src = c.attrs.url
+                        } else {
+                            c.attrs.src = `images/${c.attrs.url.split('/').pop()}`
+                        }
                     } else {
                         // is a placeholder
-                        c.attrs.src = c.attrs.url.replace('assets/', 'images/')
+                        if (preview) {
+                            c.attrs.src = c.attrs.url
+                        } else {
+                            c.attrs.src = c.attrs.url.replace('assets/', 'images/')
+                        }
                     }
                     delete c.attrs.url
                 }
@@ -59,17 +75,25 @@ export function exportRooms(state) {
     return rooms
 }
 
-export function exportItems(state) {
+export function exportItems(state, preview=false) {
     let items = cloneDeep(state.items.items)
 
     items.forEach(item => {
         if (item.attrs && item.attrs.url) {
             if (item.attrs.url.startsWith('blob:')) {
                 // is an objectURL
-                item.attrs.src = `images/${item.attrs.url.split('/').pop()}`
+                if (preview) {
+                    item.attrs.src = item.attrs.url
+                } else {
+                    item.attrs.src = `images/${item.attrs.url.split('/').pop()}`
+                }
             } else {
                 // is a placeholder
-                item.attrs.src = item.attrs.url.replace('assets/', 'images/')
+                if (preview) {
+                    item.attrs.src = item.attrs.url
+                } else {
+                    item.attrs.src = item.attrs.url.replace('assets/', 'images/')
+                }
             }
             delete item.attrs.url
         }

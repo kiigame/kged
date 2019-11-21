@@ -88,33 +88,6 @@
         },
         {
             "attrs": {
-                "category": "start",
-                "id": "start_layer"
-            },
-            "children": [
-                {
-                    "attrs": {
-                        "height": 543,
-                        "id": "start",
-                        "src": "images/start.png",
-                        "width": 724
-                    },
-                    "className": "Image"
-                },
-                {
-                    "attrs": {
-                        "height": 643,
-                        "id": "splash_screen",
-                        "src": "images/splash_screen.png",
-                        "width": 1024
-                    },
-                    "className": "Image"
-                }
-            ],
-            "className": "Layer"
-        },
-        {
-            "attrs": {
                 "category": "menu",
                 "id": "start_layer_menu",
                 "visible": false
