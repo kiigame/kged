@@ -62,6 +62,10 @@ describe('item creation', function() {
         cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
         cy.get("[type='button']").contains('Peruuta').click()   
     })
+    it('deletes an item', () => {
+        cy.get('.listitem').contains('esine333').click()
+        cy.get('.trash:visible').click()
+    })
 
 })
 describe('inspector tests', function(){
@@ -108,23 +112,21 @@ describe('Furniture testing', function() {
         cy.get("[type='name']").first().type('huonekalu321')
         cy.get("[type='button']").contains('Peruuta').first().click()
     })
+    it('creates a furniture and deletes it', () => {
+        cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
+        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get("[type='name']").first().type('huonekalu3')
+        cy.get("[type='submit']").first().click()
+        cy.get('div').contains('huonekalu3')
+        cy.get('div').should('have.class', 'listitem').contains('huonekalu3').click()
+        cy.get('.trash:visible').click()
+    })
     it('edits the furniture in the inspector', () => {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
         cy.get("[type='name']").clear()
         cy.get("[type='name']").type('huonekalu321')
         cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
         cy.get('.css-1e5ysj4:visible').click()
-
-        /*cy.get('input[name="attrs.x"]').clear()
-        cy.get('input[name="attrs.x"]').type('2')
-        cy.get('input[name="attrs.y"]').clear()
-        cy.get('input[name="attrs.y"]').type('4')
-        */
-        /*cy.get('input[name="attrs.visible"]').click()
-        cy.get('input[name="attrs.isDoor"]').click()
-        cy.get('.1hwfws3:visible').contains('Etsi huonetta...').click()
-        cy.get('.css-1e5ysj4:visible').contains('huone555').click()*/
-
     })
     it('adds the x and y attributes', () => {
         cy.get('input[name="attrs.x"]').clear()
@@ -150,6 +152,7 @@ describe('Furniture testing', function() {
 
 //Alempi testattu ja toimii, kommentoitu pois jottei se lataisi tuota 
 //zippiä joka kerta kun pyörittää testit
+//Upload-testi vain painaa Tuontinappia
 /*
 describe('Download/Upload', function() {
     it('downloads a zip of the game', () => {
