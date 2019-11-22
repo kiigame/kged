@@ -28,6 +28,7 @@ export class JSONGetter {
                 break;
             default:
                 try {
+                    // try to load data from default assets
                     data = JSON.stringify(require(`../data/${file}`))
                 } catch (e) {
                     data = '{}'

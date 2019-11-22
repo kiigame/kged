@@ -22,7 +22,14 @@ export class ActionBar extends React.Component {
 
     onStartGame(e) {
         this.props.onStartGame(e)
-        setTimeout(() => this.props.engine.init_hit_regions(), 2000)
+        setTimeout(() => this.props.engine.init_hit_regions(), 3000)
+    }
+
+    onStopGame(e) {
+        if (this.props.engine && this.props.engine.stage) {
+            this.props.engine.stage.destroy()
+        }
+        this.props.onStopGame(e)
     }
 
     render() {
@@ -33,7 +40,7 @@ export class ActionBar extends React.Component {
                     Käynnistä
                 </div>
                 <div className={'col ' + (!this.props.isEngineRunning ? 'disabled' : '')}
-                     onClick={e => this.props.onStopGame(e)}>
+                     onClick={e => this.onStopGame(e)}>
                     Lopeta
                 </div>
                 <div className="col" id="import-zip-container" onClick={this.clickHiddenInput}>
