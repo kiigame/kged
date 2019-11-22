@@ -29,6 +29,22 @@ describe('room creation', function() {
         cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
         cy.get("[type='button']").contains('Peruuta').click()
     })
+    it('checks that the rooms are in alphabetical order', () => {
+        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        cy.get("[type='name']").type('huoneA')
+        cy.get("[type='submit']").click()
+
+        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        cy.get("[type='name']").type('huoneB')
+        cy.get("[type='submit']").click()
+
+        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        cy.get("[type='name']").type('huoneC')
+        cy.get("[type='submit']").click()
+
+        cy.get('.listitem').invoke('text').should('eq', ['huone123', 'huone321', 'huone555','huoneA', 'huoneB', 'huoneC'].join(''));
+    })
+    
     it('switches the active room', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
@@ -66,6 +82,21 @@ describe('item creation', function() {
         cy.get("[type='name']").should('have.class', 'form-control').first().type('esine333')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('esine333')  
+    })
+    it('checks that the items are in alphabetical order', () => {
+        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        cy.get("[type='name']").type('esineA')
+        cy.get("[type='submit']").click()
+
+        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        cy.get("[type='name']").type('esineB')
+        cy.get("[type='submit']").click()
+
+        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        cy.get("[type='name']").type('esineC')
+        cy.get("[type='submit']").click()
+
+        cy.get('.listitem').invoke('text').should('eq', ['esine333','esineA', 'esineB', 'esineC'].join(''));
     })
 
 })
