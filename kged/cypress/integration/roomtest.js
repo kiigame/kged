@@ -50,21 +50,22 @@ describe('item creation', function() {
         cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
         cy.get("[type='name']").should('have.class', 'form-control').first().type('esine123')
         cy.get("[type='submit']").first().click()
-        cy.get('div').contains('esine123')
-        
-        //Creates another item for testing purposes
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
-        cy.get("[type='name']").should('have.class', 'form-control').first().type('esine333')
-        cy.get("[type='submit']").first().click()
-        cy.get('div').contains('esine333')    
+        cy.get('div').contains('esine123')  
     })
     it('cancels the item creation', () => {
         cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
         cy.get("[type='button']").contains('Peruuta').click()   
     })
-    it('deletes an item', () => {
-        cy.get('.listitem').contains('esine333').click()
+    it('removes the other item and displays the no items text', () => {
+        cy.get('.listitem').contains('esine123').click()
         cy.get('.trash:visible').click()
+        cy.get('div').contains('Ei esineitä! Luo uusi esine tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.')
+    })
+    it('creates a new item', () => {
+        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get("[type='name']").should('have.class', 'form-control').first().type('esine333')
+        cy.get("[type='submit']").first().click()
+        cy.get('div').contains('esine333')  
     })
 
 })
@@ -89,12 +90,13 @@ describe('inspector tests', function(){
     it('changes the name of an item in the inspector', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Esineet').click()
-        cy.get('div').should('have.class', 'listitem').contains('esine123').click()
+        cy.get('div').should('have.class', 'listitem').contains('esine333').click()
         cy.get("[type='name'").clear()
         cy.get("[type='name'").type('esine246')
         cy.get("[type='submit']").click()
         cy.get('div').contains('esine246') 
     })
+
 })
 describe('Furniture testing', function() {
     it('creates a furniture', () => {
@@ -121,7 +123,7 @@ describe('Furniture testing', function() {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu3').click()
         cy.get('.trash:visible').click()
     })
-    it('edits the furniture in the inspector', () => {
+    it('edits the furniture name and gives it the room in the inspector', () => {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
         cy.get("[type='name']").clear()
         cy.get("[type='name']").type('huonekalu321')
