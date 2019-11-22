@@ -6,11 +6,6 @@ export class JSONGetter {
         this.items = api.exportItems(state, true)
         this.interactions = api.exportInteractions(state)
         this.texts = api.exportTexts(state)
-
-        console.log('rooms', this.rooms)
-        console.log('items', this.items)
-        console.log('interactions', this.interactions)
-        console.log('texts', this.texts)
     }
 
     getJSON(file) {
@@ -22,9 +17,9 @@ export class JSONGetter {
             case 'items.json':
                 data = JSON.stringify(this.items)
                 break;
-            // case 'interactions.json':
-            //     data = JSON.stringify(this.interactions)
-            //     break;
+            case 'interactions.json':
+                data = JSON.stringify(this.interactions)
+                break;
             case 'texts.json':
                 data = JSON.stringify(this.texts)
                 break;
@@ -39,7 +34,6 @@ export class JSONGetter {
                 }
         }
 
-        console.log('data:', data)
         return data
     }
 }

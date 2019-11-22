@@ -8,6 +8,12 @@ const initialState = {
 function interactions(state = initialState, action) {
 
     switch (action.type) {
+        case 'LOAD_INTERACTIONS':
+            return {
+                ...state,
+                interactions: action.payload.interactions
+            }
+
         case 'ADD_INTERACTION':
             return state
 

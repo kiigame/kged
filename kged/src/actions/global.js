@@ -1,11 +1,12 @@
 import * as api from 'api'
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
+import * as utils from 'utils/index'
 import { loadRooms } from './rooms'
+import { loadFurnitures } from './furnitures'
 import { loadItems } from './items'
 import { loadTexts } from './texts'
-import * as utils from 'utils/index'
-import { loadFurnitures } from './furnitures'
+import { loadInteractions } from './interactions'
 
 export const exportProject = (event) => {
     return (dispatch, getState) => {
@@ -93,7 +94,6 @@ export const importProject = (pkg) => {
 
                     data.forEach(d => { jsonData[d.name] = JSON.parse(d.data) })
 
-                    dispatch(loadTexts(jsonData['texts.json']))
                     let items = jsonData['items.json']
                     items = utils.mapAssetsToItems(items, imageData)
 
@@ -108,6 +108,9 @@ export const importProject = (pkg) => {
                     dispatch(loadItems(items))
                     dispatch(loadRooms(rooms))
                     dispatch(loadFurnitures(furnitures))
+
+                    dispatch(loadTexts(jsonData['texts.json']))
+                    dispatch(loadInteractions(jsonData['interactions.json']))
                 })
 
             })
