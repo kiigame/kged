@@ -51,10 +51,10 @@ export class ActionBar extends React.Component {
                 <div className={'col ' + ((this.state.isStartable && !this.props.isEngineRunning) ? '' : 'disabled')}
                      onClick={e => this.onStartGame(e)}>
                     Käynnistä
+                    {this.state.isStarting &&
+                        <FontAwesomeIcon className="load-spinner" icon="spinner" spin/>
+                    }
                 </div>
-                {this.state.isStarting &&
-                    <span className="load-spinner"><FontAwesomeIcon icon="spinner" spin/>&nbsp;</span>
-                }
                 <div className={'col ' + (!this.props.isEngineRunning ? 'disabled' : '')}
                      onClick={e => this.onStopGame(e)}>
                     Lopeta
