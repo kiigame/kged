@@ -52,6 +52,7 @@ export const addRoom = (room) => {
                 room: room
             }
         })
+        dispatch(setActiveRoom(room.name))
     }
 }
 

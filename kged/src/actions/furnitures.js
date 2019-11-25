@@ -42,12 +42,17 @@ export const setFurnitureImage = (furnitureId, filePath, objectUrl) => {
     }
 }
 
-export const addFurniture = (furniture) => ({
-    type: 'ADD_FURNITURE',
-    payload: {
-        furniture: furniture
+export const addFurniture = (furniture) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'ADD_FURNITURE',
+            payload: {
+                furniture: furniture
+            }
+        })
+        dispatch(setActiveFurniture(furniture.name))
     }
-})
+}
 
 export const updateFurniture = (oldId, furniture) => {
     return (dispatch, getState) => {

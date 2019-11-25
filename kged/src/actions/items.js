@@ -36,12 +36,17 @@ export const setItemImage = (itemId, filePath, objectUrl) => {
     }
 }
 
-export const addItem = (item) => ({
-    type: 'ADD_ITEM',
-    payload: {
-        item: item
+export const addItem = (item) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'ADD_ITEM',
+            payload: {
+                item: item
+            }
+        })
+        dispatch(setActiveItem(item.name))
     }
-})
+}
 
 export const updateItem = (oldId, item) => {
     return (dispatch, getState) => {
