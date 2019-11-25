@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { importProject, exportProject } from 'actions/global';
+import { hasStartRoom } from 'actions/rooms';
 import { startGame, stopGame } from 'actions/preview.js'
 import 'styles/preview.scss';
 import 'styles/action_bar.scss';
@@ -23,6 +24,9 @@ export class ActionBar extends React.Component {
     }
 
     onStartGame(e) {
+        if (!this.props.hasStartRoom) {
+            return
+        }
         if (this.state.isStartable) {
             this.setState({isStartable: false, isStarting: true})
             this.props.onStartGame(e)
@@ -46,10 +50,12 @@ export class ActionBar extends React.Component {
     }
 
     render() {
+        var title = this.props.hasStartRoom ? '' : 'Valitse aloitushuone käynnistääksesi pelin'
         return (
             <div className="row pre-controls">
                 <div className={'col ' + ((this.state.isStartable && !this.props.isEngineRunning) ? '' : 'disabled')}
-                     onClick={e => this.onStartGame(e)}>
+                     onClick={e => this.onStartGame(e)}
+                     title={title}>
                     Käynnistä
                     {this.state.isStarting &&
                         <FontAwesomeIcon className="load-spinner" icon="spinner" spin/>
@@ -74,6 +80,7 @@ export class ActionBar extends React.Component {
 const mapStateToProps = state => ({
     engine: state.preview.engine,
     isEngineRunning: state.preview.isEngineRunning,
+    hasStartRoom: hasStartRoom(state)
 })
 
 const mapDispatchToProps = dispatch => ({

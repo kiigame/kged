@@ -14,6 +14,10 @@ export const getActiveRoom = (state) => {
     return state.rooms.rooms.find(r => r.attrs.id === state.rooms.activeRoom)
 }
 
+export const hasStartRoom = (state) => {
+    return state.rooms.rooms.find(r => r.attrs.start === true)
+}
+
 
 // actions
 
