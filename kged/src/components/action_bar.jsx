@@ -24,9 +24,13 @@ export class ActionBar extends React.Component {
     onStartGame(e) {
         if (this.state.isStartable) {
             this.props.onStartGame(e)
+            this.setState({isStartable: false})
             // TODO: make this more robust (e.g. konva stage ready callback)
-            setTimeout(() => this.props.engine.init_hit_regions(), 3000)
-            setTimeout(() => this.setState({isStartable: false}), 3100)
+            setTimeout(() => {
+                if (this.props.engine) {
+                    this.props.engine.init_hit_regions()
+                }
+            }, 3000)
         }
     }
 
@@ -41,11 +45,11 @@ export class ActionBar extends React.Component {
     render() {
         return (
             <div className="row pre-controls">
-                <div className={'col ' + (this.state.isStartable ? '' : 'disabled')}
+                <div className={'col ' + ((this.state.isStartable && !this.props.isEngineRunning) ? '' : 'disabled')}
                      onClick={e => this.onStartGame(e)}>
                     Käynnistä
                 </div>
-                <div className={'col ' + (this.state.isStartable ? 'disabled' : '')}
+                <div className={'col ' + (!this.props.isEngineRunning ? 'disabled' : '')}
                      onClick={e => this.onStopGame(e)}>
                     Lopeta
                 </div>
