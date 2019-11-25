@@ -9,7 +9,7 @@ import 'styles/action_bar.scss';
 export class ActionBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { isStartable: true }
+        this.state = { isStartable: true, isStarting: false }
         this.clickHiddenInput = this.clickHiddenInput.bind(this);
     }
 
@@ -23,22 +23,24 @@ export class ActionBar extends React.Component {
 
     onStartGame(e) {
         if (this.state.isStartable) {
+            this.setState({isStartable: false, isStarting: true})
             this.props.onStartGame(e)
-            this.setState({isStartable: false})
             // TODO: make this more robust (e.g. konva stage ready callback)
             setTimeout(() => {
                 if (this.props.engine) {
                     this.props.engine.init_hit_regions()
                 }
             }, 3000)
+            setTimeout(() => this.setState({isStarting: false}), 3000)
         }
     }
 
     onStopGame(e) {
+        this.setState({isStartable: false, isStarting: true})
         if (this.props.engine && this.props.engine.stage) {
             this.props.engine.stage.destroy()
         }
-        setTimeout(() => this.setState({isStartable: true}), 1000)
+        setTimeout(() => this.setState({isStartable: true, isStarting: false}), 1000)
         this.props.onStopGame(e)
     }
 
@@ -49,6 +51,9 @@ export class ActionBar extends React.Component {
                      onClick={e => this.onStartGame(e)}>
                     Käynnistä
                 </div>
+                {this.state.isStarting &&
+                    <div className="has-spinner"/>
+                }
                 <div className={'col ' + (!this.props.isEngineRunning ? 'disabled' : '')}
                      onClick={e => this.onStopGame(e)}>
                     Lopeta
