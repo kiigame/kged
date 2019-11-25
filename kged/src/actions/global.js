@@ -49,7 +49,7 @@ export const exportProject = (event) => {
         zip.file('texts.json', textsToJSON);
         zip.generateAsync({type: 'blob'})
         .then(content => {
-            saveAs(content, 'game_data.zip');
+            saveAs(content, 'pelidata.zip');
         });
     }
 }
