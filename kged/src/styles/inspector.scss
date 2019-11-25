@@ -5,8 +5,8 @@
 }
 
 .ins-header {
-    font-size: $font-large;
-    padding: 10px;
+    font-size: $font-medium-large;
+    padding: 0.5em;
 }
 
 .ins-props {
@@ -50,7 +50,7 @@
 
 .ins-props-header {
     display: block;
-    font-size: $font-large;
+    font-size: $font-medium-large;
     border-bottom: 1px solid $color-gray-600;
     margin-bottom: 0.5em;
 }
