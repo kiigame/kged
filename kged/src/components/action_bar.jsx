@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { importProject, exportProject } from 'actions/global';
 import { startGame, stopGame } from 'actions/preview.js'
@@ -52,7 +53,7 @@ export class ActionBar extends React.Component {
                     Käynnistä
                 </div>
                 {this.state.isStarting &&
-                    <div className="has-spinner"/>
+                    <span className="load-spinner"><FontAwesomeIcon icon="spinner" spin/>&nbsp;</span>
                 }
                 <div className={'col ' + (!this.props.isEngineRunning ? 'disabled' : '')}
                      onClick={e => this.onStopGame(e)}>
