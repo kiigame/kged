@@ -1,11 +1,9 @@
 const initialState = {
-    rooms: require('data/rooms.json')['rooms'],
-    activeRoom: {}
+    rooms: [],
+    activeRoom: undefined
 }
 
 function rooms(state = initialState, action) {
-    let attrs;
-
     switch (action.type) {
         case 'ADD_ROOM':
             return {
@@ -24,7 +22,7 @@ function rooms(state = initialState, action) {
                                 width: 981,
                                 height: 543,
                                 id: 'room_placeholder',
-                                src: 'assets/placeholders/room.jpg',
+                                url: 'assets/placeholders/room.png',
                                 visible: true
                             }}
                         ],
@@ -33,27 +31,43 @@ function rooms(state = initialState, action) {
                 ]
             }
 
-        case 'UPDATE_ROOM_ID':
+        case 'LOAD_ROOMS':
             return {
                 ...state,
-                rooms: state.rooms.map(room =>
-                    room.attrs.id === action.payload.oldId
-                    ? { ...room, attrs: { ...room.attrs, id: action.payload.newId }
+                rooms: action.payload.rooms
+            }
+
+        case 'UPDATE_ROOM':
+            const isStartRoom = action.payload.room.attrs.start
+            return {
+                ...state,
+                rooms: state.rooms.map(room => {
+                    if (room.attrs.id === action.payload.oldId) {
+                        return action.payload.room
+                    } else if (isStartRoom){
+                        return {
+                            ...room,
+                            attrs: {...room.attrs, start: false}
+                        }
+                    } else {
+                        return room
                     }
-                    : room
-                )
+                })
             }
 
         case 'SET_ROOM_BACKGROUND_IMAGE':
             const id = action.payload.roomId
             const src = action.payload.filePath
+            const objUrl = action.payload.objectUrl
+
             const newBg = {
                 category: 'room_background',
                 width: 981,
                 height: 543,
                 id: src,
                 src: `images/${src}`,
-                visible: true
+                visible: true,
+                url: objUrl
             }
             const hasBg = room => (
                 room.children && room.children.some(c =>
@@ -81,7 +95,7 @@ function rooms(state = initialState, action) {
             }
 
         case 'DELETE_ROOM':
-            attrs = action.payload.room.attrs;
+            let attrs = action.payload.room.attrs;
             return {
                 ...state,
                 rooms: state.rooms.filter(room => room.attrs.id !== attrs.id)
@@ -90,16 +104,7 @@ function rooms(state = initialState, action) {
         case 'SET_ACTIVE_ROOM':
             return {
                 ...state,
-                activeRoom: action.payload.room
-            }
-
-        case 'UPDATE_ACTIVE_ROOM':
-            const roomId = action.payload.id || state.activeRoom.attrs.id
-            return {
-                ...state,
-                activeRoom: state.rooms.find(r =>
-                    r.attrs.id === roomId
-                )
+                activeRoom: action.payload.id
             }
 
         default:

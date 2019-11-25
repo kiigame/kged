@@ -1,11 +1,9 @@
 const initialState = {
-    furnitures: require('data/items.json'),
-    activeFurniture: {}
+    furnitures: [],
+    activeFurniture: undefined
 }
 
 function furnitures(state = initialState, action) {
-    let attrs;
-
     switch (action.type) {
         case 'ADD_FURNITURE':
             return {
@@ -16,25 +14,32 @@ function furnitures(state = initialState, action) {
                         attrs: {
                             id: action.payload.furniture.name,
                             category: 'furniture',
-                            src: 'assets/placeholders/furniture.jpg'
-                        }
+                            url: 'assets/placeholders/furniture.png'
+                        },
+                        selectedRoom: {attrs: {}},
+                        selectedDestination: {attrs: {}},
+                        className: 'Image'
                     }
                 ]
             }
+        case 'LOAD_FURNITURES':
+            return {
+                ...state,
+                furnitures: action.payload.furnitures
+            }
 
         case 'UPDATE_FURNITURE':
-            attrs = action.payload.furniture.attrs;
             return {
                 ...state,
                 furnitures: state.furnitures.map(furniture =>
-                    furniture.attrs.id === attrs.id
-                    ? { ...furniture, attrs }
+                    furniture.attrs.id === action.payload.oldId
+                    ? action.payload.furniture
                     : furniture
                 )
             }
 
         case 'DELETE_FURNITURE':
-            attrs = action.payload.furniture.attrs;
+            let attrs = action.payload.furniture.attrs;
             return {
                 ...state,
                 furnitures: state.furnitures.filter(furniture => furniture.attrs.id !== attrs.id)
@@ -43,7 +48,18 @@ function furnitures(state = initialState, action) {
         case 'SET_ACTIVE_FURNITURE':
             return {
                 ...state,
-                activeFurniture: action.payload.furniture
+                activeFurniture: action.payload.id
+            }
+
+        case 'SET_FURNITURE_IMAGE':
+            const {furnitureId, filePath, objectUrl} = action.payload;
+            return {
+                ...state,
+                furnitures: state.furnitures.map(furniture =>
+                    furniture.attrs.id === furnitureId
+                    ? { ...furniture, attrs: {...furniture.attrs, src: filePath, url: objectUrl } }
+                    : furniture
+                )
             }
 
         default:

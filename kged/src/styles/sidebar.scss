@@ -1,5 +1,7 @@
+@import 'styles/variables';
+
 .side-container {
-    background: white;
+    background: $color-gray-800;
 }
 
 .side-nav {
@@ -9,3 +11,9 @@
 .side-nav-item {
     text-align: center;
 }
+
+.tab-content {
+    border-radius: 5px;
+    padding-bottom: 8px;
+}
+

@@ -1,16 +1,13 @@
 @import 'styles/variables';
 
-.room {
-    background: $color-gray-800;
-    padding: 0.15em 0.35em;
+.action-header-container {
+    position: relative;
 }
 
-.active-room {
-    background: $color-gray-600;
-}
-
-.room-name {
-    display: inline-block;
-    max-width: calc(100% - 30px);
-    word-break: break-word;
+.searchbox-container {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    width: calc(100% - 4em) !important;
+    margin: 0.5rem;
 }

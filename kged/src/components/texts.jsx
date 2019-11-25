@@ -3,16 +3,16 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Select from 'react-select'
 
-import { getActiveRoom, setActiveRoom, addRoom, deleteRoom, getRooms } from 'actions/rooms'
+import { getActiveText, setActiveText, addText, deleteText, getTexts } from 'actions/texts'
 import CreateContainer from './create_container'
 import 'styles/rooms.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
 
-export class Rooms extends React.Component {
+export class Texts extends React.Component {
 
-    isActiveRoom(room) {
-        if (this.props.activeRoom && this.props.activeRoom.attrs) {
-            return this.props.activeRoom.attrs.id === room.attrs.id
+    isActiveText(text) {
+        if (this.props.activeText) {
+            return this.props.activeText === text
         }
     }
 
@@ -22,38 +22,38 @@ export class Rooms extends React.Component {
                 <div className="action-header-container">
                     <CreateContainer
                         initialState={{name: ''}}
-                        addItem={this.props.addRoom}
+                        addItem={this.props.addText}
                         namePlaceholder={'Syötä huoneen nimi'}
                         submitLabel={'Lisää huone'}
                     />
                     <div className="searchbox-container">
                         <Select styles={defaultSelectStyles}
-                                getOptionLabel={(option)=>option.attrs.id}
-                                options={this.props.rooms}
-                                onChange={e => this.props.onClickRoom(e)}
+                                getOptionLabel={option => option}
+                                options={this.props.texts}
                                 noOptionsMessage={() => 'Ei tuloksia'}
                                 placeholder="Etsi huonetta..."/>
                     </div>
+                    {/* <input className="form-control col searchbox" placeholder="Etsi..." type="name" name="name" /> */}
                 </div>
                 <div className="listitem-container">
-                    {this.props.rooms.length === 0 &&
+                    {this.props.texts.length === 0 &&
                         <div className="empty-list-text">
-                            Ei huoneita! Luo uusi huone tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
+                            Ei tekstejä! Luo uusi teksti tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
                         </div>
                     }
-                    {this.props.rooms.map((room) => {
+                    {this.props.texts.map((text) => {
                         return (
                             <div
-                                className={'listitem ' + (this.isActiveRoom(room) ? 'active-listitem' : '')}
-                                key={room.attrs.id}
-                                onClick={() => this.props.onClickRoom(room)}
+                                className={'listitem ' + (this.isActiveText(text) ? 'active-listitem' : '')}
+                                key={text}
+                                onClick={() => this.props.onClickText(text)}
                             >
                                 <span className="listitem-name">
-                                    {room.attrs.id}
+                                    {text}
                                 </span>
-                                {this.isActiveRoom(room) &&
+                                {this.isActiveText(text) &&
                                     <span className="trash" onClick={(e) => {
-                                        this.props.removeRoom(room)
+                                        this.props.removeText(text)
                                         e.stopPropagation()
                                     }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                                 }
@@ -67,17 +67,17 @@ export class Rooms extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    rooms: getRooms(state),
-    activeRoom: getActiveRoom(state)
+    texts: getTexts(state),
+    activeText: getActiveText(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-    onClickRoom: room => dispatch(setActiveRoom(room.attrs.id)),
-    addRoom: room => dispatch(addRoom(room)),
-    removeRoom: room => dispatch(deleteRoom(room)),
+    onClickText: text => dispatch(setActiveText(text)),
+    addText: text => dispatch(addText(text)),
+    removeText: text => dispatch(deleteText(text)),
 })
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Rooms)
+)(Texts)

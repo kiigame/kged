@@ -3,17 +3,17 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Select from 'react-select'
 
-import { getActiveRoom, setActiveRoom, addRoom, deleteRoom, getRooms } from 'actions/rooms'
+import { getActiveItem, setActiveItem, addItem, deleteItem, getItems } from 'actions/items'
 import CreateContainer from './create_container'
-import 'styles/rooms.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
 
-export class Rooms extends React.Component {
+export class Items extends React.Component {
 
-    isActiveRoom(room) {
-        if (this.props.activeRoom && this.props.activeRoom.attrs) {
-            return this.props.activeRoom.attrs.id === room.attrs.id
+    isActiveItem(item) {
+        if (this.props.activeItem && this.props.activeItem.attrs) {
+            return this.props.activeItem.attrs.id === item.attrs.id;
         }
+        return false;
     }
 
     render() {
@@ -22,38 +22,38 @@ export class Rooms extends React.Component {
                 <div className="action-header-container">
                     <CreateContainer
                         initialState={{name: ''}}
-                        addItem={this.props.addRoom}
-                        namePlaceholder={'Syötä huoneen nimi'}
-                        submitLabel={'Lisää huone'}
+                        addItem={this.props.addItem}
+                        namePlaceholder={'Syötä esineen nimi'}
+                        submitLabel={'Lisää esine'}
                     />
                     <div className="searchbox-container">
                         <Select styles={defaultSelectStyles}
                                 getOptionLabel={(option)=>option.attrs.id}
-                                options={this.props.rooms}
-                                onChange={e => this.props.onClickRoom(e)}
+                                options={this.props.items}
+                                onChange={e => this.props.onClickItem(e)}
                                 noOptionsMessage={() => 'Ei tuloksia'}
-                                placeholder="Etsi huonetta..."/>
+                                placeholder="Etsi esinettä..."/>
                     </div>
                 </div>
                 <div className="listitem-container">
-                    {this.props.rooms.length === 0 &&
+                    {this.props.items.length === 0 &&
                         <div className="empty-list-text">
-                            Ei huoneita! Luo uusi huone tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
+                            Ei esineitä! Luo uusi esine tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.
                         </div>
                     }
-                    {this.props.rooms.map((room) => {
+                    {this.props.items.map((item) => {
                         return (
                             <div
-                                className={'listitem ' + (this.isActiveRoom(room) ? 'active-listitem' : '')}
-                                key={room.attrs.id}
-                                onClick={() => this.props.onClickRoom(room)}
+                                className={'listitem ' + (this.isActiveItem(item) ? 'active-listitem' : '')}
+                                key={item.attrs.id}
+                                onClick={() => this.props.onClickItem(item)}
                             >
                                 <span className="listitem-name">
-                                    {room.attrs.id}
+                                    {item.attrs.id}
                                 </span>
-                                {this.isActiveRoom(room) &&
+                                {this.isActiveItem(item) &&
                                     <span className="trash" onClick={(e) => {
-                                        this.props.removeRoom(room)
+                                        this.props.removeItem(item)
                                         e.stopPropagation()
                                     }}><FontAwesomeIcon icon="trash-alt" />&nbsp;</span>
                                 }
@@ -62,22 +62,22 @@ export class Rooms extends React.Component {
                     })}
                 </div>
             </div>
-        )
+        );
     }
 }
 
 const mapStateToProps = state => ({
-    rooms: getRooms(state),
-    activeRoom: getActiveRoom(state)
+    items: getItems(state),
+    activeItem: getActiveItem(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-    onClickRoom: room => dispatch(setActiveRoom(room.attrs.id)),
-    addRoom: room => dispatch(addRoom(room)),
-    removeRoom: room => dispatch(deleteRoom(room)),
+    onClickItem: item => dispatch(setActiveItem(item.attrs.id)),
+    addItem: item => dispatch(addItem(item)),
+    removeItem: item => dispatch(deleteItem(item)),
 })
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Rooms)
+)(Items);

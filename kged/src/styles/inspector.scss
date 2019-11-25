@@ -1,6 +1,7 @@
 @import 'styles/variables';
 
 .ins-container {
+    background: $color-gray-800;
 }
 
 .ins-header {
@@ -26,10 +27,20 @@
         &:hover {
             filter: opacity(0.85);
         }
+
+        img {
+            max-height: 250px;
+            max-width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 
     .input-img-name {
         font-size: $font-small;
+        position: absolute;
+        max-width: 250px;
+        max-height: 250px;
     }
 
     .input-group {
@@ -46,4 +57,28 @@
 
 .item-edit-actions {
     text-align: right;
+    margin-bottom: 1em;
+}
+
+.xy-col {
+    padding: 5px 0px 0px 0px !important;
+}
+
+.xy-input {
+    float: right;
+    padding-left: 5px !important;
+}
+
+.xy-container {
+    margin-bottom: 1.5rem;
+}
+
+.change-color-onhover {
+    &:hover {
+        color: $color-gray-500;
+    }
+}
+
+.form-control:disabled {
+    opacity: 0.5 !important;
 }

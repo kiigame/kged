@@ -2,25 +2,18 @@ const initialState = {
     activeEntity: {}
 }
 
-function entity(state = initialState, action, globalState = {}) {
+function entity(state = initialState, action) {
     switch (action.type) {
         case 'SET_ACTIVE_ENTITY':
             return {
                 ...state,
-                activeEntity: action.payload.entity
+                activeEntity: {id: action.payload.id, category: action.payload.category}
             }
 
-        case 'UPDATE_ACTIVE_ENTITY':
-            const entityId = action.payload.id || state.activeEntity.attrs.id;
-            if (action.payload.category === 'room') {
-                return {
-                    ...state,
-                    activeEntity: globalState.rooms.rooms.find(r =>
-                        r.attrs.id === entityId
-                    )
-                }
-            } else {
-                return state;
+        case 'REMOVE_ACTIVE_ENTITY':
+            return {
+                ...state,
+                activeEntity: {}
             }
 
         default:

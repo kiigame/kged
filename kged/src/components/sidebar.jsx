@@ -3,7 +3,10 @@ import 'styles/sidebar.scss';
 
 import Tabs from './tabs'
 import Rooms from './rooms'
+import Items from './items'
 import Furnitures from './furnitures'
+// import Texts from './texts'
+// import Interactions from './interactions'
 
 export class Sidebar extends React.Component {
     render() {
@@ -14,11 +17,17 @@ export class Sidebar extends React.Component {
                         <Rooms/>
                     </div>
                     <div label="Esineet">
+                        <Items/>
+                    </div>
+                    <div label="Huonekalut">
                         <Furnitures/>
                     </div>
-                    <div label="Interaktiot">
-                        Interaktiot
+                    {/* <div label="Interaktiot">
+                        <Interactions/>
                     </div>
+                    <div label="Tekstit">
+                        <Texts/>
+                    </div> */}
                 </Tabs>
             </div>
         );

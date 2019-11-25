@@ -1,9 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import 'styles/preview.scss';
-import { saveRooms } from 'actions/rooms';
 
-class ActionBar extends React.Component {
+import 'styles/preview.scss';
+import 'styles/action_bar.scss';
+import { importProject, exportProject } from 'actions/global';
+
+export class ActionBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.clickHiddenInput = this.clickHiddenInput.bind(this);
+    }
+
+    clickHiddenInput() {
+        var input = document.getElementById('hidden-input')
+        input.click()
+        input.onchange = (e) => {
+            this.props.onImport(e.target.files[0])
+        }
+    }
+
     render() {
         return (
             <div className="row pre-controls">
@@ -16,8 +31,9 @@ class ActionBar extends React.Component {
                 <div className="col">
                     Tallenna
                 </div>
-                <div className="col">
+                <div className="col" id="import-zip-container" onClick={this.clickHiddenInput}>
                     Tuo
+                    <input type="file" accept=".zip" id="hidden-input"/>
                 </div>
                 <div className="col" onClick={this.props.onExport}>
                     Vie
@@ -27,14 +43,12 @@ class ActionBar extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-})
-
 const mapDispatchToProps = dispatch => ({
-    onExport: event => dispatch(saveRooms(event)),
+    onExport: event => dispatch(exportProject(event)),
+    onImport: event => dispatch(importProject(event))
 })
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(ActionBar);

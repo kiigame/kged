@@ -1,31 +1,43 @@
-import { fetchRooms, exportRooms } from 'api'
-import { setActiveEntity, updateActiveEntity } from './entity'
+import { sortBy } from 'lodash/fp'
+
+import { setActiveEntity, removeActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
+// selectors
 
-export const loadRooms = () => {
+export const getRooms = (state) => {
+    return sortBy('attrs.id')(state.rooms.rooms)
+}
+
+export const getActiveRoom = (state) => {
+    return state.rooms.rooms.find(r => r.attrs.id === state.rooms.activeRoom)
+}
+
+
+// actions
+
+export const loadRooms = (rooms) => {
     return (dispatch, getState) => {
-        const rooms = fetchRooms()
         dispatch({
-            type: 'GET_ROOMS',
+            type: 'LOAD_ROOMS',
             payload: {
-                rooms
+                rooms: rooms
             }
         })
     }
 }
 
-export const setRoomBackgroundImage = (roomId, filePath) => {
+export const setRoomBackgroundImage = (roomId, filePath, objectUrl) => {
     return (dispatch, getState) => {
         dispatch({
             type: 'SET_ROOM_BACKGROUND_IMAGE',
             payload: {
                 roomId: roomId,
-                filePath: filePath
+                filePath: filePath,
+                objectUrl: objectUrl
             }
         })
-        dispatch(updateActiveRoom())
     }
 }
 
@@ -43,58 +55,42 @@ export const addRoom = (room) => {
     }
 }
 
-export const updateRoomId = (oldId, newId) => {
+export const updateRoom = (oldId, room) => {
     return (dispatch, getState) => {
-        if (isExistingEntity(getState(), newId)) {
+        if (oldId !== room.attrs.id && isExistingEntity(getState(), room.attrs.id)) {
             throw new DuplicateEntityError('Nimi on jo käytössä')
         }
         dispatch({
-            type: 'UPDATE_ROOM_ID',
+            type: 'UPDATE_ROOM',
             payload: {
                 oldId: oldId,
-                newId: newId
+                room: room
             }
         })
-        dispatch(updateActiveRoom(newId))
+        dispatch(setActiveRoom(room.attrs.id))
     }
 }
 
-export const deleteRoom = (room) => ({
-    type: 'DELETE_ROOM',
-    payload: {
-        room: room
-    }
-})
-
-export const setActiveRoom = (room) => {
-    return (dispatch) => {
-        dispatch(setActiveEntity(room))
+export const deleteRoom = (room) => {
+    return (dispatch, getState) => {
         dispatch({
-            type: 'SET_ACTIVE_ROOM',
+            type: 'DELETE_ROOM',
             payload: {
                 room: room
             }
         })
+        dispatch(removeActiveEntity())
     }
 }
 
-export const updateActiveRoom = (id = null) => {
+export const setActiveRoom = (id) => {
     return (dispatch) => {
+        dispatch(setActiveEntity(id, 'room'))
         dispatch({
-            type: 'UPDATE_ACTIVE_ROOM',
-            payload: { id: id }
-        })
-        dispatch(updateActiveEntity({category: 'room', id: id}))
-    }
-}
-
-export const saveRooms = () => {
-    return (dispatch, getState) => {
-        const state = getState()
-        exportRooms(state.rooms.rooms)
-        dispatch({
-            type: 'EXPORT_ROOMS',
-            payload: {}
+            type: 'SET_ACTIVE_ROOM',
+            payload: {
+                id: id
+            }
         })
     }
 }
