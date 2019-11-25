@@ -9,6 +9,7 @@ import 'styles/action_bar.scss';
 export class ActionBar extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { isStartable: true }
         this.clickHiddenInput = this.clickHiddenInput.bind(this);
     }
 
@@ -21,25 +22,30 @@ export class ActionBar extends React.Component {
     }
 
     onStartGame(e) {
-        this.props.onStartGame(e)
-        setTimeout(() => this.props.engine.init_hit_regions(), 3000)
+        if (this.state.isStartable) {
+            this.props.onStartGame(e)
+            // TODO: make this more robust (e.g. konva stage ready callback)
+            setTimeout(() => this.props.engine.init_hit_regions(), 3000)
+            setTimeout(() => this.setState({isStartable: false}), 3100)
+        }
     }
 
     onStopGame(e) {
         if (this.props.engine && this.props.engine.stage) {
             this.props.engine.stage.destroy()
         }
+        setTimeout(() => this.setState({isStartable: true}), 1000)
         this.props.onStopGame(e)
     }
 
     render() {
         return (
             <div className="row pre-controls">
-                <div className={'col ' + (this.props.isEngineRunning ? 'disabled' : '')}
+                <div className={'col ' + (this.state.isStartable ? '' : 'disabled')}
                      onClick={e => this.onStartGame(e)}>
                     Käynnistä
                 </div>
-                <div className={'col ' + (!this.props.isEngineRunning ? 'disabled' : '')}
+                <div className={'col ' + (this.state.isStartable ? 'disabled' : '')}
                      onClick={e => this.onStopGame(e)}>
                     Lopeta
                 </div>
