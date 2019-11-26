@@ -10,39 +10,41 @@ describe('room creation', function() {
        // cy.visit('https://kged-dev.netlify.com/')
         //cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
         cy.get("[type='name']").type('huone123')
-        cy.get("[type='submit']").click()
+        //cy.get("[type='submit']").click()
+        cy.get('.btn-success').contains('Lisää huone').click()
         cy.get('div').contains('huone123')
 
         //Create another room for testing
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('huone321')
-        cy.get("[type='submit']").click()
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('huone321')
+        cy.get('.btn-success').contains('Lisää huone').click()
 
         //...And another one
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('huone555')
-        cy.get("[type='submit']").click()
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('huone555')
+        cy.get('.btn-success').contains('Lisää huone').click()
 
     })
     it('cancels the room creation', () => {
         //cy.visit('https://kged-dev.netlify.com/')
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='button']").contains('Peruuta').click()
+        cy.get('.create-new-btn').click()
+        cy.get('.btn-secondary').contains('Peruuta').first().click()
     })
     it('checks that the rooms are in alphabetical order', () => {
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('huoneA')
-        cy.get("[type='submit']").click()
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('huoneA')
+        cy.get('.btn-success').contains('Lisää huone').click()
 
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('huoneB')
-        cy.get("[type='submit']").click()
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('huoneB')
+        cy.get('.btn-success').contains('Lisää huone').click()
 
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('huoneC')
-        cy.get("[type='submit']").click()
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('huoneC')
+        cy.get('.btn-success').contains('Lisää huone').click()
+        cy.get('div').contains('huoneC')
 
-        cy.get('.listitem').invoke('text').should('eq', ['huone123', 'huone321', 'huone555','huoneA', 'huoneB', 'huoneC'].join(''));
+        cy.get('.listitem').invoke('text').should('eq', ['huone123','huone321','huone555','huoneA','huoneB','huoneC'].join(''));
     })
     
     it('switches the active room', () => {
@@ -57,7 +59,7 @@ describe('room creation', function() {
     })
 
 })
-// TODO: INTERAKTIOT, KUMOA, TOISTA, TALLENNA, TUO, VIE
+// TODO: KIRJOITA TESTIT UUSIKSI
 
 describe('item creation', function() {
     it('creates 2 items', () => {
