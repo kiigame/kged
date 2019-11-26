@@ -68,11 +68,11 @@ export class ActionBar extends React.Component {
                     Lopeta
                 </div>
                 <div className="col" id="import-zip-container" onClick={this.clickHiddenInput}>
-                    Tuo
+                    Lataa
                     <input type="file" accept=".zip" id="hidden-input"/>
                 </div>
                 <div className="col" onClick={this.props.onExport}>
-                    Vie
+                    Tallenna
                 </div>
             </div>
         );
