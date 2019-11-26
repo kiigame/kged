@@ -10,13 +10,14 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import reducer from 'reducers'
 import logger from 'utils/logger'
+import globalEventHandler from 'utils/global_event_handler'
 import App from 'components/app'
 import 'styles/index.scss'
 import 'styles/custom.scss'
 
 library.add(fas)
 
-const store = createStore(reducer, applyMiddleware(logger, thunk))
+const store = createStore(reducer, applyMiddleware(logger, globalEventHandler, thunk))
 
 ReactDOM.render(
     <Provider store={store}>
