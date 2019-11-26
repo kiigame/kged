@@ -41,6 +41,9 @@ export class ActionBar extends React.Component {
     }
 
     onStopGame(e) {
+        if (this.state.isStartable || !this.props.isEngineRunning) {
+            return
+        }
         this.setState({isStartable: false, isStarting: true})
         if (this.props.engine && this.props.engine.stage) {
             this.props.engine.stage.destroy()
@@ -50,12 +53,11 @@ export class ActionBar extends React.Component {
     }
 
     render() {
-        var title = this.props.hasStartRoom ? '' : 'Valitse aloitushuone käynnistääksesi pelin'
         return (
             <div className="row pre-controls">
-                <div className={'col ' + ((this.state.isStartable && !this.props.isEngineRunning) ? '' : 'disabled')}
+                <div className={'col ' + ((this.state.isStartable && !this.props.isEngineRunning && this.props.hasStartRoom) ? '' : 'disabled')}
                      onClick={e => this.onStartGame(e)}
-                     title={title}>
+                     title={this.props.hasStartRoom ? undefined : 'Valitse aloitushuone käynnistääksesi pelin'}>
                     Käynnistä
                     {this.state.isStarting &&
                         <FontAwesomeIcon className="load-spinner" icon="spinner" spin/>
