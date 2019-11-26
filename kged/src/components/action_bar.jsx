@@ -57,7 +57,7 @@ export class ActionBar extends React.Component {
             <div className="row pre-controls">
                 <div className={'col ' + ((this.state.isStartable && !this.props.isEngineRunning && this.props.hasStartRoom) ? '' : 'disabled')}
                      onClick={e => this.onStartGame(e)}
-                     title={this.props.hasStartRoom ? undefined : 'Valitse aloitushuone käynnistääksesi pelin'}>
+                     title={this.props.hasStartRoom ? undefined : 'Pelillä täytyy olla yksi aloitushuone jotta se voidaan käynnistää! Aloitushuoneen voi asettaa valitulle huoneelle inspektorista.'}>
                     Käynnistä
                     {this.state.isStarting &&
                         <FontAwesomeIcon className="load-spinner" icon="spinner" spin/>
