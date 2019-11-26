@@ -1111,7 +1111,7 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@kiigame/adventure_engine@../../kiigame":
+"@kiigame/adventure_engine@./engine":
   version "0.3.0"
   dependencies:
     konva "^3.2.6"
