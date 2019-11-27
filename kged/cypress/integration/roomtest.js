@@ -2,6 +2,9 @@ describe('room creation', function() {
     it('successfully loads', function() {
         cy.visit('https://kged-dev.netlify.com/')
     })
+    it('shows the play button as inactive', () => {
+        cy.get('.disabled').contains('Käynnistä')
+    })
     it('successfully opens the room creation container', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
@@ -131,7 +134,7 @@ describe('inspector tests', function(){
     })
 
 })
-describe('Furniture testing', function() {
+describe('Furniture & play testing', function() {
     it('creates a furniture', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
@@ -181,6 +184,13 @@ describe('Furniture testing', function() {
     })
     it('saves the inspector edits', () => {
         cy.get('button[type="submit"]').click()
+    })
+    it('checks that the play and stop buttons activate and deactivate correctly', () =>{
+    cy.get('.disabled').contains('Lopeta')
+    cy.get('div').contains('Käynnistä').click()
+    cy.get('.disabled').contains('Käynnistä')
+    cy.get('div').contains('Lopeta').click()
+    cy.get('.disabled').contains('Lopeta')
     })
 
 })
