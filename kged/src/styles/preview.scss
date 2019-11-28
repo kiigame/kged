@@ -6,22 +6,24 @@
 
 .pre-screen {
     background: $color-gray-900;
+    height: 100%;
+    overflow-x: auto;
 }
 
 .pre-controls {
     text-align: center;
     flex-grow: 1;
-    font-size: $font-large;
+    font-size: $font-medium-large;
 }
 
 .pre-controls > div {
-    padding: 10px;
+    padding: 0.5em;
 }
 
 .pre-controls > div:hover {
     background: $color-gray-700;
 }
 
-.pre-screen {
-    height: 500px;
+.konvajs-content {
+    margin: 0 auto !important;
 }

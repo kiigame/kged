@@ -11,7 +11,7 @@ class App extends React.Component {
             <div className="app container-fluid">
                 <div className="row flex-grow-1">
                     <Sidebar></Sidebar>
-                    <div className="col-lg-6 order-last pre-container">
+                    <div className="col-lg-7 order-last pre-container">
                         <ActionBar/>
                         <Preview></Preview>
                     </div>

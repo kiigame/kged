@@ -17,14 +17,18 @@ function rooms(state = initialState, action) {
                             visible: false
                         },
                         children: [
-                            {attrs: {
-                                category: 'room_background',
-                                width: 981,
-                                height: 543,
-                                id: 'room_placeholder',
-                                url: 'assets/placeholders/room.png',
-                                visible: true
-                            }}
+                            {
+                                attrs:
+                                    {
+                                        category: 'room_background',
+                                        width: 981,
+                                        height: 543,
+                                        id: 'room_placeholder',
+                                        url: 'assets/placeholders/room.png',
+                                        visible: true
+                                    },
+                                className: 'Image'
+                            }
                         ],
                         className: 'Layer'
                     }

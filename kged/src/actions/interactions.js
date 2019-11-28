@@ -1,4 +1,3 @@
-import { fetchInteractions } from 'api'
 import { setActiveEntity } from './entity'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
@@ -8,11 +7,10 @@ export const getInteractions = (state) => {
     return state.interactions.interactions
 }
 
-export const loadInteractions = () => {
+export const loadInteractions = (interactions) => {
     return (dispatch, getState) => {
-        const interactions = fetchInteractions()
         dispatch({
-            type: 'GET_INTERACTIONS',
+            type: 'LOAD_INTERACTIONS',
             payload: {
                 interactions
             }

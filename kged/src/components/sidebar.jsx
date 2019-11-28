@@ -11,7 +11,7 @@ import Furnitures from './furnitures'
 export class Sidebar extends React.Component {
     render() {
         return (
-            <div className="col-md-6 col-lg-3 side-container">
+            <div className="col-md-6 col-lg-2 side-container">
                 <Tabs>
                     <div label="Huoneet">
                         <Rooms/>

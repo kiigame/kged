@@ -54,24 +54,31 @@
         },
         {
             "attrs": {
-                "category": "start",
-                "id": "start_layer"
+                "id": "inventory_layer"
+            },
+            "children": [],
+            "className": "Layer"
+        },
+        {
+        	"attrs": {
+                "id": "inventory_item_cache",
+                "visible": false
+        	},
+            "children": [],
+            "className": "Layer"
+        },
+        {
+            "attrs": {
+                "id": "fade_layer_room",
+                "opacity": 0,
+                "visible": false
             },
             "children": [
                 {
                     "attrs": {
                         "height": 543,
-                        "id": "start",
-                        "src": "images/start.png",
-                        "width": 724
-                    },
-                    "className": "Image"
-                },
-                {
-                    "attrs": {
-                        "height": 643,
-                        "id": "splash_screen",
-                        "src": "images/splash_screen.png",
+                        "id": "black_screen_room",
+                        "src": "images/black.png",
                         "width": 1024
                     },
                     "className": "Image"
@@ -124,6 +131,78 @@
         },
         {
             "attrs": {
+                "category": "end",
+                "id": "end_layer",
+                "visible": false
+            },
+            "children": [
+                {
+                    "attrs": {
+                        "id": "end_picture",
+                        "src": "images/end_picture_0.png"
+                    },
+                    "className": "Image"
+                }
+            ],
+            "className": "Layer"
+        },
+        {
+            "attrs": {
+                "category": "custom",
+                "id": "end_texts",
+                "visible": false
+            },
+            "children": [
+                {
+                    "attrs": {
+                        "fill": "white",
+                        "fontFamily": "Chalkboard SE",
+                        "fontSize": 26,
+                        "fontStyle": "bold",
+                        "id": "rewards_text",
+                        "stroke": "grey",
+                        "strokeWidth": 1,
+                        "text": "/3 piilotettua kirjaa l\u00f6ydetty",
+                        "x": 340,
+                        "y": 580
+                    },
+                    "className": "Text"
+                }
+            ],
+            "className": "Layer"
+        },
+        {
+            "attrs": {
+                "category": "custom",
+                "id": "oikotiet",
+                "visible": false
+            },
+            "children": [
+                {
+                    "attrs": {
+                        "category": "furniture",
+                        "id": "oikotie",
+                        "src": "images/shower_door_to_locker_room_1.png",
+                        "x": 691,
+                        "y": 136
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "category": "furniture",
+                        "id": "oikotie2",
+                        "src": "images/shower_door_to_locker_room_1.png",
+                        "x": 691,
+                        "y": 136
+                    },
+                    "className": "Image"
+                }
+            ],
+            "className": "Layer"
+        },
+        {
+            "attrs": {
                 "category": "custom",
                 "id": "input_layer",
                 "visible": false
@@ -135,6 +214,106 @@
                         "src": "images/input_background.png",
                         "x": 200,
                         "y": 50
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_6",
+                        "src": "images/button_6.png",
+                        "x": 392,
+                        "y": 191
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_9",
+                        "src": "images/button_9.png",
+                        "x": 392,
+                        "y": 277
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_8",
+                        "src": "images/button_8.png",
+                        "x": 306,
+                        "y": 277
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_5",
+                        "src": "images/button_5.png",
+                        "x": 306,
+                        "y": 191
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_4",
+                        "src": "images/button_4.png",
+                        "x": 220,
+                        "y": 191
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "jersey",
+                        "src": "images/icehockey_jersey.png",
+                        "x": 530,
+                        "y": 125
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_ok_gray",
+                        "src": "images/button_ok_gray.png",
+                        "visible": true,
+                        "x": 500,
+                        "y": 277
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_1",
+                        "src": "images/button_1.png",
+                        "x": 220,
+                        "y": 105
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_0",
+                        "src": "images/button_0.png",
+                        "x": 220,
+                        "y": 363
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_3",
+                        "src": "images/button_3.png",
+                        "x": 392,
+                        "y": 105
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_2",
+                        "src": "images/button_2.png",
+                        "x": 306,
+                        "y": 105
                     },
                     "className": "Image"
                 },
@@ -153,6 +332,53 @@
                         "y": 185
                     },
                     "className": "Text"
+                },
+                {
+                    "attrs": {
+                        "id": "button_ok",
+                        "src": "images/button_ok.png",
+                        "x": 500,
+                        "y": 277
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_back_gray",
+                        "src": "images/button_back_gray.png",
+                        "visible": true,
+                        "x": 305,
+                        "y": 363
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_7",
+                        "src": "images/button_7.png",
+                        "x": 220,
+                        "y": 277
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_0_gray",
+                        "src": "images/button_0_gray.png",
+                        "visible": true,
+                        "x": 220,
+                        "y": 363
+                    },
+                    "className": "Image"
+                },
+                {
+                    "attrs": {
+                        "id": "button_back",
+                        "src": "images/button_back.png",
+                        "x": 305,
+                        "y": 363
+                    },
+                    "className": "Image"
                 }
             ],
             "className": "Layer"

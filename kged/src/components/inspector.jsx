@@ -273,6 +273,7 @@ export class Inspector extends React.Component {
                                         <Field
                                             className="form-control col-6 xy-input xy-col"
                                             min="0"
+                                            max="981"
                                             type="number"
                                             name="attrs.x"
                                         />
@@ -284,6 +285,7 @@ export class Inspector extends React.Component {
                                         <Field
                                             className="form-control col-6 xy-input xy-col"
                                             min="0"
+                                            max="583"
                                             type="number"
                                             name="attrs.y"
                                         />
@@ -346,15 +348,15 @@ export class Inspector extends React.Component {
                                             htmlFor="examinable-checkbox">
                                             Tarkasteltavissa
                                         </label>
-                                        <textarea
-                                            disabled={formProps.values.isExaminable === false}
-                                            className="form-control"
-                                            id="examinable-text"
-                                            rows="2"
-                                            value={formProps.values.examineText}
-                                            onChange={e => formProps.setFieldValue('examineText', e.target.value)}>
-                                        </textarea>
                                     </div>
+                                    <textarea
+                                        disabled={formProps.values.isExaminable === false}
+                                        className="form-control"
+                                        id="examinable-text"
+                                        rows="2"
+                                        value={formProps.values.examineText}
+                                        onChange={e => formProps.setFieldValue('examineText', e.target.value)}>
+                                    </textarea>
                                     <div className="form-check my-3">
                                         <Field
                                             key={`${this.props.activeEntityId}-door`}

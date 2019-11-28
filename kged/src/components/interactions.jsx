@@ -20,7 +20,6 @@ export class Interactions extends React.Component {
     }
 
     render() {
-        console.log('active',this.props.activeInteraction)
         return (
             <div>
                 <div className="list-container mb-2">

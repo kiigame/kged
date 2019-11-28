@@ -1,3 +1,13 @@
+@import 'styles/variables';
+
 #hidden-input {
     display: none;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+.load-spinner {
+    margin-left: 1em;
 }
