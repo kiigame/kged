@@ -7,8 +7,7 @@ describe('room creation', function() {
     })
     it('successfully opens the room creation container', () => {
         //cy.visit('https://kged-dev.netlify.com/')
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-    })
+        cy.get('.create-new-btn').click()    })
     it('gives the room a name and creates it', () => {
        // cy.visit('https://kged-dev.netlify.com/')
         //cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
@@ -89,19 +88,19 @@ describe('item creation', function() {
         cy.get('div').contains('esine333')  
     })
     it('checks that the items are in alphabetical order', () => {
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('esineA')
-        cy.get("[type='submit']").click()
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('esineA')
+        cy.get('.btn-success').contains('Lisää esine').click()
 
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('esineB')
-        cy.get("[type='submit']").click()
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('esineB')
+        cy.get('.btn-success').contains('Lisää esine').click()
 
-        cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
-        cy.get("[type='name']").type('esineC')
-        cy.get("[type='submit']").click()
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('esineC')
+        cy.get('.btn-success').contains('Lisää esine').click()
 
-        cy.get('.listitem').invoke('text').should('eq', ['esine333','esineA', 'esineB', 'esineC'].join(''));
+        cy.get('.listitem').invoke('text').should('eq',['esine333','esineA', 'esineB', 'esineC'].join(''));
     })
 
 })
@@ -201,10 +200,10 @@ describe('Furniture & play testing', function() {
 /*
 describe('Download/Upload', function() {
     it('downloads a zip of the game', () => {
-        cy.get('div').should('have.class', 'col').contains('Vie').click()
+        cy.get('div').should('have.class', 'col').contains('Tallenna').click()
     })
     it('uploads a zip to the editor', () => {
-        cy.get('div').should('have.class', 'col').contains('Tuo').click()
+        cy.get('div').should('have.class', 'col').contains('Lataa').click()
     })
 })
 */
