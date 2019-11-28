@@ -18,6 +18,7 @@ jobs:
         node-version: '12.x'
 
     - name: install dependencies
+      working-directory: kged
       run: |
         npm install -g yarn start-server-and-test
         yarn install --frozen-lockfile
@@ -25,7 +26,9 @@ jobs:
         CI: true
 
     - name: run tests
+      working-directory: kged
       run: |
         yarn test:cypress
       env:
         CI: true
+
