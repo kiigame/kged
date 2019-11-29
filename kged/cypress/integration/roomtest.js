@@ -67,13 +67,13 @@ describe('item creation', function() {
     it('creates 2 items', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Esineet').click()
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").should('have.class', 'form-control').first().type('esine123')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('esine123')  
     })
     it('cancels the item creation', () => {
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='button']").contains('Peruuta').click()   
     })
     it('removes the other item and displays the no items text', () => {
@@ -82,7 +82,7 @@ describe('item creation', function() {
         cy.get('div').contains('Ei esineitä! Luo uusi esine tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.')
     })
     it('creates a new item', () => {
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").should('have.class', 'form-control').first().type('esine333')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('esine333')  
@@ -137,7 +137,7 @@ describe('Furniture & play testing', function() {
     it('creates a furniture', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").first().type('huonekalu123')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('huonekalu123')  
@@ -145,13 +145,13 @@ describe('Furniture & play testing', function() {
     it('cancels a furniture creation', () => {
         //cy.visit('https://kged-dev.netlify.com')
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").first().type('huonekalu321')
         cy.get("[type='button']").contains('Peruuta').first().click()
     })
     it('creates a furniture and deletes it', () => {
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").first().type('huonekalu3')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('huonekalu3')
