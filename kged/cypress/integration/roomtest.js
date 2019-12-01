@@ -1,13 +1,14 @@
 describe('room creation', function() {
     it('successfully loads', function() {
-        cy.visit('https://kged-dev.netlify.com/')
+        cy.visit('https://kged.netlify.com/')
     })
     it('shows the play button as inactive', () => {
         cy.get('.disabled').contains('Käynnistä')
     })
     it('successfully opens the room creation container', () => {
         //cy.visit('https://kged-dev.netlify.com/')
-        cy.get('.create-new-btn').click()    })
+        cy.get('.create-new-btn').click()    
+    })
     it('gives the room a name and creates it', () => {
        // cy.visit('https://kged-dev.netlify.com/')
         //cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
@@ -28,24 +29,29 @@ describe('room creation', function() {
 
     })
     it('cancels the room creation', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
+        //Opens the creation container and removes it by clicking the cancel button
         cy.get('.create-new-btn').click()
         cy.get('.btn-secondary').contains('Peruuta').first().click()
     })
     it('checks that the rooms are in alphabetical order', () => {
+        //Creates a room
         cy.get('.create-new-btn').click()
         cy.get('input[name="name"]').type('huoneA')
         cy.get('.btn-success').contains('Lisää huone').click()
 
+        //Another one
         cy.get('.create-new-btn').click()
         cy.get('input[name="name"]').type('huoneB')
         cy.get('.btn-success').contains('Lisää huone').click()
-
+        
+        //And another one
         cy.get('.create-new-btn').click()
         cy.get('input[name="name"]').type('huoneC')
         cy.get('.btn-success').contains('Lisää huone').click()
         cy.get('div').contains('huoneC')
 
+        //Puts the list items into an array and compares it to an array that has
+        //the list items in alphabetical order
         cy.get('.listitem').invoke('text').should('eq', ['huone123','huone321','huone555','huoneA','huoneB','huoneC'].join(''));
     })
     
@@ -55,7 +61,7 @@ describe('room creation', function() {
         cy.get('div').should('have.class', 'listitem active-listitem').contains('huone123')
     })
     it('deletes a room', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
+        //Selects the room and clicks the trash icon to delete it
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
         cy.get('.trash:visible').click()
     })
@@ -131,6 +137,12 @@ describe('inspector tests', function(){
         cy.get("[type='submit']").click()
         cy.get('div').contains('esine246') 
     })
+    it('makes one of the room the starting room', () => {
+        cy.get('.col-lg-2 > :nth-child(1) > .row > :nth-child(1)').click()
+        cy.get('.listitem').contains('huone246').click()
+        cy.get('#startRoom').click()
+        cy.get('.item-edit-actions > .btn-success').click()
+    })
 
 })
 describe('Furniture & play testing', function() {
@@ -167,9 +179,9 @@ describe('Furniture & play testing', function() {
     })
     it('adds the x and y attributes', () => {
         cy.get('input[name="attrs.x"]').clear()
-        cy.get('input[name="attrs.x"]').type('2')
+        cy.get('input[name="attrs.x"]').type('200')
         cy.get('input[name = "attrs.y"]').clear()
-        cy.get('input[name="attrs.y"]').type('4')
+        cy.get('input[name="attrs.y"]').type('200')
     })
     it('makes the furniture inspectable in game', () => {
         cy.get('input[name="isExaminable"]').click()
@@ -191,9 +203,13 @@ describe('Furniture & play testing', function() {
     cy.get('div').contains('Lopeta').click()
     cy.get('.disabled').contains('Lopeta')
     })
+    it('opens the interaction dialogue by clicking the furniture in game', () => {
+        cy.get('div').contains('Käynnistä').click()
+        /*cy.get(`.container > div`)
+        .trigger('mousedown', { clientX: 200, clientY: 200 })*/
+    })
 
 })
-
 //Alempi testattu ja toimii, kommentoitu pois jottei se lataisi tuota 
 //zippiä joka kerta kun pyörittää testit
 //Upload-testi vain painaa Tuontinappia
