@@ -2,18 +2,19 @@ describe('room creation', function() {
     it('successfully loads', function() {
         cy.visit('https://kged.netlify.com/')
     })
-    it('shows the play button as inactive', () => {
+    it('shows the play button as inactive and checks the error message', () => {
+        //Checks that the "Käynnistä" button is disabled by default and
+        //that it includes the error message that the game needs one starting room
         cy.get('.disabled').contains('Käynnistä')
+        cy.get('[title="Pelillä täytyy olla yksi aloitushuone jotta se voidaan käynnistää! Aloitushuoneen voi asettaa valitulle huoneelle inspektorista."]')
     })
     it('successfully opens the room creation container', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
+        //Open the room creation by selecting the creation button that opens the container
         cy.get('.create-new-btn').click()    
     })
     it('gives the room a name and creates it', () => {
-       // cy.visit('https://kged-dev.netlify.com/')
-        //cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        //In the creation container the test inputs the name for the room
         cy.get("[type='name']").type('huone123')
-        //cy.get("[type='submit']").click()
         cy.get('.btn-success').contains('Lisää huone').click()
         cy.get('div').contains('huone123')
 
@@ -29,7 +30,7 @@ describe('room creation', function() {
 
     })
     it('cancels the room creation', () => {
-        //Opens the creation container and removes it by clicking the cancel button
+        //Opens the creation container and hides it by clicking the cancel button
         cy.get('.create-new-btn').click()
         cy.get('.btn-secondary').contains('Peruuta').first().click()
     })
@@ -56,7 +57,7 @@ describe('room creation', function() {
     })
     
     it('switches the active room', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
+        //Clicks another room on the list, making it the active one and opening the inspector for it
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
         cy.get('div').should('have.class', 'listitem active-listitem').contains('huone123')
     })
@@ -71,7 +72,7 @@ describe('room creation', function() {
 
 describe('item creation', function() {
     it('creates 2 items', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
+        //Same method as with the room creation but selects the item tab in the beginning
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Esineet').click()
         cy.get('.create-new-btn').click()
         cy.get("[type='name']").should('have.class', 'form-control').first().type('esine123')
