@@ -18,9 +18,44 @@ import { defaultSelectStyles } from 'utils/styleObjects.js'
 export class Inspector extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { height: '100%', overflow: 'auto' };
         this.onFileSelected = this.onFileSelected.bind(this);
         this.openFileDialog = this.openFileDialog.bind(this);
         this.fileDialogRef = React.createRef();
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+    // componentDidMount() {
+    //     this.updateWindowDimensions();
+    //     window.addEventListener('resize', this.updateWindowDimensions);
+    // }
+
+    // componentWillUnmount() {
+    //     window.removeEventListener('resize', this.updateWindowDimensions);
+    // }
+
+    // getSnapshotBeforeUpdate(prevProps, prevState) {
+    //     if (prevProps.activeEntityId !== this.props.activeEntityId) {
+    //         this.updateWindowDimensions();
+    //         window.addEventListener('resize', this.updateWindowDimensions);
+    //     }
+    //     return null
+    // }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.activeEntityId !== this.props.activeEntityId) {
+            this.updateWindowDimensions();
+        }
+    }
+
+    updateWindowDimensions() {
+        if (document.getElementsByClassName('ins-props') && document.getElementsByClassName('ins-props')[0] && document.getElementsByClassName('ins-props')[0].clientHeight) {
+            var windowHeight = window.innerHeight;
+            var inspectorHeight = document.getElementsByClassName('ins-props')[0].clientHeight
+            if (inspectorHeight > windowHeight) {
+                this.setState({ height: windowHeight });
+            }
+        }
     }
 
     getImage() {
@@ -63,6 +98,10 @@ export class Inspector extends React.Component {
     }
 
     render() {
+        var inspectorHeight = {
+            height: this.state.height,
+            overflow: 'auto'
+        }
         const SelectField = (formProps) => {
             return (
                 <Select styles={defaultSelectStyles}
@@ -78,7 +117,7 @@ export class Inspector extends React.Component {
         }
         let img = this.getImage()
         return (
-            <div className="col-md-6 col-lg-3 order-lg-last ins-container">
+            <div className="col-md-6 col-lg-3 order-lg-last ins-container" style={inspectorHeight}>
                 <div className="row">
                     <div className="col ins-header">
                         Inspektori
