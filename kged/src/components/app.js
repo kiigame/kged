@@ -5,6 +5,11 @@ import Preview from 'components/preview';
 import Inspector from 'components/inspector';
 import 'styles/app.scss';
 
+// Parent component of other components.
+// Sidebar = left side of the screen.
+// ActionBar & Preview = middle of the screen.
+// Inspector = right side of the screen.
+
 class App extends React.Component {
     render() {
         return (

@@ -8,14 +8,20 @@ import { startGame, stopGame } from 'actions/preview.js'
 import 'styles/preview.scss';
 import 'styles/action_bar.scss';
 
+// ActionBar at the top of the screen.
+// Has buttons for running and stopping a game session, and exporting and importing game data.
+// isStartable = the user may start the game.
+// isLoading = the user has started the game, and the game is loading.
+
 export class ActionBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { isStartable: true, isStarting: false }
+        this.state = { isStartable: true, isLoading: false }
         this.clickHiddenInput = this.clickHiddenInput.bind(this);
     }
 
     clickHiddenInput() {
+        // Input is being hidden to make div clickable without showing the input button
         var input = document.getElementById('hidden-input')
         input.click()
         input.onchange = (e) => {
@@ -28,15 +34,17 @@ export class ActionBar extends React.Component {
             return
         }
         if (this.state.isStartable) {
-            this.setState({isStartable: false, isStarting: true})
+            this.setState({isStartable: false, isLoading: true})
             this.props.onStartGame(e)
+            // setTimeout is used to prevent user from crashing the system in case
+            // it takes a while for the engine to start the game.
             // TODO: make this more robust (e.g. konva stage ready callback)
             setTimeout(() => {
                 if (this.props.engine) {
                     this.props.engine.init_hit_regions()
                 }
             }, 3000)
-            setTimeout(() => this.setState({isStarting: false}), 3000)
+            setTimeout(() => this.setState({isLoading: false}), 3000)
         }
     }
 
@@ -44,11 +52,11 @@ export class ActionBar extends React.Component {
         if (this.state.isStartable || !this.props.isEngineRunning) {
             return
         }
-        this.setState({isStartable: false, isStarting: true})
+        this.setState({isStartable: false, isLoading: true})
         if (this.props.engine && this.props.engine.stage) {
             this.props.engine.stage.destroy()
         }
-        setTimeout(() => this.setState({isStartable: true, isStarting: false}), 1000)
+        setTimeout(() => this.setState({isStartable: true, isLoading: false}), 1000)
         this.props.onStopGame(e)
     }
 
@@ -59,7 +67,7 @@ export class ActionBar extends React.Component {
                      onClick={e => this.onStartGame(e)}
                      title={this.props.hasStartRoom ? undefined : 'Pelillä täytyy olla yksi aloitushuone jotta se voidaan käynnistää! Aloitushuoneen voi asettaa valitulle huoneelle inspektorista.'}>
                     Käynnistä
-                    {this.state.isStarting &&
+                    {this.state.isLoading &&
                         <FontAwesomeIcon className="load-spinner" icon="spinner" spin/>
                     }
                 </div>

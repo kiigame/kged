@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import 'styles/preview.scss';
 
+// Game sessions run through component.
+
 export class Preview extends React.Component {
     render() {
         return (

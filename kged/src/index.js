@@ -15,6 +15,9 @@ import App from 'components/app'
 import 'styles/index.scss'
 import 'styles/custom.scss'
 
+// Starts the app by navigating to App-component.
+// Redux store is also created here.
+
 library.add(fas)
 
 const store = createStore(reducer, applyMiddleware(logger, globalEventHandler, thunk))
