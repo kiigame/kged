@@ -1,16 +1,10 @@
 import { cloneDeep } from 'lodash/fp'
 
-export function fetchInteractions() {
-    const interactions = require('data/interactions.json')
-    return interactions
-}
-
-export function fetchTexts() {
-    const texts = require('data/texts.json')
-    return texts
-}
-
 export function exportRooms(state, preview=false) {
+    // export state room data as engine-compatible (removes/converts editor-specific data)
+    // if the preview argument is true, assigns image src attributes directly to object urls
+    // if the preview argument is false, assigns image src attributes to file paths in the zip
+
     let rooms = cloneDeep(state.rooms.rooms)
     let furnitures = cloneDeep(state.furnitures.furnitures)
 
@@ -36,6 +30,7 @@ export function exportRooms(state, preview=false) {
                 }
                 delete f.attrs.url
             }
+            // remove editor-specific data
             delete f.selectedRoom
             delete f.selectedDestination
             delete f.isDoor
@@ -76,6 +71,10 @@ export function exportRooms(state, preview=false) {
 }
 
 export function exportItems(state, preview=false) {
+    // export state item data as engine-compatible (removes/converts editor-specific data)
+    // if the preview argument is true, assigns image src attributes directly to object urls
+    // if the preview argument is false, assigns image src attributes to file paths in the zip
+
     let items = cloneDeep(state.items.items)
 
     items.forEach(item => {
@@ -103,11 +102,13 @@ export function exportItems(state, preview=false) {
 }
 
 export function exportInteractions(state) {
+    // export state interaction data
     let interactions = cloneDeep(state.interactions.interactions)
     return interactions
 }
 
 export function exportTexts(state) {
+    // export state texts data
     let texts = cloneDeep(state.texts.texts)
     return texts
 }

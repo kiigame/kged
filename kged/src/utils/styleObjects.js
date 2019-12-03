@@ -1,4 +1,5 @@
 export const defaultSelectStyles = {
+    // default styles for react-select
     option: (provided, state) => ({
         backgroundColor: '#bdbdbd',
         color: '#212121',

@@ -1,4 +1,6 @@
 const logger = store => next => action => {
+    // middleware that can be used to inspect state changes
+
     // console.group(action.type || action)
     // console.debug('action:', action)
     let result = next(action)
