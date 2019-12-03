@@ -63,6 +63,19 @@ export class Inspector extends React.Component {
     }
 
     render() {
+        const SelectField = (formProps) => {
+            return (
+                <Select styles={defaultSelectStyles}
+                    name="selectedRoom"
+                    value={formProps.field.value}
+                    defaultValue={formProps.field.value.attrs.id}
+                    getOptionLabel={(option)=>option.attrs.id}
+                    options={this.props.rooms}
+                    noOptionsMessage={() => 'Ei tuloksia'}
+                    onChange={e => formProps.form.setFieldValue('selectedRoom', {'attrs': {'id':e.attrs.id}})}
+                    placeholder="Etsi huonetta..."/>
+            )
+        }
         let img = this.getImage()
         return (
             <div className="col-md-6 col-lg-3 order-lg-last ins-container">
@@ -242,7 +255,7 @@ export class Inspector extends React.Component {
                                 </div>
                                 <div className="form-group">
                                     <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
-                                    <Select styles={defaultSelectStyles}
+                                    {/* <Select styles={defaultSelectStyles}
                                             name="selectedRoom"
                                             value={formProps.selectedRoom}
                                             defaultValue={this.props.activeEntity.selectedRoom &&
@@ -253,7 +266,10 @@ export class Inspector extends React.Component {
                                             options={this.props.rooms}
                                             noOptionsMessage={() => 'Ei tuloksia'}
                                             onChange={e => formProps.setFieldValue('selectedRoom', {'attrs': {'id':e.attrs.id}})}
-                                            placeholder="Etsi huonetta..."/>
+                                            placeholder="Etsi huonetta..."/> */}
+                                    <Field name="selectedRoom" type="text" component={SelectField}/>
+
+
                                     <ErrorMessage
                                         component="div"
                                         className="error-message"
