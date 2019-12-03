@@ -9,6 +9,47 @@ import 'styles/rooms.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
 
 export class Rooms extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { height: 0 };
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+
+
+    // componentWillReceiveProps() {
+    //     console.log('willreceiveprops')
+    // }
+
+    // getSnapshotBeforeUpdate() {
+    //     console.log('getsnapshot')
+    //     return null
+    // }
+    // componentDidUpdate() {
+    //     console.log('didupdate')
+    // }
+
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log('getderived props',props)
+    //     console.log('getderived state',state)
+    //     // this.updateWindowDimensions();
+    //     // window.addEventListener('resize', this.updateWindowDimensions);
+    //     return null;
+    // }
+
+
+    updateWindowDimensions() {
+        this.setState({ height: window.innerHeight });
+    }
 
     isActiveRoom(room) {
         if (this.props.activeRoom && this.props.activeRoom.attrs) {
