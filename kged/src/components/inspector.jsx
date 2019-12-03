@@ -25,23 +25,6 @@ export class Inspector extends React.Component {
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
-    // componentDidMount() {
-    //     this.updateWindowDimensions();
-    //     window.addEventListener('resize', this.updateWindowDimensions);
-    // }
-
-    // componentWillUnmount() {
-    //     window.removeEventListener('resize', this.updateWindowDimensions);
-    // }
-
-    // getSnapshotBeforeUpdate(prevProps, prevState) {
-    //     if (prevProps.activeEntityId !== this.props.activeEntityId) {
-    //         this.updateWindowDimensions();
-    //         window.addEventListener('resize', this.updateWindowDimensions);
-    //     }
-    //     return null
-    // }
-
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.activeEntityId !== this.props.activeEntityId) {
             this.updateWindowDimensions();
@@ -408,6 +391,7 @@ export class Inspector extends React.Component {
                                         disabled={formProps.values.isExaminable === false}
                                         className="form-control"
                                         id="examinable-text"
+                                        placeholder="Syötä klikkauksen teksti..."
                                         rows="2"
                                         value={formProps.values.examineText}
                                         onChange={e => formProps.setFieldValue('examineText', e.target.value)}>
