@@ -1,6 +1,8 @@
 import { sortBy } from 'lodash/fp'
 
 import { setActiveEntity, removeActiveEntity } from './entity'
+import { removeActiveItem } from './items'
+import { removeActiveFurniture } from './furnitures'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
@@ -90,11 +92,24 @@ export const deleteRoom = (room) => {
 
 export const setActiveRoom = (id) => {
     return (dispatch) => {
+        dispatch(removeActiveItem())
+        dispatch(removeActiveFurniture())
         dispatch(setActiveEntity(id, 'room'))
         dispatch({
             type: 'SET_ACTIVE_ROOM',
             payload: {
                 id: id
+            }
+        })
+    }
+}
+
+export const removeActiveRoom = () => {
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_ACTIVE_ROOM',
+            payload: {
+                id: undefined
             }
         })
     }
