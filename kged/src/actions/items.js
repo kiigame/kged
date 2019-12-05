@@ -6,6 +6,8 @@ import { removeActiveFurniture } from './furnitures'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 
+// selectors
+
 export const getItems = (state) => {
     return sortBy('attrs.id')(state.items.items)
 }
@@ -13,6 +15,9 @@ export const getItems = (state) => {
 export const getActiveItem = (state) => {
     return state.items.items.find(i => i.attrs.id === state.items.activeItem)
 }
+
+
+// actions
 
 export const loadItems = (items) => {
     return (dispatch, getState) => {
