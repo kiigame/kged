@@ -171,11 +171,21 @@ describe('Furniture & play testing', function() {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu3').click()
         cy.get('.trash:visible').click()
     })
-    it('edits the furniture name and gives it the room in the inspector', () => {
+    it('checks that the room selection in dropdown is cleared after cancelling editing', () => {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
         cy.get("[type='name']").clear()
         cy.get("[type='name']").type('huonekalu321')
         cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
+        cy.get('.css-1e5ysj4:visible').click()
+        cy.get('.ml-2').click()
+        cy.get('form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1hwfws3').should('be.empty')
+
+    })
+    it('edits the furniture name and gives it the room in the inspector', () => {
+        cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
+        cy.get("[type='name']").clear()
+        cy.get("[type='name']").type('huonekalu321')
+        cy.get('form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1wy0on6 > .css-tlfecz-indicatorContainer').click()
         cy.get('.css-1e5ysj4:visible').click()
     })
     it('adds the x and y attributes', () => {
@@ -197,6 +207,7 @@ describe('Furniture & play testing', function() {
     it('saves the inspector edits', () => {
         cy.get('button[type="submit"]').click()
     })
+
     it('checks that the play and stop buttons activate and deactivate correctly', () =>{
     cy.get('.disabled').contains('Lopeta')
     cy.get('div').contains('Käynnistä').click()
