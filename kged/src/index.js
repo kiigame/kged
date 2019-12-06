@@ -22,6 +22,10 @@ library.add(fas)
 
 const store = createStore(reducer, applyMiddleware(logger, globalEventHandler, thunk))
 
+window.onerror = (message, source, lineno, colno, error) => {
+    store.dispatch({type: 'GLOBAL_ERROR', payload: { message: message, error: error }})
+}
+
 ReactDOM.render(
     <Provider store={store}>
         <App />

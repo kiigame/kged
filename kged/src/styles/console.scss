@@ -1,0 +1,9 @@
+@import 'styles/variables';
+
+.console-container {
+    background: $color-gray-875;
+}
+
+.console-error {
+    color: $color-red-500;
+}
