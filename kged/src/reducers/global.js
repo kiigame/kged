@@ -1,16 +1,19 @@
 const initialState = {
-    errors: []
+    events: []
 }
 
 function global(state = initialState, action) {
     switch (action.type) {
         case 'GLOBAL_ERROR':
-            console.log('GLOBAL_ERROR')
             return {
                 ...state,
-                errors: [
-                    ...state.errors,
-                    action.payload
+                events: [
+                    ...state.events,
+                    {
+                        type: 'ERROR',
+                        message: action.payload.message,
+                        data: action.payload.error
+                    }
                 ]
             }
 

@@ -4,6 +4,11 @@
     background: $color-gray-875;
 }
 
+.console-messages {
+    background: $color-gray-900;
+    padding: 0.5rem 0.75rem;
+}
+
 .console-error {
     color: $color-red-500;
 }
