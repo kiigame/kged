@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { clearEvents } from 'actions/global';
 import 'styles/console.scss';
 
-// Game sessions run through component.
+// Displays specific editor actions / errors as a list.
 
 export class Console extends React.Component {
     constructor(props) {
