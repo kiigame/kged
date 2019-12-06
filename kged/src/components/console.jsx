@@ -38,11 +38,11 @@ export class Console extends React.Component {
                                     e.type !== 'ERROR'
                                     ?
                                         <div key={i} className="console-message">
-                                            {e.message}
+                                            {e.timestamp} {e.message}
                                         </div>
                                     :
                                         <div key={i} className="console-error">
-                                            <b>VIRHE:</b> {e.message}
+                                            {e.timestamp} <b>VIRHE:</b> {e.message}
                                         </div>
                                 )}
                             </div>
