@@ -130,3 +130,15 @@ export const importProject = (pkg) => {
         })
     }
 }
+
+export const clearEvents = (event) => {
+    // clear console messages
+
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'CLEAR_EVENTS',
+            payload: {
+            }
+        })
+    }
+}

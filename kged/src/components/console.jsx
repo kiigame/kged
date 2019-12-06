@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Accordion from 'react-bootstrap/Accordion'
 import Button from 'react-bootstrap/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { clearEvents } from 'actions/global';
 import 'styles/console.scss';
 
 // Game sessions run through component.
@@ -31,6 +32,12 @@ export class Console extends React.Component {
                                 style={{ color: '#e0e0e0' }}>
                                 { toggleIcon } Konsoli ({this.props.events ? this.props.events.length : 0})
                             </Accordion.Toggle>
+                            <span
+                                className="btn btn-link console-clear"
+                                title="Tyhjennä konsoli"
+                                onClick={() => this.props.clearConsole()}>
+                                <FontAwesomeIcon icon="trash-alt" />
+                            </span>
                         </div>
                         <Accordion.Collapse eventKey={ this.state.consoleOpen && '0' }>
                             <div className="console-messages">
@@ -59,6 +66,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    clearConsole: event => dispatch(clearEvents(event)),
 })
 
 export default connect(

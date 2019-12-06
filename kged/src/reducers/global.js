@@ -36,6 +36,12 @@ function global(state = initialState, action) {
                 ]
             }
 
+        case 'CLEAR_EVENTS':
+            return {
+                ...state,
+                events: []
+            }
+
         default:
             return state
     }

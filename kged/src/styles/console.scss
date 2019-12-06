@@ -4,9 +4,27 @@
     background: $color-gray-875;
 }
 
+.console-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%
+}
+
+.console-clear {
+    color: $color-gray-300 !important;
+
+    &:hover {
+        color: $color-gray-500 !important;
+    }
+}
+
 .console-messages {
     background: $color-gray-900;
     padding: 0.5rem 0.75rem;
+}
+
+.console-message {
+
 }
 
 .console-error {
