@@ -2,6 +2,8 @@
 
 .console-container {
     background: $color-gray-875;
+    height: calc(100vh - 705px);
+    max-height: calc(100vh - 705px);
 }
 
 .console-header {
@@ -18,15 +20,21 @@
     }
 }
 
+.accordion {
+    height: 100%;
+}
+
 .console-messages {
     background: $color-gray-900;
     padding: 0.5rem 0.75rem;
-}
-
-.console-message {
-
+    height: 100%;
+    overflow-y: auto;
 }
 
 .console-error {
     color: $color-red-500;
+}
+
+.collapse {
+    height: calc(100% - 38px);
 }

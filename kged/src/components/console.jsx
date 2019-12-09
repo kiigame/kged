@@ -14,6 +14,15 @@ export class Console extends React.Component {
         this.state = { consoleOpen: true }
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.events.length > prevProps.events.length) {
+            const msgBox = document.getElementsByClassName('console-messages')[0]
+            if (msgBox) {
+                msgBox.scrollTo(0, msgBox.scrollHeight)
+            }
+        }
+    }
+
     render() {
         const toggleIcon = this.state.consoleOpen
             ? <FontAwesomeIcon icon="chevron-up" />
@@ -36,7 +45,7 @@ export class Console extends React.Component {
                                 className="btn btn-link console-clear"
                                 title="Tyhjennä konsoli"
                                 onClick={() => this.props.clearConsole()}>
-                                <FontAwesomeIcon icon="trash-alt" />
+                                <FontAwesomeIcon icon="eraser" />
                             </span>
                         </div>
                         <Accordion.Collapse eventKey={ this.state.consoleOpen && '0' }>
