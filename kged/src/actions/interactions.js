@@ -3,9 +3,14 @@ import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
 import 'styles/interactions.scss'
 
+// selectors
+
 export const getInteractions = (state) => {
     return state.interactions.interactions
 }
+
+
+// actions
 
 export const loadInteractions = (interactions) => {
     return (dispatch, getState) => {

@@ -8,6 +8,10 @@ import Furnitures from './furnitures'
 // import Texts from './texts'
 // import Interactions from './interactions'
 
+// Sidebar at the left side of the screen.
+// Rooms-, Items- and Furnitures-components function as tabs and their implementations are very similar.
+// TODO: Texts and Interactions are commented but could be implemented in the future.
+
 export class Sidebar extends React.Component {
     render() {
         return (

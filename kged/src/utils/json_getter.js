@@ -1,6 +1,9 @@
 import * as api from 'api'
 
 export class JSONGetter {
+    // overrides the engine's JSONGetter class to
+    // load game data from the Redux store
+
     constructor(state) {
         this.rooms = { rooms: api.exportRooms(state, true) }
         this.items = api.exportItems(state, true)

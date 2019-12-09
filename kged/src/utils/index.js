@@ -1,6 +1,7 @@
 import { cloneDeep } from 'lodash/fp'
 
 export function isExistingEntity(state, entityId) {
+    // checks if an entity with the given ID exists in the global state
     // TODO: add other entity types
     if (state.rooms && state.rooms.rooms &&
         state.rooms.rooms.some(r => r.attrs && r.attrs.id === entityId)) {
@@ -18,6 +19,7 @@ export function isExistingEntity(state, entityId) {
 }
 
 export function extractRooms(rooms) {
+    // remove furniture objects from room data
     let filteredRooms = cloneDeep(rooms)
 
     for (let room of filteredRooms) {
@@ -30,6 +32,7 @@ export function extractRooms(rooms) {
 }
 
 export function extractFurnitures(rooms, interactions, texts) {
+    // extract furniture objects from room data
     const furnitures = rooms.flatMap(room => {
         if (room.attrs && room.children) {
             let furnitureChildren = room.children.filter(c => c.attrs && c.attrs.category === 'furniture')
@@ -66,6 +69,8 @@ export function extractFurnitures(rooms, interactions, texts) {
 }
 
 function getTransitionInteraction(furniture, interactions) {
+    // get the do_transition interaction for a furniture if it exists
+
     let match = Object.keys(interactions).find(i => i === furniture)
 
     if (!match || !interactions[match].click) {
@@ -80,6 +85,8 @@ function getTransitionInteraction(furniture, interactions) {
 }
 
 function getExamineInteraction(furniture, interactions) {
+    // get the examine interaction for a furniture if it exists
+
     let match = Object.keys(interactions).find(i => i === furniture)
     if (!match || !interactions[match].click) {
         return
@@ -94,10 +101,13 @@ function getExamineInteraction(furniture, interactions) {
 }
 
 export function extractImagesFromRooms(rooms) {
+    // return a list of image objects from room data
+
     let images = []
     rooms.forEach(room => {
         room.children.forEach(c => {
             if (c && c.attrs && c.attrs.url && c.attrs.url !== 'assets/placeholders/room.png') {
+                // room child has a non-placeholder objectURL, extract it
                 images.push({name: c.attrs.url.split('/').pop(), file: fetch(c.attrs.url).then(r => r.blob())})
             }
         })
@@ -106,9 +116,12 @@ export function extractImagesFromRooms(rooms) {
 }
 
 export function extractImagesFromFurnitures(furnitures) {
+    // return a list of image objects from furniture data
+
     let images = []
     furnitures.flatMap(furniture => {
         if (furniture && furniture.attrs && furniture.attrs.url && furniture.attrs.url !== 'assets/placeholders/furniture.png') {
+            // furniture has a non-placeholder objectURL, extract it
             images.push({name: furniture.attrs.url.split('/').pop(), file: fetch(furniture.attrs.url).then(r => r.blob())})
         }
     })
@@ -116,9 +129,12 @@ export function extractImagesFromFurnitures(furnitures) {
 }
 
 export function extractImagesFromItems(items) {
+    // return a list of image objects from item data
+
     let images = []
     items.flatMap(item => {
         if (item && item.attrs && item.attrs.url && item.attrs.url !== 'assets/placeholders/item.png') {
+            // item has a non-placeholder objectURL, extract it
             images.push({name: item.attrs.url.split('/').pop(), file: fetch(item.attrs.url).then(r => r.blob())})
         }
     })
@@ -126,6 +142,8 @@ export function extractImagesFromItems(items) {
 }
 
 export function mapAssetsToRooms(roomData, imageData) {
+    // add objectURL attribute to room children with an image (src attribute)
+
     const rooms = cloneDeep(roomData)
     rooms.forEach(room => {
         if (room.children) {
@@ -143,6 +161,8 @@ export function mapAssetsToRooms(roomData, imageData) {
 }
 
 export function mapAssetsToFurnitures(furnitureData, imageData) {
+    // add objectURL attribute to furnitures with an image (src attribute)
+
     const furnitures = cloneDeep(furnitureData)
     furnitures.forEach(furniture => {
         if (furniture && furniture.attrs && furniture.attrs.src) {
@@ -156,6 +176,8 @@ export function mapAssetsToFurnitures(furnitureData, imageData) {
 }
 
 export function mapAssetsToItems(itemData, imageData) {
+    // add objectURL attribute to items with an image (src attribute)
+
     const items = cloneDeep(itemData)
     items.forEach(item => {
         if (item && item.attrs && item.attrs.src) {

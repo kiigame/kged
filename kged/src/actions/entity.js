@@ -1,5 +1,7 @@
 import cloneDeep from 'lodash/fp'
 
+// selectors
+
 export const getActiveEntity = (state) => {
     let {id, category} = state.entity.activeEntity
     if (category === 'interaction') {
@@ -22,6 +24,9 @@ export const getActiveEntityId = (state) => {
 export const getActiveEntityCategory = (state) => {
     return state.entity.activeEntity.category
 }
+
+
+// actions
 
 export const setActiveEntity = (id, category) => ({
     type: 'SET_ACTIVE_ENTITY',

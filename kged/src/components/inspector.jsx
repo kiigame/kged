@@ -15,12 +15,36 @@ import FileDialog from './file_dialog'
 import 'styles/inspector.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
 
+// Inspector is where user edits a selected entity (room, item or furniture).
+// Selected entity category is checked in JSX and the UI is rendered accordingly.
+
 export class Inspector extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { height: '100%', overflow: 'auto' };
         this.onFileSelected = this.onFileSelected.bind(this);
         this.openFileDialog = this.openFileDialog.bind(this);
         this.fileDialogRef = React.createRef();
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.activeEntityId !== this.props.activeEntityId) {
+            this.updateWindowDimensions();
+        }
+    }
+
+    updateWindowDimensions() {
+        if (document.getElementsByClassName('ins-props') &&
+            document.getElementsByClassName('ins-props')[0] &&
+            document.getElementsByClassName('ins-props')[0].clientHeight)
+        {
+            var windowHeight = window.innerHeight;
+            var inspectorHeight = document.getElementsByClassName('ins-props')[0].clientHeight
+            if (inspectorHeight > windowHeight) {
+                this.setState({ height: windowHeight });
+            }
+        }
     }
 
     getImage() {
@@ -47,9 +71,9 @@ export class Inspector extends React.Component {
 
     onFileSelected(e) {
         let filePath = e.target.value
-        // firefox <input type="file"> adds a fakepath for security reasons
-        // the line below will replace this path with an empty
-        // by this, we get the name of the file only
+        // Firefox <input type="file"> adds a 'fakepath' for security reasons.
+        // The line below will replace this path with an empty.
+        // By this, we get the name of the file only.
         filePath = filePath.replace("C:\\fakepath\\","")
         const file = e.target.files[0]
         const objectUrl = window.URL.createObjectURL(file)
@@ -63,9 +87,27 @@ export class Inspector extends React.Component {
     }
 
     render() {
+        var inspectorHeight = {
+            height: this.state.height,
+            overflow: 'auto'
+        }
+        const SelectField = (formProps) => {
+            // Select requires object (not string) in many attributes (e.g. value, options, onChange)
+            return (
+                <Select styles={defaultSelectStyles}
+                    name="selectedRoom"
+                    value={formProps.field.value}
+                    defaultValue={formProps.field.value.attrs.id}
+                    getOptionLabel={(option)=>option.attrs.id}
+                    options={this.props.rooms}
+                    noOptionsMessage={() => 'Ei tuloksia'}
+                    onChange={e => formProps.form.setFieldValue('selectedRoom', {'attrs': {'id':e.attrs.id}})}
+                    placeholder="Etsi huonetta..."/>
+            )
+        }
         let img = this.getImage()
         return (
-            <div className="col-md-6 col-lg-3 order-lg-last ins-container">
+            <div className="col-md-6 col-lg-3 order-lg-last ins-container" style={inspectorHeight}>
                 <div className="row">
                     <div className="col ins-header">
                         Inspektori
@@ -75,6 +117,8 @@ export class Inspector extends React.Component {
                     <div className="ins-props">
                         <div className="input-group">
                             {this.props.activeEntity !== {} &&
+                            // TODO: refactor image selection to be part of Formik,
+                            // so that the selected image doesn't save until user has clicked Save-button
                                 <div className="input-img" onClick={this.openFileDialog}>
                                     <FileDialog onFileSelected={this.onFileSelected} fdRef={this.fileDialogRef}/>
                                     { !img &&
@@ -100,6 +144,7 @@ export class Inspector extends React.Component {
                             initialValues={this.props.activeEntity}
                             validate={values => {
                                 let errors = {}
+                                // Engine requires using attrs
                                 if (!values.attrs.id) {
                                     errors = set('attrs.id', 'Nimi on pakollinen', errors)
                                 }
@@ -242,18 +287,14 @@ export class Inspector extends React.Component {
                                 </div>
                                 <div className="form-group">
                                     <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
-                                    <Select styles={defaultSelectStyles}
-                                            name="selectedRoom"
-                                            value={formProps.selectedRoom}
-                                            defaultValue={this.props.activeEntity.selectedRoom &&
-                                                          this.props.activeEntity.selectedRoom.attrs &&
-                                                          this.props.activeEntity.selectedRoom.attrs.id ?
-                                                          this.props.activeEntity.selectedRoom : undefined}
-                                            getOptionLabel={(option)=>option.attrs.id}
-                                            options={this.props.rooms}
-                                            noOptionsMessage={() => 'Ei tuloksia'}
-                                            onChange={e => formProps.setFieldValue('selectedRoom', {'attrs': {'id':e.attrs.id}})}
-                                            placeholder="Etsi huonetta..."/>
+                                    {/* SelectField (dropdown for selected room of a furniture) has been added as
+                                        custom Field component to fix a bug where clicking Cancel-button
+                                        didn't revert changed dropdown value */}
+                                    <Field
+                                        name="selectedRoom"
+                                        type="text"
+                                        component={SelectField}
+                                    />
                                     <ErrorMessage
                                         component="div"
                                         className="error-message"
@@ -353,6 +394,7 @@ export class Inspector extends React.Component {
                                         disabled={formProps.values.isExaminable === false}
                                         className="form-control"
                                         id="examinable-text"
+                                        placeholder="Syötä klikkauksen teksti..."
                                         rows="2"
                                         value={formProps.values.examineText}
                                         onChange={e => formProps.setFieldValue('examineText', e.target.value)}>

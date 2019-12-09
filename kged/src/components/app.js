@@ -2,8 +2,14 @@ import React from 'react';
 import Sidebar from 'components/sidebar';
 import ActionBar from 'components/action_bar';
 import Preview from 'components/preview';
+import Console from 'components/console';
 import Inspector from 'components/inspector';
 import 'styles/app.scss';
+
+// Parent component of other components.
+// Sidebar = left side of the screen.
+// ActionBar & Preview = middle of the screen.
+// Inspector = right side of the screen.
 
 class App extends React.Component {
     render() {
@@ -14,6 +20,7 @@ class App extends React.Component {
                     <div className="col-lg-7 order-last pre-container">
                         <ActionBar/>
                         <Preview></Preview>
+                        <Console></Console>
                     </div>
                     <Inspector></Inspector>
                 </div>

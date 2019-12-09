@@ -15,9 +15,16 @@ import App from 'components/app'
 import 'styles/index.scss'
 import 'styles/custom.scss'
 
+// Starts the app by navigating to App-component.
+// Redux store is also created here.
+
 library.add(fas)
 
 const store = createStore(reducer, applyMiddleware(logger, globalEventHandler, thunk))
+
+window.onerror = (message, source, lineno, colno, error) => {
+    store.dispatch({type: 'LOG_ERROR', payload: { message: message, data: error }})
+}
 
 ReactDOM.render(
     <Provider store={store}>

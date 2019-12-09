@@ -1,4 +1,5 @@
 const globalEventHandler = store => next => action => {
+    // middleware that hooks into global window events
 
     // show confirmation dialog when unloading page (e.g. reloading or closing tab).
     // uses a static function reference to allow removing the listener and

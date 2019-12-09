@@ -5,6 +5,9 @@ import Button from 'react-bootstrap/Button'
 import 'styles/create_container.scss'
 import { DuplicateEntityError } from 'utils/errors'
 
+// A container for creating a new entity (room, item or furniture).
+// Receives the following props: label, placeholder, and addItem-function
+
 export class CreateContainer extends React.Component {
 	constructor(props) {
 		super(props);

@@ -9,6 +9,28 @@ import 'styles/rooms.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
 
 export class Rooms extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { height: '100%', overflow: 'auto' };
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        var windowHeight = window.innerHeight;
+        var listHeight = document.getElementsByClassName('listitem-container')[0].clientHeight
+        if (listHeight > windowHeight) {
+            this.setState({ height: windowHeight-200 });
+        }
+    }
 
     isActiveRoom(room) {
         if (this.props.activeRoom && this.props.activeRoom.attrs) {
@@ -17,6 +39,10 @@ export class Rooms extends React.Component {
     }
 
     render() {
+        var listStyle = {
+            height: this.state.height,
+            overflow: 'auto'
+        }
         return (
             <div className="list-container">
                 <div className="action-header-container">
@@ -35,7 +61,7 @@ export class Rooms extends React.Component {
                                 placeholder="Etsi huonetta..."/>
                     </div>
                 </div>
-                <div className="listitem-container">
+                <div className="listitem-container" style={listStyle}>
                     {this.props.rooms.length === 0 &&
                         <div className="empty-list-text">
                             Ei huoneita! Luo uusi huone tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.

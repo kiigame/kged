@@ -62,6 +62,38 @@ function furnitures(state = initialState, action) {
                 )
             }
 
+        case 'UPDATE_ROOM':
+            // TODO: simplify update logic
+            return {
+                ...state,
+                furnitures: state.furnitures.map(furniture => {
+                    if (furniture.selectedRoom &&
+                        furniture.selectedRoom.attrs.id === action.payload.oldId &&
+                        furniture.selectedDestination &&
+                        furniture.selectedDestination.attrs.id === action.payload.oldId) {
+                        return {
+                            ...furniture,
+                            selectedRoom: { attrs: { id: action.payload.room.attrs.id } },
+                            selectedDestination: { attrs: { id: action.payload.room.attrs.id } },
+                        }
+                    } else if (furniture.selectedRoom &&
+                        furniture.selectedRoom.attrs.id === action.payload.oldId) {
+                        return {
+                            ...furniture,
+                            selectedRoom: { attrs: { id: action.payload.room.attrs.id } }
+                        }
+                    } else if (furniture.selectedDestination &&
+                               furniture.selectedDestination.attrs.id === action.payload.oldId) {
+                        return {
+                            ...furniture,
+                            selectedDestination: { attrs: { id: action.payload.room.attrs.id } }
+                        }
+                    } else {
+                        return furniture
+                    }
+                })
+            }
+
         default:
             return state
     }

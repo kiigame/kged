@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - develop
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: install dependencies
+      working-directory: kged
+      run: |
+        npm install -g yarn start-server-and-test
+        yarn install --frozen-lockfile
+      env:
+        CI: true
+
+    - name: run tests
+      working-directory: kged
+      run: |
+        yarn test:cypress
+      env:
+        CI: true
+
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+          name: cypress-screenshots
+          path: kged/cypress/screenshots

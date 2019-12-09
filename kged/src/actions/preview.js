@@ -8,6 +8,13 @@ export const startGame = (event) => {
                 type: 'START_GAME',
                 payload: {}
             })
+            dispatch({
+                type: 'LOG_INFO',
+                payload: {
+                    type: 'INFO',
+                    message: 'Peli käynnistetty'
+                }
+            })
         }
     }
 }
@@ -17,6 +24,13 @@ export const stopGame = (event) => {
         dispatch({
             type: 'STOP_GAME',
             payload: {}
+        })
+        dispatch({
+            type: 'LOG_INFO',
+            payload: {
+                type: 'INFO',
+                message: 'Peli pysäytetty'
+            }
         })
     }
 }

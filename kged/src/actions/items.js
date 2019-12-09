@@ -1,8 +1,12 @@
 import { sortBy } from 'lodash/fp'
 
 import { setActiveEntity, removeActiveEntity } from './entity'
+import { removeActiveRoom } from './rooms'
+import { removeActiveFurniture } from './furnitures'
 import { isExistingEntity } from 'utils'
 import { DuplicateEntityError } from 'utils/errors'
+
+// selectors
 
 export const getItems = (state) => {
     return sortBy('attrs.id')(state.items.items)
@@ -11,6 +15,9 @@ export const getItems = (state) => {
 export const getActiveItem = (state) => {
     return state.items.items.find(i => i.attrs.id === state.items.activeItem)
 }
+
+
+// actions
 
 export const loadItems = (items) => {
     return (dispatch, getState) => {
@@ -78,11 +85,24 @@ export const deleteItem = (item) => {
 
 export const setActiveItem = (id) => {
     return (dispatch) => {
+        dispatch(removeActiveRoom())
+        dispatch(removeActiveFurniture())
         dispatch(setActiveEntity(id, 'item'))
         dispatch({
             type: 'SET_ACTIVE_ITEM',
             payload: {
                 id: id
+            }
+        })
+    }
+}
+
+export const removeActiveItem = () => {
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_ACTIVE_ITEM',
+            payload: {
+                id: undefined
             }
         })
     }

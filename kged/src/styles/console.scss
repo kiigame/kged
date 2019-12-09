@@ -1,0 +1,40 @@
+@import 'styles/variables';
+
+.console-container {
+    background: $color-gray-875;
+    height: calc(100vh - 705px);
+    max-height: calc(100vh - 705px);
+}
+
+.console-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%
+}
+
+.console-clear {
+    color: $color-gray-300 !important;
+
+    &:hover {
+        color: $color-gray-500 !important;
+    }
+}
+
+.accordion {
+    height: 100%;
+}
+
+.console-messages {
+    background: $color-gray-900;
+    padding: 0.5rem 0.75rem;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.console-error {
+    color: $color-red-500;
+}
+
+.collapse {
+    height: calc(100% - 38px);
+}
