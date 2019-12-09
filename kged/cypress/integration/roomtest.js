@@ -1,18 +1,20 @@
 describe('room creation', function() {
     it('successfully loads', function() {
-        cy.visit('https://kged-dev.netlify.com/')
+        cy.visit('https://kged.netlify.com/')
     })
-    it('shows the play button as inactive', () => {
+    it('shows the play button as inactive and checks the error message', () => {
+        //Checks that the "Käynnistä" button is disabled by default and
+        //that it includes the error message that the game needs one starting room
         cy.get('.disabled').contains('Käynnistä')
+        cy.get('[title="Pelillä täytyy olla yksi aloitushuone jotta se voidaan käynnistää! Aloitushuoneen voi asettaa valitulle huoneelle inspektorista."]')
     })
     it('successfully opens the room creation container', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
-        cy.get('.create-new-btn').click()    })
+        //Open the room creation by selecting the creation button that opens the container
+        cy.get('.create-new-btn').click()    
+    })
     it('gives the room a name and creates it', () => {
-       // cy.visit('https://kged-dev.netlify.com/')
-        //cy.get('button').should('have.class', 'm-2 col create-new-btn btn btn-success').click()
+        //In the creation container the test inputs the name for the room
         cy.get("[type='name']").type('huone123')
-        //cy.get("[type='submit']").click()
         cy.get('.btn-success').contains('Lisää huone').click()
         cy.get('div').contains('huone123')
 
@@ -28,34 +30,39 @@ describe('room creation', function() {
 
     })
     it('cancels the room creation', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
+        //Opens the creation container and hides it by clicking the cancel button
         cy.get('.create-new-btn').click()
         cy.get('.btn-secondary').contains('Peruuta').first().click()
     })
     it('checks that the rooms are in alphabetical order', () => {
+        //Creates a room
         cy.get('.create-new-btn').click()
         cy.get('input[name="name"]').type('huoneA')
         cy.get('.btn-success').contains('Lisää huone').click()
 
+        //Another one
         cy.get('.create-new-btn').click()
         cy.get('input[name="name"]').type('huoneB')
         cy.get('.btn-success').contains('Lisää huone').click()
-
+        
+        //And another one
         cy.get('.create-new-btn').click()
         cy.get('input[name="name"]').type('huoneC')
         cy.get('.btn-success').contains('Lisää huone').click()
         cy.get('div').contains('huoneC')
 
+        //Puts the list items into an array and compares it to an array that has
+        //the list items in alphabetical order
         cy.get('.listitem').invoke('text').should('eq', ['huone123','huone321','huone555','huoneA','huoneB','huoneC'].join(''));
     })
     
     it('switches the active room', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
+        //Clicks another room on the list, making it the active one and opening the inspector for it
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
         cy.get('div').should('have.class', 'listitem active-listitem').contains('huone123')
     })
     it('deletes a room', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
+        //Selects the room and clicks the trash icon to delete it
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
         cy.get('.trash:visible').click()
     })
@@ -65,15 +72,15 @@ describe('room creation', function() {
 
 describe('item creation', function() {
     it('creates 2 items', () => {
-        //cy.visit('https://kged-dev.netlify.com/')
+        //Same method as with the room creation but selects the item tab in the beginning
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Esineet').click()
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").should('have.class', 'form-control').first().type('esine123')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('esine123')  
     })
     it('cancels the item creation', () => {
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='button']").contains('Peruuta').click()   
     })
     it('removes the other item and displays the no items text', () => {
@@ -82,7 +89,7 @@ describe('item creation', function() {
         cy.get('div').contains('Ei esineitä! Luo uusi esine tai käytä toimintapalkin Tuo-painiketta tuodaksesi aiemmin luomasi materiaalit järjestelmään.')
     })
     it('creates a new item', () => {
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").should('have.class', 'form-control').first().type('esine333')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('esine333')  
@@ -131,13 +138,19 @@ describe('inspector tests', function(){
         cy.get("[type='submit']").click()
         cy.get('div').contains('esine246') 
     })
+    it('makes one of the room the starting room', () => {
+        cy.get('.col-lg-2 > :nth-child(1) > .row > :nth-child(1)').click()
+        cy.get('.listitem').contains('huone246').click()
+        cy.get('#startRoom').click()
+        cy.get('.item-edit-actions > .btn-success').click()
+    })
 
 })
 describe('Furniture & play testing', function() {
     it('creates a furniture', () => {
         //cy.visit('https://kged-dev.netlify.com/')
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").first().type('huonekalu123')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('huonekalu123')  
@@ -145,31 +158,41 @@ describe('Furniture & play testing', function() {
     it('cancels a furniture creation', () => {
         //cy.visit('https://kged-dev.netlify.com')
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").first().type('huonekalu321')
         cy.get("[type='button']").contains('Peruuta').first().click()
     })
     it('creates a furniture and deletes it', () => {
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
-        cy.get("[type='button']").should('have.class', 'm-2 col create-new-btn btn btn-success').first().click()
+        cy.get('.create-new-btn').click()
         cy.get("[type='name']").first().type('huonekalu3')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('huonekalu3')
         cy.get('div').should('have.class', 'listitem').contains('huonekalu3').click()
         cy.get('.trash:visible').click()
     })
-    it('edits the furniture name and gives it the room in the inspector', () => {
+    it('checks that the room selection in dropdown is cleared after cancelling editing', () => {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
         cy.get("[type='name']").clear()
         cy.get("[type='name']").type('huonekalu321')
         cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
         cy.get('.css-1e5ysj4:visible').click()
+        cy.get('.ml-2').click()
+        cy.get('form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1hwfws3').should('be.empty')
+
+    })
+    it('edits the furniture name and gives it the room in the inspector', () => {
+        cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
+        cy.get("[type='name']").clear()
+        cy.get("[type='name']").type('huonekalu321')
+        cy.get('form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1wy0on6 > .css-tlfecz-indicatorContainer').click()
+        cy.get('.css-1e5ysj4:visible').click()
     })
     it('adds the x and y attributes', () => {
         cy.get('input[name="attrs.x"]').clear()
-        cy.get('input[name="attrs.x"]').type('2')
+        cy.get('input[name="attrs.x"]').type('200')
         cy.get('input[name = "attrs.y"]').clear()
-        cy.get('input[name="attrs.y"]').type('4')
+        cy.get('input[name="attrs.y"]').type('200')
     })
     it('makes the furniture inspectable in game', () => {
         cy.get('input[name="isExaminable"]').click()
@@ -184,6 +207,7 @@ describe('Furniture & play testing', function() {
     it('saves the inspector edits', () => {
         cy.get('button[type="submit"]').click()
     })
+
     it('checks that the play and stop buttons activate and deactivate correctly', () =>{
     cy.get('.disabled').contains('Lopeta')
     cy.get('div').contains('Käynnistä').click()
@@ -191,9 +215,13 @@ describe('Furniture & play testing', function() {
     cy.get('div').contains('Lopeta').click()
     cy.get('.disabled').contains('Lopeta')
     })
+    it('opens the interaction dialogue by clicking the furniture in game', () => {
+        cy.get('div').contains('Käynnistä').click()
+        /*cy.get(`.container > div`)
+        .trigger('mousedown', { clientX: 200, clientY: 200 })*/
+    })
 
 })
-
 //Alempi testattu ja toimii, kommentoitu pois jottei se lataisi tuota 
 //zippiä joka kerta kun pyörittää testit
 //Upload-testi vain painaa Tuontinappia
