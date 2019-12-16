@@ -2,7 +2,7 @@
 
 ### Prerequisites
 
-- Node 8.16.0/10.16.0 or above
+- Node.js 8.16.0/10.16.0 or above
 - Yarn 0.25 or above
 
 ### Development setup
