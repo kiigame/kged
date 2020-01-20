@@ -181,10 +181,10 @@ describe('Furniture & play testing', function() {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
         cy.get("[type='name']").clear()
         cy.get("[type='name']").type('huonekalu321')
-        cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
+        cy.get('form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1wy0on6 > .css-tlfecz-indicatorContainer').click()
         cy.get('.css-1e5ysj4:visible').click()
         cy.get('.ml-2').click()
-        cy.get('form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1hwfws3').should('be.empty')
+        cy.get("form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1hwfws3 > .css-1g6gooi > div > input").should('be.empty')
 
     })
     it('edits the furniture name and gives it the room in the inspector', () => {
