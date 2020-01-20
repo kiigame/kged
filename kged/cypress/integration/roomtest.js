@@ -1,3 +1,9 @@
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
+})
+
 describe('room creation', function() {
     it('successfully loads', function() {
         cy.visit('https://kged.netlify.com/')
@@ -207,23 +213,22 @@ describe('Furniture & play testing', function() {
         cy.get('input[name="attrs.visible"]').click()
         cy.get('input[name="isDoor"]').click()
         cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
-        //cy.get('.css-1e5ysj4:visible').contains('huone555').click()
+        cy.get('.css-1e5ysj4:visible').contains('huone555').click()
     })
     it('saves the inspector edits', () => {
         cy.get('button[type="submit"]').click()
     })
 
     it('checks that the play and stop buttons activate and deactivate correctly', () =>{
-    cy.get('.disabled').contains('Lopeta')
-    cy.get('div').contains('Käynnistä').click()
-    cy.get('.disabled').contains('Käynnistä')
-    cy.get('div').contains('Lopeta').click()
-    cy.get('.disabled').contains('Lopeta')
+        cy.get('.disabled').contains('Lopeta')
+        cy.get('div').contains('Käynnistä').click()
+        cy.get('.disabled').contains('Käynnistä')
+        cy.get('div').contains('Lopeta').click()
+        cy.get('.disabled').contains('Lopeta')
     })
     it('opens the interaction dialogue by clicking the furniture in game', () => {
         cy.get('div').contains('Käynnistä').click()
-        //cy.get(`.container > div`)
-        //.trigger('mousedown', { clientX: 200, clientY: 200 })
+        cy.get("[id='container']").trigger('mousedown', { clientX: 200, clientY: 200 })
     })
 
 })
