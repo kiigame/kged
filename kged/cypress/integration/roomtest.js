@@ -69,11 +69,6 @@ describe('room creation', function() {
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
         cy.get('.trash:visible').click()
     })
-    it('sets room as starting room', () => {
-        //Selects the room and clicks the trash icon to delete it
-        cy.get('div').should('have.class', 'listitem').contains('huone321').click()
-        cy.get('[type="checkbox"]').check()
-    })
 })
 // TODO: KIRJOITA TESTIT UUSIKSI
 
