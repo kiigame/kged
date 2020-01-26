@@ -6,5 +6,9 @@ import App from '../app'
 it('app is rendered', () => {
     const app = shallow(<App />);
     expect(app.find('div.app > div.row > div.pre-container').length).toEqual(1);
-    // TODO expect React components?
+    expect(app.find('Sidebar').length).toEqual(1);
+    expect(app.find('div.pre-container > Connect(ActionBar)').length).toEqual(1);
+    expect(app.find('div.pre-container > Connect(Preview)').length).toEqual(1);
+    expect(app.find('div.pre-container > Connect(Console)').length).toEqual(1);
+    expect(app.find('Connect(Inspector)').length).toEqual(1);
 })

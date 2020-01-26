@@ -18,7 +18,7 @@ class App extends React.Component {
                 <div className="row flex-grow-1">
                     <Sidebar></Sidebar>
                     <div className="col-lg-7 order-last pre-container">
-                        <ActionBar/>
+                        <ActionBar></ActionBar>
                         <Preview></Preview>
                         <Console></Console>
                     </div>
