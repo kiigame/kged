@@ -1,8 +1,8 @@
-Cypress.on('uncaught:exception', (err, runnable) => {
+/*Cypress.on('uncaught:exception', (err, runnable) => {
     // returning false here prevents Cypress from
     // failing the test
     return false
-})
+})*/
 
 describe('room creation', function() {
     it('successfully loads', function() {
