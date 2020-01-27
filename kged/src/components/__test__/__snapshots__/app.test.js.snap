@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app is rendered with expected structure 1`] = `
+<div
+  className="app container-fluid"
+>
+  <div
+    className="row flex-grow-1"
+  >
+    <Sidebar />
+    <div
+      className="col-lg-7 order-last pre-container"
+    >
+      <Connect(ActionBar) />
+      <Connect(Preview) />
+      <Connect(Console) />
+    </div>
+    <Connect(Inspector) />
+  </div>
+</div>
+`;
