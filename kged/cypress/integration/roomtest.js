@@ -53,7 +53,10 @@ describe('room creation', function() {
 
         //Puts the list items into an array and compares it to an array that has
         //the list items in alphabetical order
-        cy.get('.listitem').invoke('text').should('eq', ['huone123','huone321','huone555','huoneA','huoneB','huoneC'].join(''));
+        let order = ['huone123','huone321','huone555','huoneA','huoneB','huoneC']
+        cy.get('.listitem').each((_, index) => {
+            cy.contains(order[index])
+        })
     })
     
     it('switches the active room', () => {
@@ -66,7 +69,6 @@ describe('room creation', function() {
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
         cy.get('.trash:visible').click()
     })
-
 })
 // TODO: KIRJOITA TESTIT UUSIKSI
 
@@ -107,7 +109,10 @@ describe('item creation', function() {
         cy.get('input[name="name"]').type('esineC')
         cy.get('.btn-success').contains('Lisää esine').click()
 
-        cy.get('.listitem').invoke('text').should('eq',['esine333','esineA', 'esineB', 'esineC'].join(''));
+        let order = ['esine333','esineA', 'esineB', 'esineC']
+        cy.get('.listitem').each((_, index) => {
+            cy.contains(order[index])
+        })
     })
 
 })
@@ -175,10 +180,10 @@ describe('Furniture & play testing', function() {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
         cy.get("[type='name']").clear()
         cy.get("[type='name']").type('huonekalu321')
-        cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
+        cy.get('form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1wy0on6 > .css-tlfecz-indicatorContainer').click()
         cy.get('.css-1e5ysj4:visible').click()
         cy.get('.ml-2').click()
-        cy.get('form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1hwfws3').should('be.empty')
+        cy.get("form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1hwfws3 > .css-1g6gooi > div > input").should('be.empty')
 
     })
     it('edits the furniture name and gives it the room in the inspector', () => {
@@ -202,23 +207,22 @@ describe('Furniture & play testing', function() {
         cy.get('input[name="attrs.visible"]').click()
         cy.get('input[name="isDoor"]').click()
         cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
-        //cy.get('.css-1e5ysj4:visible').contains('huone555').click()
+        cy.get('.css-1e5ysj4:visible').contains('huone555').click()
     })
     it('saves the inspector edits', () => {
         cy.get('button[type="submit"]').click()
     })
 
     it('checks that the play and stop buttons activate and deactivate correctly', () =>{
-    cy.get('.disabled').contains('Lopeta')
-    cy.get('div').contains('Käynnistä').click()
-    cy.get('.disabled').contains('Käynnistä')
-    cy.get('div').contains('Lopeta').click()
-    cy.get('.disabled').contains('Lopeta')
+        cy.get('.disabled').contains('Lopeta')
+        cy.get('div').contains('Käynnistä').click()
+        cy.get('.disabled').contains('Käynnistä')
+        cy.get('div').contains('Lopeta').click()
+        cy.get('.disabled').contains('Lopeta')
     })
     it('opens the interaction dialogue by clicking the furniture in game', () => {
-        cy.get('div').contains('Käynnistä').click()
-        /*cy.get(`.container > div`)
-        .trigger('mousedown', { clientX: 200, clientY: 200 })*/
+        cy.get('.pre-controls > :nth-child(1)').click()
+        cy.get("[id='container']").trigger('mousedown', { clientX: 200, clientY: 200 })
     })
 
 })

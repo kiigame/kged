@@ -1,0 +1,3 @@
+# Exclude screenshots and videos produced by running cypress tests
+kged/cypress/screenshots
+kged/cypress/videos
