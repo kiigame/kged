@@ -29,6 +29,7 @@ jobs:
     - name: run tests
       working-directory: kged
       run: |
+        yarn test
         yarn test:cypress
       env:
         CI: true
