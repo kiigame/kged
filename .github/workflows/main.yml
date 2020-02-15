@@ -4,6 +4,7 @@ on:
   push:
     branches: 
       - develop
+      - run-cypress-in-localhost
 
 jobs:
   test:
