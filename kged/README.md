@@ -36,5 +36,5 @@ yarn build
 yarn test
 
 # To run cypress end-to-end tests, run:
-yarn cy:run
+yarn test:cypress
 ```

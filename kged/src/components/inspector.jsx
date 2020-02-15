@@ -285,7 +285,7 @@ export class Inspector extends React.Component {
                                         name="attrs.id"
                                     />
                                 </div>
-                                <div className="form-group">
+                                <div className="form-group furniture-room-selector">
                                     <label className="change-color-onhover" title="Valitse mihin huoneeseen huonekalu kuuluu">Huonekalun huone</label>
                                     {/* SelectField (dropdown for selected room of a furniture) has been added as
                                         custom Field component to fix a bug where clicking Cancel-button
@@ -348,7 +348,7 @@ export class Inspector extends React.Component {
                                         Näkyvissä
                                     </label>
                                 </div>
-                                <div className="form-group">
+                                <div className="form-group furniture-interactions">
                                     <label
                                         className="change-color-onhover"
                                         title="Valitse interaktio huonekalulle">
