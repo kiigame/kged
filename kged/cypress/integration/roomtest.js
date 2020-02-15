@@ -182,8 +182,6 @@ describe('Furniture & play testing', function() {
         cy.get('.ml-2').click()
         // Check that the room value is empty in the selector
         cy.get('.furniture-room-selector > :nth-child(2) > :nth-child(1) > :nth-child(1) > :nth-child(1)').should('be.empty')
-        //cy.get("form > :nth-child(2) > .css-acwcvw > .css-134j50p-control > .css-1hwfws3 > .css-1g6gooi > div > input").should('be.empty')
-
     })
     it('edits the furniture name and gives it the room in the inspector', () => {
         cy.get('div').should('have.class', 'listitem').contains('huonekalu123').click()
@@ -209,7 +207,6 @@ describe('Furniture & play testing', function() {
         cy.get('input[name="isDoor"]').click()
         // Click the room selector
         cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
-        //cy.get('.furniture-interactions > :nth-child(6) > :nth-child(2)').click()
         // Click the menu item
         cy.get('.furniture-interactions > :nth-child(6) > :nth-child(3)').contains('huone555').click()
     })
