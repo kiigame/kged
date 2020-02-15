@@ -1129,8 +1129,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@kiigame/adventure_engine@./engine":
-  version "0.3.0"
+"@kiigame/adventure_engine@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@kiigame/adventure_engine/-/adventure_engine-0.4.1.tgz#71807b4cdcf5e9870c620e8b1c205210f7a3456c"
+  integrity sha512-8MfFMM6h2tl0olzTZtM8xDRA5i6MpMcryRvf/A8ZpZGoTMaEVYSRTrJ17GOYlm6nyu5FWh+4v61nB5aNsV8mHQ==
   dependencies:
     konva "^3.2.6"
 
