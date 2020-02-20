@@ -27,7 +27,6 @@ describe('room creation', function() {
         cy.get('.create-new-btn').click()
         cy.get('input[name="name"]').type('huone555')
         cy.get('.btn-success').contains('Lisää huone').click()
-
     })
     it('cancels the room creation', () => {
         //Opens the creation container and hides it by clicking the cancel button
@@ -58,7 +57,6 @@ describe('room creation', function() {
             cy.contains(order[index])
         })
     })
-    
     it('switches the active room', () => {
         //Clicks another room on the list, making it the active one and opening the inspector for it
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
@@ -114,8 +112,8 @@ describe('item creation', function() {
             cy.contains(order[index])
         })
     })
-
 })
+
 describe('inspector tests', function(){
     it('changes the name of a room in the inspector', () => {
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Huoneet').click()
@@ -146,8 +144,8 @@ describe('inspector tests', function(){
         cy.get('#startRoom').click()
         cy.get('.item-edit-actions > .btn-success').click()
     })
-
 })
+
 describe('Furniture & play testing', function() {
     it('creates a furniture', () => {
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
@@ -213,7 +211,6 @@ describe('Furniture & play testing', function() {
     it('saves the inspector edits', () => {
         cy.get('button[type="submit"]').click()
     })
-
     it('checks that the play and stop buttons activate and deactivate correctly', () =>{
         cy.get('.disabled').contains('Lopeta')
         cy.get('div').contains('Käynnistä').click()
@@ -225,5 +222,4 @@ describe('Furniture & play testing', function() {
         cy.get('.pre-controls > :nth-child(1)').click()
         cy.get("[id='container']").trigger('mousedown', { clientX: 200, clientY: 200 })
     })
-
 })
