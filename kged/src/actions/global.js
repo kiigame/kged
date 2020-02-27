@@ -37,6 +37,7 @@ export const exportProject = (event) => {
         const items = api.exportItems(state)
         const interactions = api.exportInteractions(state)
         const texts = api.exportTexts(state)
+        const name = state.global.gameName
 
         const roomsToJSON = JSON.stringify({rooms: rooms}, null, 4)
         const itemsToJSON = JSON.stringify(items, null, 4)
@@ -49,7 +50,7 @@ export const exportProject = (event) => {
         zip.file('texts.json', textsToJSON);
 
         zip.generateAsync({type: 'blob'}).then(content => {
-            saveAs(content, 'pelidata.zip');
+            saveAs(content, name);
         });
     }
 }
@@ -141,4 +142,21 @@ export const clearEvents = (event) => {
             }
         })
     }
+}
+
+export const setGameName = newName => {
+    // Change the name of the game
+
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'CHANGE_GAME_NAME',
+            name: newName
+        })
+    }
+}
+
+export const getGameName = state => {
+    // Get the current name of the game from state
+
+    return state.global.gameName
 }

@@ -1,4 +1,5 @@
 const initialState = {
+    gameName: 'Pelidata.zip',
     events: []
 }
 
@@ -40,6 +41,11 @@ function global(state = initialState, action) {
             return {
                 ...state,
                 events: []
+            }
+        case 'CHANGE_GAME_NAME':
+            return {
+                ...state,
+                gameName: action.gameName
             }
 
         default:
