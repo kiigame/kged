@@ -6,7 +6,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.5",
-    "@kiigame/adventure_engine": "./engine",
+    "@kiigame/adventure_engine": "^0.4.1",
     "bootstrap": "^4.3.1",
     "file-saver": "^2.0.2",
     "formik": "^1.5.8",
@@ -48,10 +48,16 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^3.5.0",
-    "enzyme": "^3.10.0",
+    "cypress": "^3.8.3",
+    "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "enzyme-to-json": "^3.4.2",
-    "jest": "^24.9.0"
+    "enzyme-to-json": "^3.4.3",
+    "jest": "^24.9.0",
+    "start-server-and-test": "^1.10.8"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   }
 }

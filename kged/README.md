@@ -32,6 +32,9 @@ yarn build
 ```sh
 # Complete steps 1-3
 
-# Start a test runner
+# Start a test runner to run unit tests
 yarn test
+
+# To run cypress end-to-end tests, run:
+yarn test:cypress
 ```
