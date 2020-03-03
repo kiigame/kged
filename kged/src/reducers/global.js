@@ -1,5 +1,5 @@
 const initialState = {
-    gameName: 'Pelidata.zip',
+    gameName: 'Kiigame',
     events: []
 }
 

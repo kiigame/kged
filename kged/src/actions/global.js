@@ -37,7 +37,7 @@ export const exportProject = (event) => {
         const items = api.exportItems(state)
         const interactions = api.exportInteractions(state)
         const texts = api.exportTexts(state)
-        const name = state.global.gameName
+        const name = state.global.gameName.concat(".zip")
 
         const roomsToJSON = JSON.stringify({rooms: rooms}, null, 4)
         const itemsToJSON = JSON.stringify(items, null, 4)
@@ -150,13 +150,7 @@ export const setGameName = newName => {
     return (dispatch, getState) => {
         dispatch({
             type: 'CHANGE_GAME_NAME',
-            name: newName.concat(".zip")
+            name: newName
         })
     }
-}
-
-export const getGameName = state => {
-    // Get the current name of the game from state
-
-    return state.global.gameName
 }

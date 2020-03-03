@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getGameName, setGameName } from '../actions/global'
+import { setGameName } from '../actions/global'
 
 export class TitleBar extends React.Component{
     constructor(props){
@@ -17,7 +17,7 @@ export class TitleBar extends React.Component{
         return(
             <div>
                 <form>
-                    <input type="text" onChange={this.onChangeHandler} placeholder="Anna pelille nimi..." />
+                    <input type="text" onChange={this.onChangeHandler} placeholder={this.props.gameName} />
                 </form>
             </div>
         )
@@ -25,7 +25,7 @@ export class TitleBar extends React.Component{
 }
 
 const mapStateToProps = state => ({
-    gameName: getGameName(state)
+    gameName: state.global.gameName
 })
 
 const mapDispatchToProps = dispatch => ({
