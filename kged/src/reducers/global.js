@@ -45,7 +45,7 @@ function global(state = initialState, action) {
         case 'CHANGE_GAME_NAME':
             return {
                 ...state,
-                gameName: action.gameName
+                gameName: action.name
             }
 
         default:

@@ -150,7 +150,7 @@ export const setGameName = newName => {
     return (dispatch, getState) => {
         dispatch({
             type: 'CHANGE_GAME_NAME',
-            name: newName
+            name: newName.concat(".zip")
         })
     }
 }
