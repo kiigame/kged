@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setGameName } from '../actions/global'
+import '../styles/titlebar.scss'
 
 export class TitleBar extends React.Component{
     constructor(props){
@@ -17,7 +18,7 @@ export class TitleBar extends React.Component{
         return(
             <div>
                 <form>
-                    <input type="text" onChange={this.onChangeHandler} placeholder={this.props.gameName} />
+                    <input className="game-name" type="text" onChange={this.onChangeHandler} placeholder={this.props.gameName} />
                 </form>
             </div>
         )

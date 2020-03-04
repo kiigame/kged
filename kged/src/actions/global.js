@@ -14,44 +14,47 @@ export const exportProject = (event) => {
     return (dispatch, getState) => {
         const zip = new JSZip();
         const state = getState()
+        if (state.global.gameName === ""){
+            alert('Pelin nimi ei voi olla tyhjä!')
+        }else{
+            zip.folder('images');
+            // fetch and convert placeholders to blobs and add them to the zip package
+            zip.file('images/placeholder/room.png',
+                    fetch(`${window.location}/assets/placeholders/room.png`).then(r => r.blob()))
+            zip.file('images/placeholder/furniture.png',
+                    fetch(`${window.location}/assets/placeholders/furniture.png`).then(r => r.blob()))
+            zip.file('images/placeholder/item.png',
+                    fetch(`${window.location}/assets/placeholders/item.png`).then(r => r.blob()))
 
-        zip.folder('images');
-        // fetch and convert placeholders to blobs and add them to the zip package
-        zip.file('images/placeholder/room.png',
-                 fetch(`${window.location}/assets/placeholders/room.png`).then(r => r.blob()))
-        zip.file('images/placeholder/furniture.png',
-                 fetch(`${window.location}/assets/placeholders/furniture.png`).then(r => r.blob()))
-        zip.file('images/placeholder/item.png',
-                 fetch(`${window.location}/assets/placeholders/item.png`).then(r => r.blob()))
+            const roomImages = utils.extractImagesFromRooms(state.rooms.rooms)
+            const furnitureImages = utils.extractImagesFromFurnitures(state.furnitures.furnitures)
+            const itemImages = utils.extractImagesFromItems(state.items.items)
 
-        const roomImages = utils.extractImagesFromRooms(state.rooms.rooms)
-        const furnitureImages = utils.extractImagesFromFurnitures(state.furnitures.furnitures)
-        const itemImages = utils.extractImagesFromItems(state.items.items)
+            // add all extracted images to the zip package
+            roomImages.concat(furnitureImages, itemImages).forEach(img =>
+                zip.file(`images/${img.name}`, img.file)
+            )
 
-        // add all extracted images to the zip package
-        roomImages.concat(furnitureImages, itemImages).forEach(img =>
-            zip.file(`images/${img.name}`, img.file)
-        )
+            const rooms = api.exportRooms(state)
+            const items = api.exportItems(state)
+            const interactions = api.exportInteractions(state)
+            const texts = api.exportTexts(state)
+            const name = state.global.gameName.concat(".zip")
 
-        const rooms = api.exportRooms(state)
-        const items = api.exportItems(state)
-        const interactions = api.exportInteractions(state)
-        const texts = api.exportTexts(state)
-        const name = state.global.gameName.concat(".zip")
+            const roomsToJSON = JSON.stringify({rooms: rooms}, null, 4)
+            const itemsToJSON = JSON.stringify(items, null, 4)
+            const interactionsToJSON = JSON.stringify(interactions, null, 4)
+            const textsToJSON = JSON.stringify(texts, null, 4)
 
-        const roomsToJSON = JSON.stringify({rooms: rooms}, null, 4)
-        const itemsToJSON = JSON.stringify(items, null, 4)
-        const interactionsToJSON = JSON.stringify(interactions, null, 4)
-        const textsToJSON = JSON.stringify(texts, null, 4)
+            zip.file('rooms.json', roomsToJSON);
+            zip.file('items.json', itemsToJSON);
+            zip.file('interactions.json', interactionsToJSON);
+            zip.file('texts.json', textsToJSON);
 
-        zip.file('rooms.json', roomsToJSON);
-        zip.file('items.json', itemsToJSON);
-        zip.file('interactions.json', interactionsToJSON);
-        zip.file('texts.json', textsToJSON);
-
-        zip.generateAsync({type: 'blob'}).then(content => {
-            saveAs(content, name);
-        });
+            zip.generateAsync({type: 'blob'}).then(content => {
+                saveAs(content, name);
+            });
+        }
     }
 }
 
