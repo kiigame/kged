@@ -11,6 +11,7 @@ exports[`app is rendered with expected structure 1`] = `
     <div
       className="col-lg-7 order-last pre-container"
     >
+      <Connect(TitleBar) />
       <Connect(ActionBar) />
       <Connect(Preview) />
       <Connect(Console) />
