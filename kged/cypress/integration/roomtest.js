@@ -2,6 +2,9 @@ describe('room creation', function() {
     it('successfully loads', function() {
         cy.visit('/')
     })
+    it('Initial game name is set to Kiigame', function() {
+        cy.get('.game-name').should('have.value', 'Kiigame')
+    })
     it('shows the play button as inactive and checks the error message', () => {
         //Checks that the "Käynnistä" button is disabled by default and
         //that it includes the error message that the game needs one starting room
@@ -147,9 +150,14 @@ describe('inspector tests', function(){
 })
 
 describe('Furniture & play testing', function() {
-    /*it('changes the name of the game', () => {
-        cy.get('.game-name').should('have.class', 'side-nav-item').contains('Huonekalut').click()
-    })*/
+    it('changes the name of the game', () => {
+        const stub = cy.stub()
+        cy.get('.game-name').clear().type('pelinimi')
+        cy.on('window:alert', stub)
+        cy.get('div').contains('Tallenna').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('pelinimi')      
+          })
+    })
     it('creates a furniture', () => {
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
         cy.get('.create-new-btn').click()
