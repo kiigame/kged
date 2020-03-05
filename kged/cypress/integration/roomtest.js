@@ -147,6 +147,9 @@ describe('inspector tests', function(){
 })
 
 describe('Furniture & play testing', function() {
+    /*it('changes the name of the game', () => {
+        cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
+    })*/
     it('creates a furniture', () => {
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
         cy.get('.create-new-btn').click()
