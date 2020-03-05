@@ -1,6 +1,7 @@
 @import 'styles/variables';
 
-.game-name{
-    background: $color-gray-800;
-    outline: none;
-}
+input[type=text] {
+    background-color: $color-gray-800;
+    color: white;
+    border: 3px solid $color-gray-800;
+  }

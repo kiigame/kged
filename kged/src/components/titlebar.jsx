@@ -18,6 +18,7 @@ export class TitleBar extends React.Component{
         return(
             <div>
                 <form>
+                    <label>Pelin nimi</label><br/>
                     <input className="game-name" type="text" onChange={this.onChangeHandler} placeholder={this.props.gameName} />
                 </form>
             </div>
