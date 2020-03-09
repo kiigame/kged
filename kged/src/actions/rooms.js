@@ -1,4 +1,4 @@
-import { sortBy } from 'lodash/fp'
+import _ from 'lodash/fp';
 
 import { setActiveEntity, removeActiveEntity } from './entity'
 import { removeActiveItem } from './items'
@@ -9,7 +9,11 @@ import { DuplicateEntityError } from 'utils/errors'
 // selectors
 
 export const getRooms = (state) => {
-    return sortBy('attrs.id')(state.rooms.rooms)
+    const orderRooms = _.slice(0, state.rooms.rooms.length)(state.rooms.rooms)
+    const orderedRooms = orderRooms.sort(function (a, b) {
+        return a.attrs.id.toString().localeCompare(b.attrs.id);
+    } );
+    return orderedRooms
 }
 
 export const getActiveRoom = (state) => {
