@@ -14,8 +14,8 @@ export class TitleBar extends React.Component{
         this.props.setName(event.target.value)
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <form>
                     <label>Pelin nimi</label><br/>

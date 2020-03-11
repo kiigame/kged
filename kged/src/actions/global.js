@@ -14,11 +14,9 @@ export const exportProject = (event) => {
     return (dispatch, getState) => {
         const zip = new JSZip();
         const state = getState()
-        if (state.global.gameName === ""){
+        if (state.global.gameName === "") {
             alert('Pelin nimi ei voi olla tyhjä!')
-        }else if(window.Cypress){
-            alert(state.global.gameName)
-        }else{
+        } else {
             zip.folder('images');
             // fetch and convert placeholders to blobs and add them to the zip package
             zip.file('images/placeholder/room.png',
