@@ -17,8 +17,8 @@ export class TitleBar extends React.Component{
     render() {
         return (
             <div>
-                <form>
-                    <label>Pelin nimi</label><br/>
+                <form onSubmit={event => {event.preventDefault()}}>
+                    <label className="text-label">Pelin nimi:</label>
                     <input className="game-name" type="text" onChange={this.onChangeHandler} value={this.props.gameName} />
                 </form>
             </div>
