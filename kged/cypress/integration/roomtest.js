@@ -223,3 +223,16 @@ describe('Furniture & play testing', function() {
         cy.get("[id='container']").trigger('mousedown', { clientX: 200, clientY: 200 })
     })
 })
+
+describe('Manual button testing', function() {
+    it('checks that clicking the manual button opens with the right url', () => {
+        cy.visit('http://localhost:3000')
+        cy.window().then((win) => {
+            cy.stub(win, 'open').as('windowOpen')
+        })
+
+        cy.get('div').contains('Ohjeet').click()
+        cy.get('@windowOpen').should('be.calledWith', 'https://github.com/kiigame/kged/wiki/Pikaopas')
+        
+    })
+})
