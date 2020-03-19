@@ -9,7 +9,7 @@ import 'styles/preview.scss';
 import 'styles/action_bar.scss';
 
 // ActionBar at the top of the screen.
-// Has buttons for running and stopping a game session, and exporting and importing game data.
+// Has buttons for running and stopping a game session, and exporting and importing game data, and for game manual.
 // isStartable = the user may start the game.
 // isLoading = the user has started the game, and the game is loading.
 
@@ -18,6 +18,7 @@ export class ActionBar extends React.Component {
         super(props);
         this.state = { isStartable: true, isLoading: false }
         this.clickHiddenInput = this.clickHiddenInput.bind(this);
+        this.openManual = this.openManual.bind(this);
     }
 
     clickHiddenInput() {
@@ -60,6 +61,10 @@ export class ActionBar extends React.Component {
         this.props.onStopGame(e)
     }
 
+    openManual(e) {
+        window.open('https://github.com/kiigame/kged/wiki/Pikaopas')
+    }
+
     render() {
         return (
             <div className="row pre-controls">
@@ -81,6 +86,9 @@ export class ActionBar extends React.Component {
                 </div>
                 <div className="col" onClick={this.props.onExport}>
                     Tallenna
+                </div>
+                <div className="col" onClick={this.openManual}>
+                    Ohjeet
                 </div>
             </div>
         );
