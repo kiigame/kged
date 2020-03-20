@@ -9,8 +9,8 @@ import { DuplicateEntityError } from 'utils/errors'
 // selectors
 
 export const getItems = (state) => {
-    const orderItems = _.slice(0, state.items.items.length)(state.items.items)
-    const orderedItems = orderItems.sort(function (a, b) {
+    const items = _.slice(0, state.items.items.length)(state.items.items)
+    const orderedItems = items.sort(function (a, b) {
         return a.attrs.id.toString().localeCompare(b.attrs.id);
     } );
     return orderedItems
