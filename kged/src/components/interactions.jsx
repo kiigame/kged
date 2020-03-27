@@ -311,7 +311,7 @@ export class Interactions extends React.Component {
                                                 <Button
                                                     type="submit"
                                                     variant="success"
-                                                    onClick={e => this.props.addInteraction(e), () => this.setIsActive(false)}
+                                                    onClick={e => {this.props.addInteraction(e); this.setIsActive(false);}}
                                                     disabled={!formProps.dirty}>
                                                     Tallenna
                                                 </Button>
