@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { importProject, exportProject } from 'actions/global';
+import { importProject, exportProject, setGameName } from 'actions/global';
 import { hasStartRoom } from 'actions/rooms';
 import { startGame, stopGame } from 'actions/preview.js'
 import 'styles/preview.scss';
 import 'styles/action_bar.scss';
 
 // ActionBar at the top of the screen.
-// Has buttons for running and stopping a game session, and exporting and importing game data, and for game manual.
+// Has buttons for running and stopping a game session, and exporting and importing game data.
 // isStartable = the user may start the game.
 // isLoading = the user has started the game, and the game is loading.
 
@@ -18,7 +18,6 @@ export class ActionBar extends React.Component {
         super(props);
         this.state = { isStartable: true, isLoading: false }
         this.clickHiddenInput = this.clickHiddenInput.bind(this);
-        this.openManual = this.openManual.bind(this);
     }
 
     clickHiddenInput() {
@@ -27,6 +26,7 @@ export class ActionBar extends React.Component {
         input.click()
         input.onchange = (e) => {
             this.props.onImport(e.target.files[0])
+            this.props.setName(e.target.files[0].name.split(".")[0])
         }
     }
 
@@ -105,7 +105,8 @@ const mapDispatchToProps = dispatch => ({
     onExport: event => dispatch(exportProject(event)),
     onImport: event => dispatch(importProject(event)),
     onStartGame: event => dispatch(startGame(event)),
-    onStopGame: event => dispatch(stopGame(event))
+    onStopGame: event => dispatch(stopGame(event)),
+    setName: name => dispatch(setGameName(name))
 })
 
 export default connect(
