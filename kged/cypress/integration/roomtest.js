@@ -43,6 +43,21 @@ describe('room creation', function() {
         cy.get('.create-new-btn').click()
         cy.get('input[name="name"]').type('huoneB')
         cy.get('.btn-success').contains('Lisää huone').click()
+
+        //Another one
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('123')
+        cy.get('.btn-success').contains('Lisää huone').click()
+
+        //Another one
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('234')
+        cy.get('.btn-success').contains('Lisää huone').click()
+
+        //Another one
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('HuoneD')
+        cy.get('.btn-success').contains('Lisää huone').click()
         
         //And another one
         cy.get('.create-new-btn').click()
@@ -52,7 +67,7 @@ describe('room creation', function() {
 
         //Puts the list items into an array and compares it to an array that has
         //the list items in alphabetical order
-        let order = ['huone123','huone321','huone555','huoneA','huoneB','huoneC']
+        let order = ['123', '234', 'huone123','huone321','huone555','huoneA','huoneB','huoneC', 'HuoneD']
         cy.get('.listitem').each((_, index) => {
             cy.contains(order[index])
         })
@@ -104,10 +119,22 @@ describe('item creation', function() {
         cy.get('.btn-success').contains('Lisää esine').click()
 
         cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('123e')
+        cy.get('.btn-success').contains('Lisää esine').click()
+
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('456e')
+        cy.get('.btn-success').contains('Lisää esine').click()
+
+        cy.get('.create-new-btn').click()
+        cy.get('input[name="name"]').type('EsineD')
+        cy.get('.btn-success').contains('Lisää esine').click()
+
+        cy.get('.create-new-btn').click()
         cy.get('input[name="name"]').type('esineC')
         cy.get('.btn-success').contains('Lisää esine').click()
 
-        let order = ['esine333','esineA', 'esineB', 'esineC']
+        let order = ['123e', '456e', 'esine333','esineA', 'esineB', 'esineC', 'EsineD']
         cy.get('.listitem').each((_, index) => {
             cy.contains(order[index])
         })
