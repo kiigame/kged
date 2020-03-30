@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { importProject, exportProject } from 'actions/global';
+import { importProject, exportProject, setGameName } from 'actions/global';
 import { hasStartRoom } from 'actions/rooms';
 import { startGame, stopGame } from 'actions/preview.js'
 import 'styles/preview.scss';
@@ -26,6 +26,7 @@ export class ActionBar extends React.Component {
         input.click()
         input.onchange = (e) => {
             this.props.onImport(e.target.files[0])
+            this.props.setName(e.target.files[0].name.split(".")[0])
         }
     }
 
@@ -97,7 +98,8 @@ const mapDispatchToProps = dispatch => ({
     onExport: event => dispatch(exportProject(event)),
     onImport: event => dispatch(importProject(event)),
     onStartGame: event => dispatch(startGame(event)),
-    onStopGame: event => dispatch(stopGame(event))
+    onStopGame: event => dispatch(stopGame(event)),
+    setName: name => dispatch(setGameName(name))
 })
 
 export default connect(

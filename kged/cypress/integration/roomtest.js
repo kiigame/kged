@@ -146,6 +146,24 @@ describe('inspector tests', function(){
     })
 })
 
+describe('Name change tests', function() {
+    it('Initial game name is set to Kiigame', function() {
+        cy.get('.game-name').should('have.value', 'Kiigame')
+    })
+    it('Checks that the name of the game cannot be empty', () => {
+        const stub = cy.stub()
+        cy.get('.game-name').clear()
+        cy.on('window:alert', stub)
+        cy.get('div').contains('Tallenna').click().then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('Pelin nimi ei voi olla tyhjä!')      
+          })
+    })
+    it('changes the name of the game', () => {
+        cy.get('.game-name').clear().type('pelinimi')
+        cy.get('.game-name').should('have.value', 'pelinimi')
+    })
+})
+
 describe('Furniture & play testing', function() {
     it('creates a furniture', () => {
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
@@ -215,11 +233,11 @@ describe('Furniture & play testing', function() {
         cy.get('.disabled').contains('Lopeta')
         cy.get('div').contains('Käynnistä').click()
         cy.get('.disabled').contains('Käynnistä')
-        cy.get('div').contains('Lopeta').click()
+        cy.get('.pre-controls > :nth-child(2)').contains('Lopeta').click()
         cy.get('.disabled').contains('Lopeta')
     })
     it('opens the interaction dialogue by clicking the furniture in game', () => {
-        cy.get('.pre-controls > :nth-child(1)').click()
+        cy.get('.pre-controls > :nth-child(1)').trigger('mousedown')
         cy.get("[id='container']").trigger('mousedown', { clientX: 200, clientY: 200 })
     })
 })

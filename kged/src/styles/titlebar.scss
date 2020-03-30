@@ -1,0 +1,11 @@
+@import 'styles/variables';
+
+input[type=text] {
+    background-color: $color-gray-800;
+    color: white;
+    border: 3px solid $color-gray-800;
+  }
+
+.text-label {
+  margin-right: 5px;
+}
