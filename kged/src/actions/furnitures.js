@@ -50,6 +50,9 @@ export const setFurnitureImage = (furnitureId, filePath, objectUrl) => {
 
 export const addFurniture = (furniture) => {
     return (dispatch, getState) => {
+        if (isExistingEntity(getState(), furniture.name)) {
+            throw new DuplicateEntityError('Nimi on jo käytössä')
+        }
         dispatch({
             type: 'ADD_FURNITURE',
             payload: {
