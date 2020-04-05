@@ -77,6 +77,9 @@ describe('room creation', function() {
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
         cy.get('div').should('have.class', 'listitem active-listitem').contains('huone123')
     })
+    it("Checks that there aren't any furnitures in the room.", () => {
+        cy.get('p').contains('Huoneessa ei ole yhtään huonekalua.')
+    })
     it('deletes a room', () => {
         //Selects the room and clicks the trash icon to delete it
         cy.get('div').should('have.class', 'listitem').contains('huone123').click()
@@ -256,8 +259,16 @@ describe('Furniture & play testing', function() {
         cy.get('.furniture-room-selector .css-tlfecz-indicatorContainer').click()
         // Click the menu item
         cy.get('.furniture-room-selector > :nth-child(2) > :nth-child(3)').click()
+        cy.get('.item-edit-actions > .btn-success').click()
+    })
+    it('Checks that the furniture is listed in the room', () => {
+        cy.get('div').should('have.class', 'side-nav-item').contains('Huoneet').click()
+        cy.get('.list-container').contains('huoneA').click()
+        cy.get('p').contains('huonekalu321')
     })
     it('adds the x and y attributes', () => {
+        cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
+        cy.get('div').should('have.class', 'listitem').contains('huonekalu321').click()
         cy.get('input[name="attrs.x"]').clear()
         cy.get('input[name="attrs.x"]').type('200')
         cy.get('input[name = "attrs.y"]').clear()
@@ -291,4 +302,15 @@ describe('Furniture & play testing', function() {
     })
 })
 
+describe('Manual button testing', function() {
+    it('checks that clicking the manual button opens with the right url', () => {
+        cy.visit('http://localhost:3000')
+        cy.window().then((win) => {
+            cy.stub(win, 'open').as('windowOpen')
+        })
 
+        cy.get('div').contains('Ohjeet').click()
+        cy.get('@windowOpen').should('be.calledWith', 'https://github.com/kiigame/kged/wiki/Pikaopas')
+        
+    })
+})
