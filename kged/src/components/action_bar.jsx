@@ -61,6 +61,10 @@ export class ActionBar extends React.Component {
         this.props.onStopGame(e)
     }
 
+    openManual(e) {
+        window.open('https://github.com/kiigame/kged/wiki/Pikaopas')
+    }
+
     render() {
         return (
             <div className="row pre-controls">
@@ -82,6 +86,9 @@ export class ActionBar extends React.Component {
                 </div>
                 <div className="col" onClick={this.props.onExport}>
                     Tallenna
+                </div>
+                <div className="col" onClick={this.openManual}>
+                    Ohjeet
                 </div>
             </div>
         );
