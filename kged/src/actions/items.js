@@ -49,6 +49,9 @@ export const setItemImage = (itemId, filePath, objectUrl) => {
 
 export const addItem = (item) => {
     return (dispatch, getState) => {
+        if (isExistingEntity(getState(), item.name)) {
+            throw new DuplicateEntityError('Nimi on jo käytössä')
+        }
         dispatch({
             type: 'ADD_ITEM',
             payload: {
