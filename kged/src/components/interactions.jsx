@@ -123,6 +123,7 @@ export class Interactions extends React.Component {
                             {[...this.props.items, ...this.props.furnitures].length !== 0 &&
                                 <div className="create-interaction-button">
                                     <Button 
+                                        type="create-interaction"
                                         variant="success"
                                         onClick={() => this.setIsActive(true)}
                                         disabled={[...this.props.items, ...this.props.furnitures].length === 0}>
@@ -250,7 +251,7 @@ export class Interactions extends React.Component {
                                                 </div>
                                             </div>
 
-                                        <div className="form-group furniture-room-selector">
+                                        <div className="form-group interaction-type-selector">
                                             <label className="change-color-onhover" title="Valitse minkä tapahtuman tulisi tapahtua">Valitse tapahtuma:</label>
                                                 <div className="action-header-container">
                                                     <div className="interaction-searchbox">
@@ -286,7 +287,7 @@ export class Interactions extends React.Component {
 
                                             <label className="change-color-onhover" title="Valitse interaktion kohde">Valitse interaktion kohde:</label>
                                             <div className="action-header-container">
-                                                <div className="interaction-searchbox">
+                                                <div className="interaction-target-searchbox">
                                                     <Select styles={defaultSelectStyles}
                                                         name="selectedObject"
                                                         type="text"
