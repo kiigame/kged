@@ -26,6 +26,7 @@ export class Inspector extends React.Component {
         this.openFileDialog = this.openFileDialog.bind(this);
         this.fileDialogRef = React.createRef();
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.thisRoomsFurnitures = this.thisRoomsFurnitures.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -84,6 +85,18 @@ export class Inspector extends React.Component {
         } else if (this.props.activeEntity.attrs.category === 'item') {
             this.props.setItemImage(this.props.activeEntityId, filePath, objectUrl)
         }
+    }
+
+    thisRoomsFurnitures(allFurnitures) {
+        const furnitureNames = [] // eslint-disable-next-line
+        allFurnitures.map(furniture => {
+            if (furniture.selectedRoom !== undefined) {
+                if (furniture.selectedRoom.attrs.id === this.props.activeEntityId) {
+                    furnitureNames.push(furniture.attrs.id)
+                }
+            }
+        })
+        return furnitureNames
     }
 
     render() {
@@ -215,6 +228,13 @@ export class Inspector extends React.Component {
                                 )
                             }}
                         />
+                        <span className="ins-props-header">Huoneeseen kuuluvat huonekalut</span>
+                        {this.thisRoomsFurnitures(this.props.furnitures).length === 0 ? 
+                            <p>Huoneessa ei ole yhtään huonekalua.</p> : 
+                            this.thisRoomsFurnitures(this.props.furnitures).map(furniture => {
+                                return <p>{furniture}<br/></p>
+                            })
+                        }
                     </div>
                 }
 
