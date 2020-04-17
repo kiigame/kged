@@ -5,6 +5,7 @@ import * as utils from 'utils/index'
 import { loadRooms } from './rooms'
 import { loadFurnitures } from './furnitures'
 import { loadItems } from './items'
+import { loadCharacter } from './character'
 import { loadTexts } from './texts'
 import { loadInteractions } from './interactions'
 
@@ -25,29 +26,35 @@ export const exportProject = (event) => {
                     fetch(`${window.location}/assets/placeholders/furniture.png`).then(r => r.blob()))
             zip.file('images/placeholder/item.png',
                     fetch(`${window.location}/assets/placeholders/item.png`).then(r => r.blob()))
+            zip.file('images/placeholder/character.png',
+                    fetch(`${window.location}/assets/placeholders/character.png`).then(r => r.blob()))
 
             const roomImages = utils.extractImagesFromRooms(state.rooms.rooms)
             const furnitureImages = utils.extractImagesFromFurnitures(state.furnitures.furnitures)
             const itemImages = utils.extractImagesFromItems(state.items.items)
+            const characterImages = utils.extractImagesFromCharacter(state.character.character)
 
             // add all extracted images to the zip package
-            roomImages.concat(furnitureImages, itemImages).forEach(img =>
+            roomImages.concat(furnitureImages, itemImages, characterImages).forEach(img =>
                 zip.file(`images/${img.name}`, img.file)
             )
 
             const rooms = api.exportRooms(state)
             const items = api.exportItems(state)
+            const character = api.exportCharacter(state)
             const interactions = api.exportInteractions(state)
             const texts = api.exportTexts(state)
             const name = state.global.gameName.concat(".zip")
 
             const roomsToJSON = JSON.stringify({rooms: rooms}, null, 4)
             const itemsToJSON = JSON.stringify(items, null, 4)
+            const characterToJSON = JSON.stringify({frames: character, "animations": {"speak": {"id": "speak", "frames":[{"node": "Puhe1", "duration": "0.3"},{"node": "Puhe2", "duration": "0.3"} ]},"idle": {"id": "idle", "frames":[{"node": "Idle1", "duration": "8.7"},{"node": "Idle2", "duration": "0.2"} ]},}}, null, 4)
             const interactionsToJSON = JSON.stringify(interactions, null, 4)
             const textsToJSON = JSON.stringify(texts, null, 4)
 
             zip.file('rooms.json', roomsToJSON);
             zip.file('items.json', itemsToJSON);
+            zip.file('character.json', characterToJSON);
             zip.file('interactions.json', interactionsToJSON);
             zip.file('texts.json', textsToJSON);
 
@@ -93,6 +100,7 @@ function loadJsonData(zip, imageData) {
 
     jsonLoads.push(loadZipData(zip, 'interactions.json'))
     jsonLoads.push(loadZipData(zip, 'texts.json'))
+    jsonLoads.push(loadZipData(zip, 'character.json'))
     jsonLoads.push(loadZipData(zip, 'items.json'))
     jsonLoads.push(loadZipData(zip, 'rooms.json'))
 
@@ -122,10 +130,14 @@ export const importProject = (pkg) => {
                                                         jsonData['texts.json'])
                     furnitures = utils.mapAssetsToFurnitures(furnitures, imageData)
 
+                    let character = jsonData['character.json']
+                    character = utils.mapAssetsToCharacter(character, imageData)
+
                     // load data into the store
                     dispatch(loadItems(items))
                     dispatch(loadRooms(rooms))
                     dispatch(loadFurnitures(furnitures))
+                    dispatch(loadCharacter(character))
                     dispatch(loadTexts(jsonData['texts.json']))
                     dispatch(loadInteractions(jsonData['interactions.json']))
                 })

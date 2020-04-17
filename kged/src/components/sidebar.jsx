@@ -5,6 +5,7 @@ import Tabs from './tabs'
 import Rooms from './rooms'
 import Items from './items'
 import Furnitures from './furnitures'
+import Character from './character'
 // import Texts from './texts'
 // import Interactions from './interactions'
 
@@ -25,6 +26,9 @@ export class Sidebar extends React.Component {
                     </div>
                     <div label="Huonekalut">
                         <Furnitures/>
+                    </div>
+                    <div label="Päähahmo">
+                        <Character/>
                     </div>
                     {/* <div label="Interaktiot">
                         <Interactions/>

@@ -101,6 +101,36 @@ export function exportItems(state, preview=false) {
     return items
 }
 
+export function exportCharacter(state, preview=false) {
+    // export state character data as engine-compatible
+    // if the preview argument is true, assigns image src attributes directly to object urls
+    // if the preview argument is false, assigns image src attributes to file paths in the zip
+
+    let character = cloneDeep(state.character.character)
+
+    character.forEach(character => {
+        if (character.attrs && character.attrs.url) {
+            if (character.attrs.url.startsWith('blob:')) {
+                // is an objectURL
+                if (preview) {
+                    character.attrs.src = character.attrs.url
+                } else {
+                    character.attrs.src = `images/${character.attrs.url.split('/').pop()}`
+                }
+            } else {
+                // is a placeholder
+                if (preview) {
+                    character.attrs.src = character.attrs.url
+                } else {
+                    character.attrs.src = character.attrs.url.replace('assets/placeholders', 'images')
+                }
+            }
+            delete character.attrs.url
+        }
+    })
+    return character
+}
+
 export function exportInteractions(state) {
     // export state interaction data
     let interactions = cloneDeep(state.interactions.interactions)

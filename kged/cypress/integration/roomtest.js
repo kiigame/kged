@@ -197,22 +197,32 @@ describe('Name change tests', function() {
 describe('Testing entity names', function() {
     it('checks that room and furniture cannot have same name', () => {
         cy.get('.create-new-btn').click()
-        cy.get('input[name="name"]').type('huone123')
+        cy.get('input[name="name"]').type('huoneE')
         cy.get('.btn-success').contains('Lisää huone').click()
-        cy.get('div').contains('huone123')
+        cy.get('div').contains('huoneE')
 
         cy.get('div').should('have.class', 'side-nav-item').contains('Huonekalut').click()
         cy.get('.create-new-btn').click()
-        cy.get("[type='name']").first().type('huone123')
+        cy.get("[type='name']").first().type('huoneE')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('Nimi on jo käytössä')
     })
     it('checks that room and item cannot have same name', () => {
         cy.get('div').should('have.class', 'tab-list-item col side-nav-item').contains('Esineet').click()
         cy.get('.create-new-btn').click()
-        cy.get("[type='name']").first().type('huone123')
+        cy.get("[type='name']").first().type('huoneE')
         cy.get("[type='submit']").first().click()
         cy.get('div').contains('Nimi on jo käytössä')
+    })
+})
+
+describe('Character testing', function() {
+    it('checks that character frames exist', () => {
+        cy.get('div').should('have.class', 'side-nav-item').contains('Päähahmo').click()
+        cy.get('div').contains('Idle1')
+        cy.get('div').contains('Idle2')
+        cy.get('div').contains('Puhe1')
+        cy.get('div').contains('Puhe2')
     })
 })
 

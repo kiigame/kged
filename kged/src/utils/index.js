@@ -15,6 +15,10 @@ export function isExistingEntity(state, entityId) {
         state.items.items.some(r => r.attrs && r.attrs.id === entityId)) {
         return true;
     }
+    if (state.character && state.character.character &&
+        state.character.character.some(r => r.attrs && r.attrs.id === entityId)) {
+        return true;
+    }
     return false;
 }
 
@@ -141,6 +145,18 @@ export function extractImagesFromItems(items) {
     return images
 }
 
+export function extractImagesFromCharacter(character) {
+    // return a list of image objects from character data
+
+    let images = []
+    character.flatMap(character => {
+        if (character && character.attrs && character.attrs.url) {
+            images.push({name: character.attrs.url.split('/').pop(), file: fetch(character.attrs.url).then(r => r.blob())})
+        }
+    })
+    return images
+}
+
 export function mapAssetsToRooms(roomData, imageData) {
     // add objectURL attribute to room children with an image (src attribute)
 
@@ -188,4 +204,19 @@ export function mapAssetsToItems(itemData, imageData) {
     })
 
     return items
+}
+
+export function mapAssetsToCharacter(characterData, imageData) {
+    // add objectURL attribute to character with an image (src attribute)
+
+    const character = cloneDeep(characterData.frames)
+    character.forEach(character => {
+        if (character && character.attrs && character.attrs.src) {
+            if (imageData[character.attrs.src]) {
+                character.attrs.url = imageData[character.attrs.src]
+            }
+        }
+    })
+
+    return character
 }

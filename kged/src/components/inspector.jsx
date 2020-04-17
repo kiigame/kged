@@ -9,13 +9,14 @@ import { getActiveEntity, getActiveEntityCategory, getActiveEntityId } from 'act
 import { setRoomBackgroundImage, updateRoom, getRooms } from 'actions/rooms'
 import { setFurnitureImage, updateFurniture, getFurnitures } from 'actions/furnitures'
 import { setItemImage, updateItem, getItems } from 'actions/items'
+import { setCharacterImage, getCharacter } from 'actions/character'
 import { deleteExamineText } from 'actions/texts'
 import { setDoorInteraction, deleteInteraction, setExamineInteraction } from 'actions/interactions'
 import FileDialog from './file_dialog'
 import 'styles/inspector.scss'
 import { defaultSelectStyles } from 'utils/styleObjects.js'
 
-// Inspector is where user edits a selected entity (room, item or furniture).
+// Inspector is where user edits a selected entity (room, item, furniture or character).
 // Selected entity category is checked in JSX and the UI is rendered accordingly.
 
 export class Inspector extends React.Component {
@@ -62,6 +63,8 @@ export class Inspector extends React.Component {
                 return activeEntity.attrs
             } else if (activeView === 'item') {
                 return activeEntity.attrs
+            } else if (activeView === 'character') {
+                return activeEntity.attrs
             }
         }
     }
@@ -84,6 +87,8 @@ export class Inspector extends React.Component {
             this.props.setFurnitureImage(this.props.activeEntityId, filePath, objectUrl)
         } else if (this.props.activeEntity.attrs.category === 'item') {
             this.props.setItemImage(this.props.activeEntityId, filePath, objectUrl)
+        } else if (this.props.activeEntity.attrs.category === 'character') {
+            this.props.setCharacterImage(this.props.activeEntityId, filePath, objectUrl);
         }
     }
 
@@ -566,6 +571,24 @@ export class Inspector extends React.Component {
                         />
                     </div>
                 }
+
+                {this.props.activeEntityCategory === 'character' && this.props.activeEntity &&
+                    <div className="ins-props">
+                        <div className="input-group">
+                            {this.props.activeEntity !== {} && 
+                                <div className="input-img" onClick={this.openFileDialog}>
+                                    <FileDialog onFileSelected={this.onFileSelected}  fdRef={this.fileDialogRef}/>
+                                    {img
+                                        ? ( <img alt="" src={img.url} height={img.height} width={img.width}/> )
+                                        : ( <span>Lisää kuva klikkaamalla</span> )
+                                    }
+                                </div>
+                            }
+                                    
+                        </div>
+                    </div>
+                }
+
                 {this.props.activeEntityCategory === 'interaction' && this.props.activeEntity &&
                     <div className="ins-props">
                         <span className="ins-props-header">Ominaisuudet</span>
@@ -626,12 +649,14 @@ const mapStateToProps = state => ({
     activeEntity: getActiveEntity(state),
     activeEntityCategory: getActiveEntityCategory(state),
     activeEntityId: getActiveEntityId(state),
-    items: getItems(state)
+    items: getItems(state),
+    character: getCharacter(state)
 })
 const mapDispatchToProps = dispatch => ({
     setRoomBackgroundImage: (roomId, path, objectUrl) => dispatch(setRoomBackgroundImage(roomId, path, objectUrl)),
     setFurnitureImage: (furnitureId, path, objectUrl) => dispatch(setFurnitureImage(furnitureId, path, objectUrl)),
     setItemImage: (itemId, path, objectUrl) => dispatch(setItemImage(itemId, path, objectUrl)),
+    setCharacterImage: (characterId, path, objectUrl) => dispatch(setCharacterImage(characterId, path, objectUrl)),
     updateRoom: (oldId, roomObject) => dispatch(updateRoom(oldId, roomObject)),
     updateFurniture: (oldId, furnitureObject) => dispatch(updateFurniture(oldId, furnitureObject)),
     updateItem: (oldId, itemObject) => dispatch(updateItem(oldId, itemObject)),
