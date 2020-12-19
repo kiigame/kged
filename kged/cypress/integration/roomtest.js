@@ -273,7 +273,7 @@ describe('Furniture & play testing', function() {
     })
     it('Checks that the furniture is listed in the room', () => {
         cy.get('div').should('have.class', 'side-nav-item').contains('Huoneet').click()
-        cy.get('.list-container').contains('huoneA').click()
+        cy.get('.list-container').contains('huone555').click()
         cy.get('p').contains('huonekalu321')
     })
     it('adds the x and y attributes', () => {
