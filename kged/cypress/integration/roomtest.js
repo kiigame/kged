@@ -268,7 +268,7 @@ describe('Furniture & play testing', function() {
         // Open room selector
         cy.get('.furniture-room-selector .css-tlfecz-indicatorContainer').click()
         // Click the menu item
-        cy.get('.furniture-room-selector > :nth-child(2) > :nth-child(3)').click()
+        cy.get('.furniture-room-selector > :nth-child(2) > :nth-child(3)').contains('huone555').click()
         cy.get('.item-edit-actions > .btn-success').click()
     })
     it('Checks that the furniture is listed in the room', () => {
