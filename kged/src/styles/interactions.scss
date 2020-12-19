@@ -1,3 +1,33 @@
+@import 'styles/variables';
+
 .interactions-table {
     width: 100%;
+}
+
+.interaction-searchbox-container {
+    top: 0;
+    right: 0;
+    width: calc(100% - 1em) !important;
+    margin: 0.5rem;    
+}
+
+.togglebutton-container {
+    width: calc(100% - 1em) !important;
+    padding: 0.5em 0.5em;
+}
+
+.create-interaction-button {
+    padding: 0.5em 0.2em;
+}
+
+.interaction-creator {
+    background-color: #212121;
+    border-radius: 5px;
+    margin: 0.5rem;
+    margin-top: 0;
+    padding: 1rem;
+}
+
+.empty-text-list {
+    font-style: italic;
 }
