@@ -12,7 +12,8 @@ export const getActiveEntity = (state) => {
         return cloneDeep([
             ...state.rooms.rooms,
             ...state.furnitures.furnitures,
-            ...state.items.items
+            ...state.items.items,
+            ...state.character.character
         ]).find(e => e.attrs.id === id)
     }
 }

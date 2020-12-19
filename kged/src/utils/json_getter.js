@@ -7,6 +7,7 @@ export class JSONGetter {
     constructor(state) {
         this.rooms = { rooms: api.exportRooms(state, true) }
         this.items = api.exportItems(state, true)
+        this.character = {frames: api.exportCharacter(state, true), "animations": {"speak": {"id": "speak", "frames":[{"node": "Puhe1", "duration": "0.3"},{"node": "Puhe2", "duration": "0.3"} ]},"idle": {"id": "idle", "frames":[{"node": "Idle1", "duration": "8.7"},{"node": "Idle2", "duration": "0.2"} ]},}}
         this.interactions = api.exportInteractions(state)
         this.texts = api.exportTexts(state)
     }
@@ -19,6 +20,9 @@ export class JSONGetter {
                 break;
             case 'items.json':
                 data = JSON.stringify(this.items)
+                break;
+            case 'character.json':
+                data = JSON.stringify(this.character)
                 break;
             case 'interactions.json':
                 data = JSON.stringify(this.interactions)
