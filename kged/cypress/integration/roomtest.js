@@ -306,10 +306,6 @@ describe('Furniture & play testing', function() {
         cy.get('.pre-controls > :nth-child(2)').contains('Lopeta').click()
         cy.get('.disabled').contains('Lopeta')
     })
-    it('opens the interaction dialogue by clicking the furniture in game', () => {
-        cy.get('.pre-controls > :nth-child(1)').trigger('mousedown')
-        cy.get("[id='container']").trigger('mousedown', { clientX: 200, clientY: 200 })
-    })
 })
 
 describe('Manual button testing', function() {
