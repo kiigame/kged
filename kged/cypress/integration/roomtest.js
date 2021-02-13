@@ -292,7 +292,7 @@ describe('Furniture & play testing', function() {
         cy.get('input[name="attrs.visible"]').click()
         cy.get('input[name="isDoor"]').click()
         // Click the room selector
-        cy.get('.css-1hwfws3:visible').contains('Etsi huonetta...').click()
+        cy.get('.css-15ss2wu-SelectContainer').contains('Etsi huonetta...').click()
         // Click the menu item
         cy.get('.furniture-interactions > :nth-child(6) > :nth-child(3)').contains('huone555').click()
     })
