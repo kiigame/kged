@@ -39,3 +39,15 @@ describe('Manual button testing', function() {
         cy.get('@windowOpen').should('be.calledWith', 'https://github.com/kiigame/kged/wiki/Pikaopas')
     })
 })
+
+describe('test play and stop buttons', function() {
+    it('checks that the play and stop buttons activate and deactivate correctly', () =>{
+        cy.visit('/');
+        cy.createStartingRoom('123');
+        cy.get('.disabled').contains('Lopeta');
+        cy.get('div').contains('Käynnistä').click();
+        cy.get('.disabled').contains('Käynnistä');
+        cy.get('.pre-controls > :nth-child(2)').contains('Lopeta').click();
+        cy.get('.disabled').contains('Lopeta');
+    });
+});
