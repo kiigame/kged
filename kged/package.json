@@ -52,7 +52,6 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.3",
-    "jest": "^24.9.0",
     "start-server-and-test": "^1.10.8"
   },
   "jest": {
