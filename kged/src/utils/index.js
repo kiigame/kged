@@ -68,6 +68,7 @@ export function extractFurnitures(rooms, interactions, texts) {
                 return data
             })
         }
+        return null
     }).filter(f => f)
     return furnitures
 }
@@ -122,12 +123,13 @@ export function extractImagesFromRooms(rooms) {
 export function extractImagesFromFurnitures(furnitures) {
     // return a list of image objects from furniture data
 
-    let images = []
-    furnitures.flatMap(furniture => {
+    let images = furnitures.flatMap(furniture => {
         if (furniture && furniture.attrs && furniture.attrs.url && furniture.attrs.url !== 'assets/placeholders/furniture.png') {
             // furniture has a non-placeholder objectURL, extract it
-            images.push({name: furniture.attrs.url.split('/').pop(), file: fetch(furniture.attrs.url).then(r => r.blob())})
+            return {name: furniture.attrs.url.split('/').pop(), file: fetch(furniture.attrs.url).then(r => r.blob())}
         }
+
+        return null
     })
     return images
 }
@@ -135,12 +137,13 @@ export function extractImagesFromFurnitures(furnitures) {
 export function extractImagesFromItems(items) {
     // return a list of image objects from item data
 
-    let images = []
-    items.flatMap(item => {
+    let images = items.flatMap(item => {
         if (item && item.attrs && item.attrs.url && item.attrs.url !== 'assets/placeholders/item.png') {
             // item has a non-placeholder objectURL, extract it
-            images.push({name: item.attrs.url.split('/').pop(), file: fetch(item.attrs.url).then(r => r.blob())})
+            return {name: item.attrs.url.split('/').pop(), file: fetch(item.attrs.url).then(r => r.blob())}
         }
+
+        return null
     })
     return images
 }
@@ -148,11 +151,12 @@ export function extractImagesFromItems(items) {
 export function extractImagesFromCharacter(character) {
     // return a list of image objects from character data
 
-    let images = []
-    character.flatMap(character => {
+    let images = character.flatMap(character => {
         if (character && character.attrs && character.attrs.url) {
-            images.push({name: character.attrs.url.split('/').pop(), file: fetch(character.attrs.url).then(r => r.blob())})
+            return {name: character.attrs.url.split('/').pop(), file: fetch(character.attrs.url).then(r => r.blob())}
         }
+
+        return null
     })
     return images
 }
