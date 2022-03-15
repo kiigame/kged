@@ -11,7 +11,7 @@
     "file-saver": "^2.0.2",
     "formik": "^1.5.8",
     "jszip": "^3.2.2",
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "node-sass": "^4.13.1",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
